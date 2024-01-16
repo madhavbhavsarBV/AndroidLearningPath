@@ -25,6 +25,8 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
 
         getDataBinding().layGroupDetail.viewmodel= viewModel
         getDataBinding().layComments.viewmodel= viewModel
+
+        //observe data
         observeData()
 
 
