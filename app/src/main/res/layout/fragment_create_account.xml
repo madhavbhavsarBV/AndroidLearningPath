@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.base.hilt.ui.signup.viewmodel.CreateAccountViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:paddingHorizontal="@dimen/_12sdp"
+        tools:context=".ui.auth.ui.SignUpFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsvSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@color/black"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/btnNext"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilFirtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColorHint="@color/grey_2"
+                    app:boxBackgroundColor="@color/black"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="@color/green"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFirstName"
+                        style="@style/TILStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/first_name"
+                        android:inputType="text"
+                        android:maxLength="26"
+                        android:textColor="@color/white"
+                        android:theme="@style/Theme.App.Base" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColorHint="@color/grey_2"
+                    app:boxBackgroundColor="@color/black"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="@color/green"
+                    app:layout_constraintTop_toBottomOf="@id/tilFirtName">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLastName"
+                        style="@style/TILStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/last_name"
+                        android:inputType="text"
+                        android:maxLength="26"
+                        android:textColor="@color/white"
+                        android:theme="@style/Theme.App.Base" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilAlias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColorHint="@color/grey_2"
+                    app:boxBackgroundColor="@color/black"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="@color/green"
+                    app:layout_constraintTop_toBottomOf="@id/tilLastName">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAlias"
+                        style="@style/TILStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/alias"
+                        android:inputType="text"
+                        android:maxLength="10"
+                        android:textColor="@color/white"
+                        android:theme="@style/Theme.App.Base" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColorHint="@color/grey_2"
+                    app:boxBackgroundColor="@color/black"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="@color/green"
+                    app:layout_constraintTop_toBottomOf="@id/tilAlias">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMobile"
+                        style="@style/TILStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mobile"
+                        android:inputType="number|text"
+                        android:maxLength="17"
+                        android:text="@string/_plus1"
+                        android:textColor="@color/white"
+                        android:theme="@style/Theme.App.Base" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColorHint="@color/grey_2"
+                    app:boxBackgroundColor="@color/black"
+                    app:endIconDrawable="@drawable/password_toggle"
+                    app:endIconMode="password_toggle"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="@color/green"
+                    app:layout_constraintTop_toBottomOf="@id/tilMobile"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
+                        style="@style/TILStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:maxLength="16"
+                        android:textColor="@color/white"
+                        android:theme="@style/Theme.App.Base" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilConfirmPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColorHint="@color/grey_2"
+                    app:boxBackgroundColor="@color/black"
+                    app:endIconDrawable="@drawable/password_toggle"
+                    app:endIconMode="password_toggle"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="@color/green"
+                    app:layout_constraintTop_toBottomOf="@id/tilPassword"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etConfirmPassword"
+                        style="@style/TILStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/confirm_password"
+                        android:inputType="textPassword"
+                        android:maxLength="16"
+                        android:textColor="@color/white"
+                        android:theme="@style/Theme.App.Base" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColorHint="@color/grey_2"
+                    app:boxBackgroundColor="@color/black"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="@color/green"
+                    app:layout_constraintTop_toBottomOf="@id/tilConfirmPass">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        style="@style/TILStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email"
+                        android:inputType="text"
+                        android:textColor="@color/white"
+                        android:theme="@style/Theme.App.Base" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDateOfBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColorHint="@color/grey_2"
+                    app:boxBackgroundColor="@color/black"
+                    app:endIconDrawable="@drawable/ic_calender"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/green"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="@color/green"
+                    app:layout_constraintTop_toBottomOf="@id/tilEmail">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDateOfBirth"
+                        style="@style/TILStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/date_of_birth"
+                        android:inputType="none"
+                        android:textColor="@color/white"
+                        android:theme="@style/Theme.App.Base" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilReferralCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textColorHint="@color/grey_2"
+                    app:boxBackgroundColor="@color/black"
+                    app:hintTextAppearance="@style/TextLabel"
+                    app:hintTextColor="@color/green"
+                    app:layout_constraintTop_toBottomOf="@id/tilDateOfBirth">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TILStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/referral_code"
+                        android:inputType="text"
+                        android:textColor="@color/white"
+                        android:theme="@style/Theme.App.Base" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbSignUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/checkbox_selector"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/poppins_medium"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    app:buttonCompat="@null"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tilReferralCode" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvCheckBoxText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_11sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/cbSignUp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cbSignUp"
+                    app:layout_constraintTop_toTopOf="@id/cbSignUp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            style="@style/CustomButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:onClick="@{()->viewmodel.onBtnNextClick()}"
+            android:text="@string/next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

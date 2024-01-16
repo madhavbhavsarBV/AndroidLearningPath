@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="clOtpVisibility"
+            type="Boolean"
+            />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_otp"
+            android:layout_width="match_parent"
+            android:visibility="@{clOtpVisibility? View.VISIBLE: View.GONE, default = visible}"
+            android:layout_height="match_parent"
+            android:background="@color/black">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvEditMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="@string/we_ve_sent_a_4_digit_verification_code"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvOtpPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/n_to_1123_457_890"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvEditMobileNumber" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_phone_edit"
+                app:layout_constraintBottom_toBottomOf="@id/tvOtpPhoneNumber"
+                app:layout_constraintStart_toEndOf="@id/tvOtpPhoneNumber" />
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvOtp1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="22dp"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:textAlignment="gravity"
+                android:textColor="@color/white"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/tvOtp2"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvOtpPhoneNumber" />
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvOtp2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:textAlignment="gravity"
+                android:textColor="@color/white"
+                app:boxBackgroundColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/tvOtp3"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/tvOtp1"
+                app:layout_constraintTop_toTopOf="@id/tvOtp1" />
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvOtp3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:textAlignment="gravity"
+                android:textColor="@color/white"
+                app:boxBackgroundColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/tvOtp4"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/tvOtp2"
+                app:layout_constraintTop_toTopOf="@id/tvOtp1" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvOtp4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:textAlignment="gravity"
+                android:textColor="@color/white"
+                app:boxBackgroundColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/tvOtp3"
+                app:layout_constraintTop_toTopOf="@id/tvOtp1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_00_30s"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvOtp1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvResendCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/resend_password"
+                android:textColor="@color/green"
+                app:layout_constraintEnd_toEndOf="@id/tvTimer"
+                app:layout_constraintStart_toStartOf="@id/tvTimer"
+                app:layout_constraintTop_toBottomOf="@id/tvTimer" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnContinue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:background="@drawable/btn_background"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_14ssp"
+                android:text="@string/continue1"
+                android:textColor="@drawable/btn_text_selector"
+                android:letterSpacing="0"
+                app:backgroundTint="@null"
+                app:layout_constraintEnd_toEndOf="@+id/tvResendCode"
+                app:layout_constraintStart_toStartOf="@+id/tvResendCode"
+                app:layout_constraintTop_toBottomOf="@+id/tvResendCode" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_congratulations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{clOtpVisibility? View.GONE: View.VISIBLE, default = gone}"
+            android:background="@color/black">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgCongratulations"
+                android:layout_width="196dp"
+                android:layout_height="196dp"
+                android:src="@drawable/splash_anim"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mtvCongratulations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/congratulations"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgCongratulations" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="@string/you_have_successfully_n_created_an_account"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mtvCongratulations" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

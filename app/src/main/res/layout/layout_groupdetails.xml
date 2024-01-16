@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clGroupDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/cvComments"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clTopCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_account"
+                    android:paddingBottom="@dimen/_70sdp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvInvitedYou"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/invited_you_to"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp"
+                        app:layout_constraintBottom_toTopOf="@id/tvSecondAnnual"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvSecondAnnual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:text="@string/_2nd_annual_running_and_cornhole_challenge_lorem_ipsum_dolor"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_15ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvInvitedYou" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="@dimen/_85sdp"
+                    android:layout_height="@dimen/_85sdp"
+                    android:layout_marginTop="@dimen/_110sdp"
+                    android:paddingStart="@dimen/_7sdp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/iv_border"
+                    android:src="@drawable/ic_launcher_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/customRoundedImageView" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clJackpot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_jackpot"
+                    app:layout_constraintEnd_toEndOf="@id/imgProfile"
+                    app:layout_constraintStart_toStartOf="@id/imgProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/imgProfile">
+
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgJackpotLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_13sdp"
+                        app:backgroundTint="@color/black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                        app:srcCompat="@drawable/ic_logo_4" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvjackpot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="bottom|center"
+                        android:minHeight="0dp"
+                        android:padding="0dp"
+                        android:text="@string/jackpot"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_8ssp"
+                        app:layout_constraintBottom_toTopOf="@id/tvInteraction"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imgJackpotLogo"
+                        app:layout_constraintTop_toTopOf="@id/imgJackpotLogo"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvInteraction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center|top"
+                        android:minHeight="0dp"
+                        android:padding="0dp"
+                        android:text="@string/_99_999"
+                        android:textColor="@color/green_3"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toBottomOf="@id/imgJackpotLogo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imgJackpotLogo"
+                        app:layout_constraintTop_toBottomOf="@id/tvjackpot"
+                        app:layout_constraintVertical_chainStyle="packed"
+
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvGroupChallenge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/group_challenge"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clJackpot" />
+
+                <View
+                    android:id="@+id/vHorizontalLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:background="@color/light_grey"
+                    app:layout_constraintTop_toBottomOf="@id/tvGroupChallenge" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvChallengeEnding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tv_challenge"
+                    android:drawableStart="@drawable/ic_bell"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingHorizontal="@dimen/_20sdp"
+                    android:text="@string/challenge_ending_soon"
+                    android:paddingVertical="@dimen/_2sdp"
+                    android:textSize="@dimen/_8ssp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vHorizontalLine" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvParticipants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/participants"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvChallengeEnding" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvParticipants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/row_participants"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/tvParticipants" />
+
+
+                <View
+                    android:id="@+id/vHorizontalLine2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/light_grey"
+                    app:layout_constraintTop_toBottomOf="@id/rcvParticipants" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgProfIcon"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vHorizontalLine2"
+                    app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    app:strokeColor="@color/green"
+                    app:strokeWidth="2dp" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvHost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:background="@drawable/bg_gradient"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_2sdp"
+                    android:text="@string/host"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8ssp"
+                    app:layout_constraintBottom_toTopOf="@id/tvHostName"
+                    app:layout_constraintStart_toEndOf="@+id/imgProfIcon"
+                    app:layout_constraintTop_toTopOf="@+id/imgProfIcon" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvHostName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/jackson"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgProfIcon"
+                    app:layout_constraintStart_toStartOf="@+id/tvHost"
+                    app:layout_constraintTop_toBottomOf="@id/tvHost" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/group"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvHost"
+                    app:layout_constraintStart_toEndOf="@+id/tvHost"
+                    app:layout_constraintTop_toTopOf="@+id/tvHost" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgProfWinner"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="10dp"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="@id/imgProfIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/imgProfIcon"
+                    app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    app:strokeColor="@color/pink"
+                    app:strokeWidth="2dp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvWinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:background="@drawable/bg_gradient_pink"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_2sdp"
+                    android:text="@string/winner"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8ssp"
+                    app:layout_constraintStart_toEndOf="@+id/imgProfWinner"
+                    app:layout_constraintTop_toTopOf="@+id/imgProfWinner" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvWinnerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/nicolus"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgProfWinner"
+                    app:layout_constraintStart_toStartOf="@+id/tvWinner"
+                    app:layout_constraintTop_toBottomOf="@id/tvWinner" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clEndingChallenge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/btn_ending"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgProfWinner">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvEndingOn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_clock"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:letterSpacing="0"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/ending_on_jan_11_2024"
+                        android:textAllCaps="true"
+                        android:textColor="@color/grey_4"
+                        app:drawableTint="@color/grey_4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTestChallenge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/test_challenge"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clEndingChallenge" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvAcceptBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:text="@string/accept_by_jan_11_2024"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_regular"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvEndBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:text="@string/end_by_jan_11_2024"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_regular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSelectWinner"
+                    style="@style/CustomButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:enabled="true"
+                    android:text="@string/select_winner"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvEndBy"
+
+                    />
+
+
+                <View
+                    android:id="@+id/vHorizontalLine3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@color/light_grey"
+                    app:layout_constraintTop_toBottomOf="@id/btnSelectWinner" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:drawableEnd="@drawable/ic_messages"
+                    android:drawableTint="@color/white"
+                    android:onClick="@{()->viewmodel.onCommentClick()}"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingHorizontal="@dimen/_30sdp"
+                    android:text="@string/comments"
+                    android:letterSpacing="0"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/blue_3"
+                    app:cornerRadius="@dimen/_20sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vHorizontalLine3" />
+
+                <View
+                    android:id="@+id/vHorizontalLine4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:background="@color/light_grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnComments" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_2sdp"-->
+<!--            android:background="@color/light_grey"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/cvComments"/>-->
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardPreventCornerOverlap="false"
+            app:cardElevation="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCamera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_camera"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivGif"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:src="@drawable/ic_gif"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivCamera"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:background="@drawable/btn_comment"
+                    android:editable="false"
+                    android:focusable="true"
+                    android:inputType="none"
+                    android:onClick="@{()->viewmodel.onCommentClick()}"
+                    android:clickable="true"
+                    android:drawableEnd="@drawable/ic_emoji"
+                    android:hint="@string/write_a_comment"
+                    android:maxLines="4"
+                    android:id="@+id/etComments"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivGif"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+

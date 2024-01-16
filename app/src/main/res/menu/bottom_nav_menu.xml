@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@id/homeFragment"
+        android:icon="@drawable/ic_home_unselect"
+        android:title="@string/title_home" />
+
+<!--    <item-->
+<!--        android:id="@id/messagesFragment"-->
+<!--        android:icon="@drawable/ic_universe"-->
+<!--        android:title="@string/message" />-->
+
+    <item
+        android:id="@id/universeFragment"
+        android:icon="@drawable/ic_universe_3"
+        android:title="@string/universe" />
+
+    <item
+        android:id="@+id/navigation_challenge"
+        android:title="" />
+
+    <item
+        android:id="@id/notificationsFragment"
+        android:icon="@drawable/ic_notification_unselected"
+        android:title="@string/title_notifications" />
+    <item
+        android:id="@id/accountsFragment"
+        android:icon="@drawable/ic_profile_unselected"
+        android:title="@string/account" />
+
+</menu>

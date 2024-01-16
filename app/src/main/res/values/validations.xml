@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="val_mobile_empty">Mobile number can\'t be empty</string>
+    <string name="val_mobile">Please enter a valid mobile number. \n(eg: +1 (123) 456–7890)</string>
+    <string name="val_password_empty">Password can\'t be empty</string>
+    <string name="val_password">Password should contain: \n• 8 characters\n• 1 number\n• 1 capital letter\n• 1 lowercase letter\n• 1 special character</string>
+    <string name="val_first_name">First name can\'t be empty</string>
+    <string name="val_last_name">Last name can\'t be empty</string>
+    <string name="val_first_name_short">The first name is too short</string>
+    <string name="val_last_name_short">The last name is too short</string>
+    <string name="val_conf_password_empty">Confirm Password can\'t be empty</string>
+    <string name="val_conf_password">Password and Confirm Password don\'t match</string>
+    <string name="val_email_empty">Email address can\'t be empty</string>
+    <string name="val_email">Please enter a valid email address</string>
+    <string name="val_date">Please select date</string>
+</resources>

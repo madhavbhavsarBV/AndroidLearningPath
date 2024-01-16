@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.base.hilt.ui.onboarding.viewmodel.OnBoardingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:padding="@dimen/_24sdp"
+        tools:context=".ui.onboarding.ui.OnBoardingFragment">
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpOnBoarding"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@id/btnNext"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:minHeight="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_background"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/next"
+            android:onClick="@{()->viewmodel.onBtnNextClick()}"
+            android:letterSpacing="0"
+            android:textSize="@dimen/_14ssp"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vpOnBoarding" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

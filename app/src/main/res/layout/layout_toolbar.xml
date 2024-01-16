@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="toolbar"
+            type="com.base.hilt.base.ToolbarModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:visibility="@{toolbar.isVisible ? View.VISIBLE : View.GONE}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{toolbar.type==1 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_back"
+                android:visibility="@{toolbar.backBtnVisible ? View.VISIBLE:View.INVISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@{toolbar.title}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintBottom_toBottomOf="@id/imgBack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imgBack"
+                tools:text="Verification" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/toolbarLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/login_2"
+                android:textColor="@color/green_2"
+                android:textSize="@dimen/_12ssp"
+                android:visibility="@{toolbar.loginVisible ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/imgBack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imgBack" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{toolbar.type==2?View.VISIBLE:View.GONE}"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgHomeScreenLogo"
+                android:layout_width="74dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/logo_home_screen"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginStart="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHomeFragmentMoneyIn"
+                android:layout_width="122dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/pink"
+                android:clickable="false"
+                android:gravity="start|center"
+                android:minWidth="0dp"
+                android:paddingStart="@dimen/_5sdp"
+                android:minHeight="0dp"
+                android:textSize="@dimen/_10ssp"
+                android:padding="5dp"
+                android:text="@string/_99c"
+                android:textColor="@color/white"
+                app:cornerRadius="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/btnHomeFragmentMoney"
+                app:layout_constraintEnd_toEndOf="@id/btnHomeFragmentMoney"
+                app:layout_constraintTop_toTopOf="@id/btnHomeFragmentMoney" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnHomeFragmentMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_button"
+                android:clickable="false"
+                android:drawableStart="@drawable/ic_brand"
+                android:minHeight="0dp"
+                android:paddingHorizontal="11dp"
+                android:paddingVertical="@dimen/_7sdp"
+                android:text="@string/_99_999"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/imgHomeScreenLogo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imgHomeScreenLogo" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{toolbar.type==3 ? View.VISIBLE:View.GONE}"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:id="@+id/tvTitle2"
+                android:paddingTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@{toolbar.title}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Notification" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvMarkAllRead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:visibility="@{toolbar.tvMarkAllReadVisible ? View.VISIBLE:View.GONE, default=gone}"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/mark_all_read"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11ssp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/tvTitle2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvTitle2" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgToolbarEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_edit"
+                android:visibility="@{toolbar.editButtonVisible ? View.VISIBLE:View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/ic_search"
+                android:tint="@color/white"
+                android:visibility="@{toolbar.searchButtonVisible ? View.VISIBLE:View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/imgToolbarEdit"
+                app:layout_constraintEnd_toStartOf="@id/imgToolbarEdit"
+                app:layout_constraintTop_toTopOf="@id/imgToolbarEdit" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="InputLayoutControlsMultiLine" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/green</item>
+        <item name="colorControlActivated">@color/green</item>
+        <!--<item name="hintTextAppearance">@style/hint_appearance</item>-->
+        <item name="errorTextAppearance">@style/error_appearance</item>
+    </style>
+
+    <style name="customRoundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+    </style>
+
+    <style name="error_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/red</item>
+        <item name="hintTextColor">@color/red</item>
+        <item name="errorTextColor">@color/red</item>
+        <item name="android:textColorHint">@color/red</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+    <style name="StrokeColor" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="boxStrokeColor">#FFF</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
+
+    <style name="NewTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxStrokeColor">@color/til_state_change</item>
+        <item name="android:textColorHint">#AAAAAA</item>
+        <item name="hintTextColor">@color/grey_2</item>
+        <item name="errorTextColor">@color/red</item>
+    </style>
+
+
+    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingBottom">18dp</item>
+    </style>
+
+    <style name="TILStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:lines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">start</item>
+        <item name="boxStrokeErrorColor">@color/red</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:paddingBottom">@dimen/_8sdp</item>
+        <item name="android:paddingTop">@dimen/_25sdp</item>
+        <item name="errorTextColor">@color/red</item>
+
+    </style>
+
+    <style name="CustomTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+</resources>

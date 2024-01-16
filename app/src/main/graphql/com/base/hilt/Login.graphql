@@ -1,0 +1,39 @@
+mutation Login($email: String!) {
+    login(email: $email) {
+        token
+        profileImage
+    }
+}
+#mutation Login(){
+#    login(input: {phone: "+11111111111", password: "Test@123", device_type: "2", device_id:"asfasfasasf", user_timezone:"Asia/Calcutta" }) {
+#        meta{
+#            status
+#            message
+#            message_code
+#            status_code
+#        }
+#        data {
+#            token_type
+#            expires_in
+#            access_token
+#            refresh_token
+#            user{
+#                uuid
+#                chat_id
+#                first_name
+#                last_name
+#                email
+#                mobile_number
+#                status
+#                email_verified_at
+#                verified
+#                dob
+#                referral_code
+#                wallet_amount
+#                total_credit_amount
+#                notification_settings
+#                user_timezone
+#            }
+#        }
+#    }
+#}
