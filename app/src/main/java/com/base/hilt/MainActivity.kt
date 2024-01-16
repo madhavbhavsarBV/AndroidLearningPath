@@ -1,24 +1,30 @@
 package com.base.hilt
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.base.hilt.base.LocaleManager
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.ActivityMainBinding
+import com.base.hilt.databinding.DialogChallengeBinding
 import com.base.hilt.ui.account.ui.AccountFragment
 import com.base.hilt.ui.home.ui.HomeFragment
 import com.base.hilt.ui.login.ui.LoginFragment
@@ -33,6 +39,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
+import kotlin.contracts.contract
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -78,6 +85,19 @@ class MainActivity : AppCompatActivity() {
         binding.layToolbar.imgBack.setOnClickListener {
             onBackPressed()
         }
+
+
+        binding.navView.menu.getItem(2).setOnMenuItemClickListener {
+            val builder = AlertDialog.Builder(this@MainActivity, R.style.CustomAlertDialog)
+                .create()
+            val view = layoutInflater.inflate(R.layout.dialog_challenge, null)
+            builder.setView(view)
+            builder.setCanceledOnTouchOutside(true)
+            builder.show()
+            true
+        }
+
+
     }
 
     /**

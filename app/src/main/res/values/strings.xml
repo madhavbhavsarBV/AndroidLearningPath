@@ -121,5 +121,7 @@
     <string name="back">Back</string>
     <string name="cancel">Cancel</string>
     <string name="_4_people">4 People</string>
+    <string name="create_a_challenge">Create a Challenge?</string>
+    <string name="create_challenge">Create challenge</string>
 
 </resources>

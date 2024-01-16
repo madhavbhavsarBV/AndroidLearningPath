@@ -59,4 +59,8 @@
         <item name="android:textColor">@color/red</item>
         <item name="android:textSize">17sp</item>
     </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/dg_corner</item>
+    </style>
 </resources>
