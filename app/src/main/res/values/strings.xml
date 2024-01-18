@@ -123,5 +123,20 @@
     <string name="_4_people">4 People</string>
     <string name="create_a_challenge">Create a Challenge?</string>
     <string name="create_challenge">Create challenge</string>
+    <string name="_1v1">1v1</string>
+    <string name="group_2">Group</string>
+    <string name="previous">Previous</string>
+    <string name="invite_to_challenge">Invite to Challenge</string>
+    <string name="_0_1">0/1</string>
+    <string name="add_details">ADD DETAILS</string>
+    <string name="create_challenge_1">CREATE CHALLENGE</string>
+    <string name="challenge_created_3">Challenge Created</string>
+    <string name="challenge_details">Challenge Details</string>
+    <string name="name_of_challenge">Name of Challenge*</string>
+    <string name="amount">Amount*</string>
+    <string name="end_by">End By*</string>
+    <string name="accepted_by">Accepted By*</string>
+    <string name="judge">Judge</string>
+    <string name="description">Description</string>
 
 </resources>

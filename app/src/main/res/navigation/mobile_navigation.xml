@@ -131,4 +131,10 @@
         android:name="com.base.hilt.ui.profile.ui.ProfileFragment"
         android:label="ProfileFragment"
         />
+
+    <fragment android:id="@+id/challengeFragment"
+        android:name="com.base.hilt.ui.challenge.ui.ChallengeFragment"
+        android:label="ChallengeFragment"
+        />
+
 </navigation>

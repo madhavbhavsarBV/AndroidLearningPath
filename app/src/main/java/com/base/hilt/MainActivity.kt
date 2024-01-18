@@ -13,6 +13,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -91,6 +93,15 @@ class MainActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this@MainActivity, R.style.CustomAlertDialog)
                 .create()
             val view = layoutInflater.inflate(R.layout.dialog_challenge, null)
+            view.findViewById<ImageView>(R.id.ivClose).setOnClickListener {
+                builder.dismiss()
+            }
+
+            view.findViewById<Button>(R.id.btnCreateChallenge).setOnClickListener {
+                navController.navigate(R.id.challengeFragment)
+                builder.dismiss()
+            }
+
             builder.setView(view)
             builder.setCanceledOnTouchOutside(true)
             builder.show()

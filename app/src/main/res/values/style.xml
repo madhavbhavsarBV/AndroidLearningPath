@@ -52,6 +52,7 @@
         <item name="android:paddingBottom">@dimen/_8sdp</item>
         <item name="android:paddingTop">@dimen/_25sdp</item>
         <item name="errorTextColor">@color/red</item>
+        <item name="android:textCursorDrawable">@drawable/et_cursor</item>
 
     </style>
 
@@ -62,5 +63,11 @@
 
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/dg_corner</item>
+    </style>
+
+
+    <style name="CustomTextInputLayout">
+        <item name="boxStrokeColor">@color/green</item>
+        <item name="boxStrokeErrorColor">@color/green</item>
     </style>
 </resources>

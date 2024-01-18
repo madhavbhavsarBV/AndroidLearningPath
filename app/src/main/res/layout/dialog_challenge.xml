@@ -7,19 +7,20 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_close"
-                android:padding="@dimen/_10sdp"
+                android:id="@+id/ivClose"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/ic_close"
                 android:tint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -28,11 +29,11 @@
                 android:id="@+id/tvCreateChallenge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_15ssp"
-                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_40sdp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/create_a_challenge"
-                android:layout_marginTop="@dimen/_50sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp"
                 app:layout_constraintBottom_toTopOf="@id/vHLine1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,23 +41,76 @@
 
             <View
                 android:id="@+id/vHLine1"
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_50sdp"
-                android:layout_height="@dimen/_1sdp"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_4sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:background="@color/light_grey"
                 app:layout_constraintTop_toBottomOf="@id/tvCreateChallenge" />
 
-            <com.google.android.material.button.MaterialButton
+            <RadioGroup
+                android:id="@+id/rgChallenge"
                 android:layout_width="0dp"
-                android:layout_margin="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vHLine1">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbOneVOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_medium"
+                    android:background="@drawable/rb_challenge"
+                    android:checked="true"
+                    android:button="@null"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_weight="1"
+                    android:text="@string/_1v1" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbGroup"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_medium"
+                    android:background="@drawable/rb_challenge"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_weight="1"
+                    android:text="@string/group_2" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbPrevious"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_13ssp"
+                    android:background="@drawable/rb_challenge"
+                    android:button="@null"
+                    android:layout_weight="1"
+                    android:text="@string/previous" />
+
+
+            </RadioGroup>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/CustomButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/btnCreateChallenge"
+                android:enabled="true"
                 android:text="@string/create_challenge"
                 android:textAllCaps="true"
-                style="@style/CustomButton"
-                android:enabled="true"
-                app:layout_constraintTop_toBottomOf="@id/vHLine1" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rgChallenge" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

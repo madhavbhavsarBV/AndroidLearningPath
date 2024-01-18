@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChallengeDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/challenge_details"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNameChallenge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColorHint="@color/grey_2"
+            app:hintTextAppearance="@style/TextLabel"
+            app:hintTextColor="@color/green"
+            app:layout_constraintTop_toBottomOf="@id/tvChallengeDetail">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNameChallenge"
+                style="@style/TILStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_of_challenge"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:theme="@style/Theme.App.Base" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:textColorHint="@color/grey_2"
+            app:hintTextAppearance="@style/TextLabel"
+            app:hintTextColor="@color/green"
+            app:layout_constraintTop_toBottomOf="@id/tilNameChallenge">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAmount"
+                style="@style/TILStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/amount"
+                android:theme="@style/Theme.App.Base"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAcceptedBy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColorHint="@color/grey_2"
+            app:hintTextAppearance="@style/TextLabel"
+            app:hintTextColor="@color/green"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/tilAmount">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAcceptedBy"
+                style="@style/TILStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/accepted_by"
+                android:theme="@style/Theme.App.Base" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEndBy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/grey_2"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            app:hintTextAppearance="@style/TextLabel"
+            app:hintTextColor="@color/green"
+            app:layout_constraintTop_toBottomOf="@id/tilAcceptedBy">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEndBy"
+                style="@style/TILStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/end_by"
+                android:theme="@style/Theme.App.Base" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilJudge"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/grey_2"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            app:hintTextAppearance="@style/TextLabel"
+            app:hintTextColor="@color/green"
+            app:layout_constraintTop_toBottomOf="@id/tilEndBy">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etJudge"
+                style="@style/TILStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/judge"
+                android:theme="@style/Theme.App.Base" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
