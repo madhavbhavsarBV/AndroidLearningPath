@@ -138,5 +138,7 @@
     <string name="accepted_by">Accepted By*</string>
     <string name="judge">Judge</string>
     <string name="description">Description</string>
+    <string name="add_description_optional">Add Description (optional)</string>
+    <string name="review_challenge">Review Challenge</string>
 
 </resources>

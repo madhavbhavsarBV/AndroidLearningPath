@@ -13,6 +13,39 @@
         android:padding="@dimen/_24sdp"
         tools:context=".ui.onboarding.ui.OnBoardingFragment">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:paddingHorizontal="@dimen/_20sdp"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_extra"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="31dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calender"
+                android:id="@+id/cv_cal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_cal"
+                android:text="Hello Worlds"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginStart="@dimen/_10sdp"
+                tools:layout_editor_absoluteX="54dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 <!--        <androidx.constraintlayout.widget.ConstraintLayout-->

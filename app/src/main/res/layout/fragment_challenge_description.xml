@@ -22,15 +22,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etDescription"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:lines="20"
-            app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/bg_edit_text_desc"
+                    android:gravity="top"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey_4"
+                    android:textCursorDrawable="@drawable/et_cursor"
+                    android:minLines="6"
+                    android:maxLines="15"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/add_description_optional"
+                    android:textSize="@dimen/_14ssp"
+                    android:padding="@dimen/_10sdp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -32,8 +32,16 @@ class HomeFragment : FragmentBase<HomeViewModel, FragmentHomeBinding>() {
 
         //set tab layout
         TabLayoutMediator(getDataBinding().tlHome, getDataBinding().vpHome) { tab, position ->
+            getDataBinding().tlHome.getTabAt(position)?.apply {
+//                orCreateBadge
+//                badge?.isVisible = true
+//                badge?.number = 1
+            }
+            // ➀ ➁ ➂ ➃ ➄ ➅ ➆ ➇ ➈ ➉ ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓
             when(position){
-                0->tab.text = getString(R.string.invites_1)
+                0-> {
+                    tab.text = getString(R.string.invites_1)
+                }
                 1->tab.text = getString(R.string.active_1)
                 2->tab.text = getString(R.string.past_1)
             }
