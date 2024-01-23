@@ -9,5 +9,7 @@ data class ToolbarModel(
     var type:Int = 1,
     var editButtonVisible:Boolean = false,
     var searchButtonVisible:Boolean = false,
-    var tvMarkAllReadVisible:Boolean = false
+    var tvMarkAllReadVisible:Boolean = false,
+    var shareBtnVisible:Boolean = false,
+    var tlGradient:Boolean = false,
 )

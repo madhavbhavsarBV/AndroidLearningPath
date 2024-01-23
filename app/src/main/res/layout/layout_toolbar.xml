@@ -20,11 +20,20 @@
         android:visibility="@{toolbar.isVisible ? View.VISIBLE : View.GONE}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="@{toolbar.type==1 ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tlGradient"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/tl_background"
+                android:visibility="@{toolbar.tlGradient? View.VISIBLE:View.INVISIBLE, default= invisible}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgBack"
                 android:layout_width="wrap_content"
@@ -42,6 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
+                android:minHeight="0dp"
+                android:padding="0dp"
                 android:text="@{toolbar.title}"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
@@ -64,6 +75,19 @@
                 app:layout_constraintBottom_toBottomOf="@id/imgBack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/imgBack" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/ic_share"
+                android:visibility="@{toolbar.shareBtnVisible? View.VISIBLE : View.INVISIBLE, default=invisible}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -92,12 +116,12 @@
                 android:clickable="false"
                 android:gravity="start|center"
                 android:minWidth="0dp"
-                android:paddingStart="@dimen/_5sdp"
                 android:minHeight="0dp"
-                android:textSize="@dimen/_10ssp"
                 android:padding="5dp"
+                android:paddingStart="@dimen/_5sdp"
                 android:text="@string/_99c"
                 android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
                 app:cornerRadius="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/btnHomeFragmentMoney"
                 app:layout_constraintEnd_toEndOf="@id/btnHomeFragmentMoney"
@@ -131,12 +155,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitle2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:id="@+id/tvTitle2"
-                android:paddingTop="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_semibold"
+                android:paddingTop="@dimen/_10sdp"
                 android:text="@{toolbar.title}"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20ssp"
@@ -151,12 +175,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
-                android:visibility="@{toolbar.tvMarkAllReadVisible ? View.VISIBLE:View.GONE, default=gone}"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/mark_all_read"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_11ssp"
-                android:layout_marginEnd="@dimen/_10sdp"
+                android:visibility="@{toolbar.tvMarkAllReadVisible ? View.VISIBLE:View.GONE, default=gone}"
                 app:layout_constraintBottom_toBottomOf="@id/tvTitle2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvTitle2" />
@@ -186,6 +210,42 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clToolbar4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{toolbar.type==4 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toTopOf="parent">
+
+            \
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBackStep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="@id/imgBackStep"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imgBackStep" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

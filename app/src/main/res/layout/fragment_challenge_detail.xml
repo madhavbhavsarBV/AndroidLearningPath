@@ -9,6 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <com.google.android.material.textview.MaterialTextView
@@ -37,19 +38,14 @@
                     android:id="@+id/tilNameChallenge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/CustomTextInputLayout"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:textColorHint="@color/grey_2"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="@color/green"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etNameChallenge"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/name_of_challenge"
@@ -64,19 +60,14 @@
                     android:id="@+id/tilAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/CustomTextInputLayout"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
-                    android:textColorHint="@color/grey_2"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="0dp"
-                    app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="@color/green"
                     app:layout_constraintTop_toBottomOf="@id/tilNameChallenge">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAmount"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/amount"
@@ -93,20 +84,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
-                    android:textColorHint="@color/grey_2"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="0dp"
+                  style="@style/CustomTextInputLayout"
                     app:endIconDrawable="@drawable/ic_calender"
                     app:endIconMode="custom"
                     app:endIconTint="@color/green"
-                    app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="@color/green"
                     app:layout_constraintTop_toBottomOf="@id/tilAmount">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAcceptedBy"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/accepted_by"
@@ -121,22 +107,17 @@
                     android:id="@+id/tilEndBy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/CustomTextInputLayout"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
-                    android:textColorHint="@color/grey_2"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="0dp"
                     app:endIconDrawable="@drawable/ic_calender"
                     app:endIconMode="custom"
                     app:endIconTint="@color/green"
-                    app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="@color/green"
                     app:layout_constraintTop_toBottomOf="@id/tilAcceptedBy">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEndBy"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/end_by"
@@ -153,20 +134,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
-                    android:textColorHint="@color/grey_2"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="0dp"
+                    style="@style/CustomTextInputLayout"
                     app:endIconDrawable="@drawable/ic_edit"
                     app:endIconMode="custom"
                     app:endIconTint="@color/green"
-                    app:hintTextAppearance="@style/TextLabel"
-                    app:hintTextColor="@color/green"
                     app:layout_constraintTop_toBottomOf="@id/tilEndBy">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etJudge"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/judge"
@@ -183,6 +159,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:src="@drawable/ic_launcher_background"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/iv_corner"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tilJudge"
 

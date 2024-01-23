@@ -2,6 +2,7 @@ package com.base.hilt.ui.challenge.ui
 
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.base.hilt.MainActivity
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
@@ -15,15 +16,46 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
 
     override fun setupToolbar() {
 
-        viewModel.setToolbarItems(ToolbarModel(isVisible = true, isBottomNavVisible = false))
+        viewModel.setToolbarItems(
+            ToolbarModel(
+                isVisible = true,
+                type = 4,
+                isBottomNavVisible = false
+            )
+        )
     }
 
     override fun initializeScreenVariables() {
 
 
         getDataBinding().viewmodel = viewModel
+
+        // set up view pager
         setUpViewPagerAdapter()
+
+        // set observers
         observerData()
+
+        // set toolbar back button
+        setUpBackButtonNavigation()
+    }
+
+    private fun setUpBackButtonNavigation() {
+        (requireActivity() as MainActivity).binding.layToolbar.imgBackStep.setOnClickListener {
+            when (getDataBinding().vpChallenges.currentItem) {
+                0 -> {
+                    findNavController().popBackStack()
+                }
+
+                1 -> getDataBinding().vpChallenges.setCurrentItem(0, true)
+                2 -> getDataBinding().vpChallenges.setCurrentItem(1, true)
+                3 -> getDataBinding().vpChallenges.setCurrentItem(2, true)
+            }
+        }
+        (requireActivity() as MainActivity).binding.layToolbar.tvCancel.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
     }
 
     override fun getViewModelClass(): Class<ChallengeViewModel> = ChallengeViewModel::class.java
@@ -42,6 +74,7 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                 )
             )
 
+        getDataBinding().vpChallenges.isUserInputEnabled = false
 
     }
 

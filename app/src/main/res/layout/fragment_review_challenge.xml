@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -8,6 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <com.google.android.material.textview.MaterialTextView
@@ -23,6 +25,304 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@id/tvReviewChallenge"
+            android:padding="@dimen/_11sdp">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCardTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/_2nd_annual_running_and_cornhole_challenge"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgProfIcon"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="20dp"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCardTitle"
+                app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                app:srcCompat="@drawable/ic_launcher_background"
+                app:strokeColor="@color/green"
+                app:strokeWidth="2dp" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvHost"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:background="@drawable/bg_gradient"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:text="@string/host"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp"
+                app:layout_constraintBottom_toTopOf="@id/tvHostName"
+                app:layout_constraintStart_toEndOf="@+id/imgProfIcon"
+                app:layout_constraintTop_toTopOf="@+id/imgProfIcon" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvHostName"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/jackson"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgProfIcon"
+                app:layout_constraintStart_toStartOf="@+id/tvHost"
+                app:layout_constraintTop_toBottomOf="@id/tvHost" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/group"
+                android:textColor="@color/green"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="@id/tvHost"
+                app:layout_constraintStart_toEndOf="@+id/tvHost"
+                app:layout_constraintTop_toTopOf="@+id/tvHost" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgProfWinner"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="10dp"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgProfIcon"
+                app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                app:srcCompat="@drawable/ic_launcher_background"
+                app:strokeColor="@color/pink"
+                app:strokeWidth="2dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvWinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:background="@drawable/bg_gradient_pink"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:text="@string/winner"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp"
+                app:layout_constraintStart_toEndOf="@+id/imgProfWinner"
+                app:layout_constraintTop_toTopOf="@+id/imgProfWinner" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvWinnerName"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/nicolus"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgProfWinner"
+                app:layout_constraintStart_toStartOf="@+id/tvWinner"
+                app:layout_constraintTop_toBottomOf="@id/tvWinner" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/completed"
+                android:visibility="gone"
+                android:textColor="@color/grey_4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvWinnerName" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="@dimen/_85sdp"
+                android:layout_height="@dimen/_85sdp"
+                android:paddingStart="@dimen/_7sdp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/customRoundedImageView" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clJackpot"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_jackpot"
+                app:layout_constraintEnd_toEndOf="@id/imgProfile"
+                app:layout_constraintStart_toStartOf="@id/imgProfile"
+                app:layout_constraintTop_toBottomOf="@+id/imgProfile">
+
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgJackpotLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    app:backgroundTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                    app:srcCompat="@drawable/ic_logo_4" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvjackpot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="bottom|center"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    android:text="@string/jackpot"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8ssp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    app:layout_constraintBottom_toTopOf="@id/tvInteraction"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imgJackpotLogo"
+                    app:layout_constraintTop_toTopOf="@id/imgJackpotLogo"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvInteraction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center|top"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    android:text="@string/_99_999"
+                    android:textColor="@color/green_3"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgJackpotLogo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imgJackpotLogo"
+                    app:layout_constraintTop_toBottomOf="@id/tvjackpot"
+                    app:layout_constraintVertical_chainStyle="packed"
+
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:id="@+id/tvChallengeDesc"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/grey_5"
+            android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_vel_auctor_sapien_cras_quis_massa_molestie_pretium_elit_eu_mattis_ex_aliquam_placerat_urna_lectus_placerat_pellentesque_erat_ultricies_sed_proin_ac_ante_vitae_neque_rutrum_tempus_donec_scelerisque_euismod_erat_vitae_read_more"
+            app:layout_constraintTop_toBottomOf="@id/clCardView" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@id/tvChallengeDesc"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                app:layout_constraintEnd_toStartOf="@id/ivVme"
+                android:id="@+id/ivPic1"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                app:srcCompat="@drawable/ic_launcher_background"
+                />
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ivVme"
+                android:padding="@dimen/_2sdp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toEndOf="@id/ivPic1"
+                app:layout_constraintTop_toTopOf="@id/ivPic1"
+                app:layout_constraintEnd_toStartOf="@id/ivPic2"
+                app:layout_constraintBottom_toBottomOf="@id/ivPic1"
+                app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                app:srcCompat="@drawable/ic_vme_icon"
+                />
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:scaleType="centerCrop"
+                android:id="@+id/ivPic2"
+                app:layout_constraintStart_toEndOf="@+id/ivVme"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                app:srcCompat="@drawable/ic_launcher_background"
+                />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/kristy_wingfield"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/ivPic1"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="@id/ivPic1"
+                app:layout_constraintEnd_toEndOf="@id/ivPic1"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="@string/kristy_wingfield"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintTop_toBottomOf="@id/ivPic2"
+                app:layout_constraintStart_toStartOf="@id/ivPic2"
+                app:layout_constraintEnd_toEndOf="@id/ivPic2"
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

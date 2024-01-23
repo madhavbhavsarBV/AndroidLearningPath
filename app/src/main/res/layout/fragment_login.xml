@@ -51,6 +51,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilMobile"
+                style="@style/CustomTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_20sdp"
@@ -63,12 +64,12 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etMobile"
-                    style="@style/TILStyle"
+                    style="@style/CustomEditText"
+                    lostFocusCheck="check1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/mobile"
                     android:inputType="number|text"
-                    lostFocusCheck="check1"
                     android:maxLength="17"
                     android:text="@string/_plus1"
                     android:textColor="@color/white"
@@ -77,8 +78,10 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPassword"
+                style="@style/CustomTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/password"
                 android:layout_marginHorizontal="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:textColorHint="@color/grey_2"
@@ -92,15 +95,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
-                    style="@style/TILStyle"
+                    style="@style/CustomEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLength="16"
-                    lostFocusCheck="check2"
                     android:textColor="@color/white"
-                    android:theme="@style/Theme.App.Base" />
+                    android:theme="@style/Theme.App.Base"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 

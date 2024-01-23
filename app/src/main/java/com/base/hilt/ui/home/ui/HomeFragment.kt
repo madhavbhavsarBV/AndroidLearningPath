@@ -58,7 +58,7 @@ class HomeFragment : FragmentBase<HomeViewModel, FragmentHomeBinding>() {
                         HomeActiveFragment(),
                         HomePastFragment()
                     ))
-            getDataBinding().vpHome.isUserInputEnabled = false
+//            getDataBinding().vpHome.isUserInputEnabled = false
 
 
         }

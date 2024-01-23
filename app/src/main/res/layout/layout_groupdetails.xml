@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clGroupDetail"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent"
         android:visibility="visible">
 
@@ -27,6 +28,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,6 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:visibility="invisible"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@string/invited_you_to"
                         android:textColor="@color/white"
@@ -74,14 +77,14 @@
                     android:id="@+id/imgProfile"
                     android:layout_width="@dimen/_85sdp"
                     android:layout_height="@dimen/_85sdp"
-                    android:layout_marginTop="@dimen/_110sdp"
                     android:paddingStart="@dimen/_7sdp"
                     android:scaleType="centerCrop"
                     android:background="@drawable/iv_border"
                     android:src="@drawable/ic_launcher_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clTopCard"
+                    app:layout_constraintBottom_toBottomOf="@id/clTopCard"
                     app:shapeAppearanceOverlay="@style/customRoundedImageView" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -204,6 +207,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     tools:itemCount="2"
+                    android:layout_marginStart="@dimen/_8sdp"
                     tools:listitem="@layout/row_participants"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/tvParticipants" />

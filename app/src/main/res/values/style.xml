@@ -55,6 +55,16 @@
         <item name="android:textCursorDrawable">@drawable/et_cursor</item>
 
     </style>
+    <style name="CustomEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/grey_2</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:backgroundTint">@color/til_state_change</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingTop">@dimen/_14sdp</item>
+        <item name="android:paddingBottom">@dimen/_6sdp</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
 
     <style name="CustomTextAppearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/red</item>
@@ -66,8 +76,43 @@
     </style>
 
 
-    <style name="CustomTextInputLayout">
-        <item name="boxStrokeColor">@color/green</item>
-        <item name="boxStrokeErrorColor">@color/green</item>
+<!--    <style name="CustomTextInputLayout">-->
+<!--        <item name="boxStrokeColor">@color/green</item>-->
+<!--        <item name="boxStrokeErrorColor">@color/green</item>-->
+<!--    </style>-->
+
+    <style name="TextInputLayout.HelperTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="TextInputLayout.HintTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+
+    <style name="TextInputLayout.ErrorTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+
+    <style name="CustomTextInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="boxStrokeColor">@color/grey_2</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="boxCollapsedPaddingTop">-2dp</item>
+        <item name="helperTextEnabled">true</item>
+        <item name="helperTextTextAppearance">@style/TextInputLayout.HelperTextAppearance</item>
+        <item name="android:textColorHint">@color/grey_2</item>
+        <item name="android:paddingTop">@dimen/_6sdp</item>
+        <item name="android:backgroundTint">@color/til_state_change</item>
+        <item name="hintTextAppearance">@style/TextInputLayout.HintTextAppearance</item>
+        <item name="errorTextAppearance">@style/TextInputLayout.ErrorTextAppearance</item>
+        <item name="colorControlNormal">@color/grey_2</item>
+        <item name="colorControlActivated">@color/green</item>
+        <item name="colorControlHighlight">@color/green</item>
     </style>
 </resources>
