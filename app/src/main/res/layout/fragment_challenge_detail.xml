@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvChallengeDetail"
@@ -24,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,9 +36,9 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilNameChallenge"
+                    style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/CustomTextInputLayout"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintTop_toTopOf="parent">
@@ -58,9 +58,9 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilAmount"
+                    style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/CustomTextInputLayout"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
                     app:layout_constraintTop_toBottomOf="@id/tilNameChallenge">
@@ -80,11 +80,11 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilAcceptedBy"
+                    style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
-                  style="@style/CustomTextInputLayout"
                     app:endIconDrawable="@drawable/ic_calender"
                     app:endIconMode="custom"
                     app:endIconTint="@color/green"
@@ -105,9 +105,9 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilEndBy"
+                    style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/CustomTextInputLayout"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
                     app:endIconDrawable="@drawable/ic_calender"
@@ -130,11 +130,11 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilJudge"
+                    style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
-                    style="@style/CustomTextInputLayout"
                     app:endIconDrawable="@drawable/ic_edit"
                     app:endIconMode="custom"
                     app:endIconTint="@color/green"
@@ -153,21 +153,35 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/_150sdp"
-                    android:layout_height="@dimen/_150sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:src="@drawable/ic_launcher_background"
-                    app:layout_constraintEnd_toEndOf="parent"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivChallengePic"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:background="@drawable/iv_corner"
+                    android:src="@drawable/ic_launcher_background"
+                    android:tint="@color/light_grey"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tilJudge"
+                    app:shapeAppearanceOverlay="@style/cornerImageView10" />
 
-                    />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/light_green"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_camera"
+                    app:layout_constraintBottom_toBottomOf="@id/ivChallengePic"
+                    app:layout_constraintEnd_toEndOf="@id/ivChallengePic"
+                    app:layout_constraintStart_toStartOf="@id/ivChallengePic"
+                    app:layout_constraintTop_toBottomOf="@id/ivChallengePic"
+                    app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,21 +4,25 @@
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="com.base.hilt.ui.challenge.viewmodel.ChallengeDialogViewModel" />
+
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_challenge"
+            >
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ivClose"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:onClick="@{()->viewmodel.onCancelClick()}"
                 android:padding="@dimen/_10sdp"
                 android:src="@drawable/ic_close"
                 android:tint="@color/black"
@@ -51,20 +55,23 @@
 
             <RadioGroup
                 android:id="@+id/rgChallenge"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:weightSum="2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vHLine1">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/rbOneVOne"
                     android:layout_width="wrap_content"
+                    android:paddingVertical="@dimen/_5sdp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:fontFamily="@font/poppins_medium"
                     android:background="@drawable/rb_challenge"
+                    android:textColor="@color/black"
                     android:checked="true"
                     android:button="@null"
                     android:textSize="@dimen/_13ssp"
@@ -75,44 +82,35 @@
                     android:id="@+id/rbGroup"
                     android:layout_width="wrap_content"
                     android:gravity="center"
+                    android:paddingVertical="@dimen/_5sdp"
                     android:fontFamily="@font/poppins_medium"
                     android:background="@drawable/rb_challenge"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:button="@null"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1"
                     android:text="@string/group_2" />
 
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/rbPrevious"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/_13ssp"
-                    android:background="@drawable/rb_challenge"
-                    android:button="@null"
-                    android:layout_weight="1"
-                    android:text="@string/previous" />
-
-
             </RadioGroup>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCreateChallenge"
                 style="@style/CustomButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:id="@+id/btnCreateChallenge"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:enabled="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:onClick="@{()->viewmodel.onBtnCreateChallengeClick()}"
                 android:text="@string/create_challenge"
                 android:textAllCaps="true"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rgChallenge" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
 </layout>

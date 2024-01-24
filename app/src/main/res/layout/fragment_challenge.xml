@@ -26,7 +26,7 @@
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_2sdp"
-            android:background="@color/grey_2"
+            android:background="@color/green_4"
             app:layout_constraintEnd_toStartOf="@id/uHLine2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -76,12 +76,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNext"
-            style="@style/CustomButton"
+            style="@style/CustomButtonWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:enabled="true"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:enabled="false"
             android:onClick="@{()->viewmodel.onBtnNextClick()}"
             android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"

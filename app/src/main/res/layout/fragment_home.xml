@@ -24,6 +24,7 @@
             bind:layout_constraintTop_toTopOf="parent"
             bind:tabIndicatorColor="@color/green"
             bind:tabIndicatorHeight="@dimen/_3sdp"
+            bind:tabTextAppearance="@style/CustomTabTextAppearance"
             bind:tabSelectedTextColor="@color/green"
             bind:tabTextColor="@color/white" />
 

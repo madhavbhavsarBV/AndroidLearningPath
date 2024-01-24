@@ -142,5 +142,12 @@
     <string name="review_challenge">Review Challenge</string>
     <string name="expired">Expired</string>
     <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_vel_auctor_sapien_cras_quis_massa_molestie_pretium_elit_eu_mattis_ex_aliquam_placerat_urna_lectus_placerat_pellentesque_erat_ultricies_sed_proin_ac_ante_vitae_neque_rutrum_tempus_donec_scelerisque_euismod_erat_vitae_read_more">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel auctor sapien. Cras quis massa molestie, pretium elit eu, mattis ex. Aliquam placerat urna lectus, placerat pellentesque erat ultricies sed. Proin ac ante vitae neque rutrum tempus. Donec scelerisque euismod erat vitae...</string>
+    <string name="invite">&#160;Invite&#160;</string>
+    <string name="invited">Invited</string>
+    <string name="contact_name_here">Contact name here</string>
+    <string name="_88">88</string>
+    <string name="_2">2</string>
+    <string name="_11">11</string>
+    <string name="invites_3">INVITES</string>
 
 </resources>

@@ -1,7 +1,10 @@
 package com.base.hilt.ui.challenge.ui
 
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.base.hilt.MainActivity
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
@@ -11,7 +14,8 @@ import com.base.hilt.ui.challenge.adapter.ChallengeViewPagerAdapter
 import com.base.hilt.ui.challenge.viewmodel.ChallengeViewModel
 
 
-class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBinding>() {
+class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBinding>(),
+    BtnNextValidations {
     override fun getLayoutId(): Int = R.layout.fragment_challenge
 
     override fun setupToolbar() {
@@ -46,7 +50,6 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                 0 -> {
                     findNavController().popBackStack()
                 }
-
                 1 -> getDataBinding().vpChallenges.setCurrentItem(0, true)
                 2 -> getDataBinding().vpChallenges.setCurrentItem(1, true)
                 3 -> getDataBinding().vpChallenges.setCurrentItem(2, true)
@@ -63,11 +66,17 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
 
     private fun setUpViewPagerAdapter() {
 
+        val createChallengeFragment = CreateChallengeFragment()
+        createChallengeFragment.setInterface(this)
+//        var createDetailFragment = ChallengeDetailFragment().setInterface(this)
+//        var createDescriptionFragment = ChallengeDescriptionFragment().setInterface(this)
+//        var reviewChallengeFragment = ReviewChallengeFragment().setInterface(this)
+
         getDataBinding().vpChallenges.adapter =
             ChallengeViewPagerAdapter(
                 requireActivity(),
                 arrayListOf(
-                    CreateChallengeFragment(),
+                    createChallengeFragment,
                     ChallengeDetailFragment(),
                     ChallengeDescriptionFragment(),
                     ReviewChallengeFragment()
@@ -75,6 +84,75 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
             )
 
         getDataBinding().vpChallenges.isUserInputEnabled = false
+
+        getDataBinding().vpChallenges.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                when (position) {
+                    0 -> {
+                        getDataBinding().uHLine2.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.grey_2
+                            )
+                        )
+                    }
+
+                    1 -> {
+                        getDataBinding().uHLine2.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.green_4
+                            )
+                        )
+                        getDataBinding().uHLine3.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.grey_2
+                            )
+                        )
+                    }
+
+                    2 -> {
+                        getDataBinding().uHLine3.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.green_4
+                            )
+                        )
+                        getDataBinding().uHLine4.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.grey_2
+                            )
+                        )
+                    }
+
+                    3 -> {
+                        getDataBinding().uHLine4.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.green_4
+                            )
+                        )
+                    }
+
+                }
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
+        })
 
     }
 
@@ -107,5 +185,13 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
 
     }
 
+    override fun btnEnabled(selectedContacts: Int) {
+        getDataBinding().btnNext.isEnabled = selectedContacts != 0
+    }
 
+
+}
+
+interface BtnNextValidations {
+    fun btnEnabled(selectedContacts: Int)
 }

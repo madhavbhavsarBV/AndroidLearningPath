@@ -41,6 +41,7 @@ class HomeFragment : FragmentBase<HomeViewModel, FragmentHomeBinding>() {
             when(position){
                 0-> {
                     tab.text = getString(R.string.invites_1)
+                    tab.setCustomView(R.layout.layout_tab_item)
                 }
                 1->tab.text = getString(R.string.active_1)
                 2->tab.text = getString(R.string.past_1)

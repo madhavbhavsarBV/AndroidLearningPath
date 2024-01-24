@@ -115,4 +115,21 @@
         <item name="colorControlActivated">@color/green</item>
         <item name="colorControlHighlight">@color/green</item>
     </style>
+
+    <style name="cornerImageView10" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_15sdp</item>
+    </style>
+
+    <style name="CustomDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>

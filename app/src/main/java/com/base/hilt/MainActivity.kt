@@ -28,6 +28,8 @@ import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.ActivityMainBinding
 import com.base.hilt.databinding.DialogChallengeBinding
 import com.base.hilt.ui.account.ui.AccountFragment
+import com.base.hilt.ui.challenge.ui.ChallengeDetailFragment
+import com.base.hilt.ui.challenge.ui.ChallengeDialogFragment
 import com.base.hilt.ui.home.ui.HomeFragment
 import com.base.hilt.ui.login.ui.LoginFragment
 import com.base.hilt.ui.messages.ui.MessagesFragment
@@ -88,27 +90,37 @@ class MainActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        // set up create challenge dialog
+        setUpCreateChallengeDialog()
 
-        binding.navView.menu.getItem(2).setOnMenuItemClickListener {
-            val builder = AlertDialog.Builder(this@MainActivity, R.style.CustomAlertDialog)
-                .create()
-            val view = layoutInflater.inflate(R.layout.dialog_challenge, null)
-            view.findViewById<ImageView>(R.id.ivClose).setOnClickListener {
-                builder.dismiss()
-            }
 
-            view.findViewById<Button>(R.id.btnCreateChallenge).setOnClickListener {
-                navController.navigate(R.id.challengeFragment)
-                builder.dismiss()
-            }
+//        binding.navView.menu.getItem(2).setOnMenuItemClickListener {
+//            val builder = AlertDialog.Builder(this@MainActivity, R.style.CustomAlertDialog)
+//                .create()
+//            val view = layoutInflater.inflate(R.layout.dialog_challenge, null)
+//            view.findViewById<ImageView>(R.id.ivClose).setOnClickListener {
+//                builder.dismiss()
+//            }
+//
+//            view.findViewById<Button>(R.id.btnCreateChallenge).setOnClickListener {
+//                navController.navigate(R.id.challengeFragment)
+//                builder.dismiss()
+//            }
+//
+//            builder.setView(view)
+//            builder.setCanceledOnTouchOutside(true)
+//            builder.show()
+//            true
+//        }
 
-            builder.setView(view)
-            builder.setCanceledOnTouchOutside(true)
-            builder.show()
-            true
+
+    }
+
+    private fun setUpCreateChallengeDialog() {
+        binding.imgBrandLogo.setOnClickListener {
+            val dialog = ChallengeDialogFragment()
+            dialog.show(supportFragmentManager,"")
         }
-
-
     }
 
     /**

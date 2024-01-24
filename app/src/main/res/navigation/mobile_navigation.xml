@@ -136,5 +136,13 @@
         android:name="com.base.hilt.ui.challenge.ui.ChallengeFragment"
         android:label="ChallengeFragment"
         />
+<!--    <dialog-->
+<!--        android:id="@+id/challengeDialogFragment"-->
+<!--        android:name="com.base.hilt.ui.challenge.ui.ChallengeDialogFragment"-->
+<!--        android:label="ChallengeDialogFragment" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_challengeDialogFragment_to_challengeFragment"-->
+<!--            app:destination="@id/challengeFragment"/>-->
+<!--    </dialog>-->
 
 </navigation>
