@@ -162,10 +162,9 @@ class ForgotPasswordFragment :
                     }
 
 
-                    punctuate(7, "-")
-                    punctuate(4, ") ")
-                    punctuate(1, " (")
-                    punctuate(0, "+")
+                    punctuate(6, "-")
+                    punctuate(3, ") ")
+                    punctuate(0, " (")
 
                     isRunning = true
                     getDataBinding().etMobile.setText(output)

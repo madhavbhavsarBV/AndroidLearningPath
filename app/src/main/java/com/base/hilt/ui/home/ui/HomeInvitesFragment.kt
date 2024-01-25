@@ -1,5 +1,6 @@
 package com.base.hilt.ui.home.ui
 
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.hilt.R
@@ -38,4 +39,5 @@ class HomeInvitesFragment : FragmentBase<HomeViewModel, FragmentHomeInvitesBindi
         getDataBinding().rvHomeInvites.layoutManager = LinearLayoutManager(requireContext())
 
     }
+
 }

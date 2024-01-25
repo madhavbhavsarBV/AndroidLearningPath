@@ -23,13 +23,24 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     override fun getLayoutId(): Int = R.layout.fragment_group_detail
 
     override fun setupToolbar() {
-        viewModel.setToolbarItems(ToolbarModel(isVisible = true, type = 1, title = getString(R.string.expired),isBottomNavVisible = false, loginVisible = false, shareBtnVisible = true, tlGradient = true, backBtnVisible = true ))
+        viewModel.setToolbarItems(
+            ToolbarModel(
+                isVisible = true,
+                type = 1,
+                title = getString(R.string.expired),
+                isBottomNavVisible = false,
+                loginVisible = false,
+                shareBtnVisible = true,
+                tlGradient = true,
+                backBtnVisible = true
+            )
+        )
     }
 
     override fun initializeScreenVariables() {
 
-        getDataBinding().layGroupDetail.viewmodel= viewModel
-        getDataBinding().layComments.viewmodel= viewModel
+        getDataBinding().layGroupDetail.viewmodel = viewModel
+//        getDataBinding().layComments.viewmodel= viewModel
 
         //observe data
         observeData()
@@ -44,24 +55,28 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     }
 
     private fun setUpParticipantsRecyclerAdapter() {
-        val adapter= ParticipantsRecyclerViewAdapter(requireContext(), arrayListOf(ParticipantsModel(),
-            ParticipantsModel(), ParticipantsModel()
-        ))
+        val adapter = ParticipantsRecyclerViewAdapter(requireContext(), arrayListOf(
+            ParticipantsModel(),
+            ParticipantsModel(),
+            ParticipantsModel()
+        ), onItemBtnClick = {
+            val dialog = ParticipantsListFragment()
+            dialog.show(childFragmentManager, "")
+        })
         getDataBinding().layGroupDetail.rcvParticipants.adapter = adapter
-        getDataBinding().layGroupDetail.rcvParticipants.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
+        getDataBinding().layGroupDetail.rcvParticipants.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
     }
 
     private fun observeData() {
         viewModel.apply {
-            onCommentClick?.observe(viewLifecycleOwner){
-                getDataBinding().layComments.clComments.visibility = View.VISIBLE
-                getDataBinding().layComments.etComments.setFocusable(View.FOCUSABLE)
+            onCommentClick?.observe(viewLifecycleOwner) {
+                val dialog = CommentsBottomSheetFragment()
+                dialog.show(childFragmentManager, "")
             }
 
-            onBackClick?.observe(viewLifecycleOwner){
-                getDataBinding().layComments.clComments.visibility = View.GONE
-            }
+
         }
     }
 

@@ -57,7 +57,7 @@
     <string name="past">PAST</string>
     <string name="message">Messages</string>
     <string name="account">Account</string>
-    <string name="_plus1">+1 </string>
+    <string name="_plus1">&#160;</string>
     <string name="_2nd_annual_running_and_cornhole_challenge">2nd Annual Running and \nCornhole Challenge</string>
     <string name="host">HOST</string>
     <string name="jackson">\@Jackson</string>

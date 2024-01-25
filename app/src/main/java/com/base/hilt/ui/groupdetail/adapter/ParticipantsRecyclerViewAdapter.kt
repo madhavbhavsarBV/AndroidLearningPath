@@ -5,9 +5,12 @@ import com.base.hilt.R
 import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowParticipantsBinding
 import com.base.hilt.ui.groupdetail.model.ParticipantsModel
+import com.base.hilt.ui.groupdetail.ui.ParticipantsListFragment
 
-class ParticipantsRecyclerViewAdapter(mContext:Context, data:ArrayList<ParticipantsModel>,
-):GenericRecyclerViewAdapter<ParticipantsModel,RowParticipantsBinding>(mContext,data) {
+class ParticipantsRecyclerViewAdapter(
+    mContext: Context, data: ArrayList<ParticipantsModel>,
+    private val onItemBtnClick: () -> Unit
+) : GenericRecyclerViewAdapter<ParticipantsModel, RowParticipantsBinding>(mContext, data) {
 
     override val layoutResId: Int = R.layout.row_participants
 
@@ -24,6 +27,6 @@ class ParticipantsRecyclerViewAdapter(mContext:Context, data:ArrayList<Participa
         position: Int,
         dataBinding: RowParticipantsBinding
     ) {
-        //
+        onItemBtnClick.invoke()
     }
 }

@@ -4,17 +4,16 @@
 
     <data>
 
-<!--        <variable-->
-<!--            name="viewmodel"-->
-<!--            type="com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel" />-->
+        <variable
+            name="viewmodel"
+            type="com.base.hilt.ui.groupdetail.viewmodel.CommentsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clComments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/cl_cornerradius"
-        android:visibility="gone">
+        android:background="@drawable/cl_cornerradius">
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -36,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
+            android:onClick="@{()->viewmodel.onBackClick()}"
             android:text="@string/back"
             android:textColor="@color/green"
             android:textSize="@dimen/_11ssp"
@@ -47,8 +47,8 @@
             android:id="@+id/cvComments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardPreventCornerOverlap="false"
             app:cardElevation="@dimen/_8sdp"
+            app:cardPreventCornerOverlap="false"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,17 +78,22 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etComments"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:background="@drawable/btn_comment"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_emoji"
+                    android:focusable="true"
+                    android:fontFamily="@font/poppins_regular"
                     android:hint="@string/write_a_comment"
                     android:maxLines="4"
-                    android:id="@+id/etComments"
                     android:paddingHorizontal="@dimen/_8sdp"
                     android:paddingVertical="@dimen/_8sdp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey_2"
+                    android:textCursorDrawable="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/ivGif"

@@ -14,4 +14,7 @@
     <string name="val_email_empty">Email address can\'t be empty</string>
     <string name="val_email">Please enter a valid email address</string>
     <string name="val_date">Please select date</string>
+
+    <string name="val_chall_name">Name of challenge can\'t be empty</string>
+    <string name="val_chall_amt">Amount of challenge can\'t be empty</string>
 </resources>

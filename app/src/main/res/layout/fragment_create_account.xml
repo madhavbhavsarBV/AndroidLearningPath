@@ -37,6 +37,7 @@
                     android:id="@+id/tilFirtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/CustomTextInputLayout"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColorHint="@color/grey_2"
                     app:boxBackgroundColor="@color/black"
@@ -46,7 +47,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etFirstName"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/first_name"
@@ -60,6 +61,7 @@
                     android:id="@+id/tilLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/CustomTextInputLayout"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColorHint="@color/grey_2"
                     app:boxBackgroundColor="@color/black"
@@ -69,7 +71,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etLastName"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/last_name"
@@ -81,6 +83,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilAlias"
+                    style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -92,7 +95,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAlias"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/alias"
@@ -105,22 +108,26 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilMobile"
                     android:layout_width="match_parent"
+                    style="@style/CustomTextInputLayout"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColorHint="@color/grey_2"
                     app:boxBackgroundColor="@color/black"
                     app:hintTextAppearance="@style/TextLabel"
+                    app:prefixText="+1"
+                    app:prefixTextAppearance="@style/PrefixTextAppearance"
+                    app:prefixTextColor="@color/white"
                     app:hintTextColor="@color/green"
                     app:layout_constraintTop_toBottomOf="@id/tilAlias">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etMobile"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/mobile"
                         android:inputType="number|text"
-                        android:maxLength="17"
+                        android:maxLength="15"
                         android:text="@string/_plus1"
                         android:textColor="@color/white"
                         android:theme="@style/Theme.App.Base" />
@@ -130,6 +137,7 @@
                     android:id="@+id/tilPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/CustomTextInputLayout"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColorHint="@color/grey_2"
                     app:boxBackgroundColor="@color/black"
@@ -142,7 +150,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/password"
@@ -157,6 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/CustomTextInputLayout"
                     android:textColorHint="@color/grey_2"
                     app:boxBackgroundColor="@color/black"
                     app:endIconDrawable="@drawable/password_toggle"
@@ -168,7 +177,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etConfirmPassword"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/confirm_password"
@@ -182,6 +191,7 @@
                     android:id="@+id/tilEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/CustomTextInputLayout"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColorHint="@color/grey_2"
                     app:boxBackgroundColor="@color/black"
@@ -191,7 +201,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/email"
@@ -205,9 +215,12 @@
                     android:id="@+id/tilDateOfBirth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/CustomTextInputLayout"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColorHint="@color/grey_2"
                     app:boxBackgroundColor="@color/black"
+                    android:clickable="true"
+                    android:focusable="false"
                     app:endIconDrawable="@drawable/ic_calender"
                     app:endIconMode="custom"
                     app:endIconTint="@color/green"
@@ -217,13 +230,10 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etDateOfBirth"
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="false"
-                        android:cursorVisible="false"
                         android:focusable="false"
-                        android:focusableInTouchMode="false"
                         android:hint="@string/date_of_birth"
                         android:inputType="none"
                         android:textColor="@color/white"
@@ -235,6 +245,7 @@
                     android:id="@+id/tilReferralCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/CustomTextInputLayout"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColorHint="@color/grey_2"
                     app:boxBackgroundColor="@color/black"
@@ -243,7 +254,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tilDateOfBirth">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TILStyle"
+                        style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/referral_code"

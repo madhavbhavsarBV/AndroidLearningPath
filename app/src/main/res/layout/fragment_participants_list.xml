@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.base.hilt.ui.groupdetail.viewmodel.ParticipantsListViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clParticipants"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/cl_cornerradius">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewmodel.onBackClick()}"
+            android:padding="@dimen/_8sdp"
+            android:text="@string/cancel"
+            android:textColor="@color/green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvParticipants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/participants"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvNoOfPeople"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_4_people"
+            app:layout_constraintEnd_toEndOf="@id/tvParticipants"
+            app:layout_constraintStart_toStartOf="@id/tvParticipants"
+            app:layout_constraintTop_toBottomOf="@id/tvParticipants" />
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/et_search"
+            android:drawableStart="@drawable/ic_search"
+            android:textColorHint="@color/grey_2"
+            android:drawableEnd="@drawable/ic_close"
+            android:drawablePadding="14dp"
+            android:hint="@string/search"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:shadowRadius="5"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNoOfPeople" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvParticipants"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etSearch" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

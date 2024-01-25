@@ -2,6 +2,7 @@ package com.base.hilt.ui.signup.ui
 
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
@@ -321,10 +322,9 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                 }
 
 
-                punctuate(7, "-")
-                punctuate(4, ") ")
-                punctuate(1, " (")
-                punctuate(0, "+")
+                punctuate(6, "-")
+                punctuate(3, ") ")
+                punctuate(0, " (")
 
                 isRunning = true
                 getDataBinding().etMobile.setText(output)
@@ -357,20 +357,18 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                 day
             )
             datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
-            getDataBinding().tilDateOfBirth.setEndIconOnClickListener {
-                datePickerDialog.show()
-            }
+
             getDataBinding().tilDateOfBirth.setOnClickListener {
                 datePickerDialog.show()
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
             }
-            getDataBinding().tilDateOfBirth.setOnClickListener {
+            getDataBinding().etDateOfBirth.setOnClickListener {
                 datePickerDialog.show()
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
             }
-            getDataBinding().etDateOfBirth.setOnFocusChangeListener { view, isFocused ->
-                if (view.isInTouchMode && isFocused) {
-                    view.performClick()
-                }
-            }
+
 
         }
     }

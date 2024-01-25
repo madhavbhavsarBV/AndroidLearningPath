@@ -59,6 +59,9 @@
                 android:textColorHint="@color/grey_2"
                 app:boxBackgroundColor="@color/black"
                 app:hintTextAppearance="@style/TextLabel"
+                app:prefixText="+1"
+                app:prefixTextAppearance="@style/PrefixTextAppearance"
+                app:prefixTextColor="@color/white"
                 app:hintTextColor="@color/green"
                 app:layout_constraintTop_toBottomOf="@id/tvWelcome">
 
@@ -70,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/mobile"
                     android:inputType="number|text"
-                    android:maxLength="17"
+                    android:maxLength="15"
                     android:text="@string/_plus1"
                     android:textColor="@color/white"
                     android:theme="@style/Theme.App.Base" />

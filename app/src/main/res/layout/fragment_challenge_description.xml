@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -32,6 +32,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:paddingBottom="@dimen/_10sdp"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -45,7 +46,7 @@
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey_4"
                     android:textCursorDrawable="@drawable/et_cursor"
-                    android:minLines="6"
+                    android:minLines="15"
                     android:maxLines="15"
                     android:fontFamily="@font/poppins_regular"
                     android:hint="@string/add_description_optional"
@@ -53,7 +54,7 @@
                     android:padding="@dimen/_10sdp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

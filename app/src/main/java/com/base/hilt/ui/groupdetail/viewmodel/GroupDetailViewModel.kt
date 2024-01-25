@@ -10,9 +10,4 @@ class GroupDetailViewModel: ViewModelBase() {
     fun onCommentClick(){
         onCommentClick?.call()
     }
-    var onBackClick : SingleLiveEvent<Boolean>? = SingleLiveEvent()
-
-    fun onBackClick(){
-        onBackClick?.call()
-    }
 }

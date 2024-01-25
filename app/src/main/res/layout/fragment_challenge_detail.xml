@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="com.base.hilt.ui.challenge.viewmodel.ChallengeDetailViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,6 +89,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:onClick="@{()-> viewmodel.acceptedByClick()}"
                     app:endIconDrawable="@drawable/ic_calender"
                     app:endIconMode="custom"
                     app:endIconTint="@color/green"
@@ -95,8 +102,10 @@
                         style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
                         android:hint="@string/accepted_by"
-                        android:inputType="text"
+                        android:inputType="none"
+                        android:onClick="@{()-> viewmodel.acceptedByClick()}"
                         android:paddingBottom="@dimen/_4sdp"
                         android:textColor="@color/black"
                         android:theme="@style/Theme.App.Base" />
@@ -110,6 +119,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_2sdp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:onClick="@{()-> viewmodel.endByClick()}"
                     app:endIconDrawable="@drawable/ic_calender"
                     app:endIconMode="custom"
                     app:endIconTint="@color/green"
@@ -120,8 +132,10 @@
                         style="@style/CustomEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
                         android:hint="@string/end_by"
-                        android:inputType="text"
+                        android:inputType="none"
+                        android:onClick="@{()-> viewmodel.endByClick()}"
                         android:paddingBottom="@dimen/_4sdp"
                         android:textColor="@color/black"
                         android:theme="@style/Theme.App.Base" />
@@ -147,6 +161,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/judge"
                         android:inputType="text"
+                        android:text="@string/kristy_wingfield"
                         android:paddingBottom="@dimen/_4sdp"
                         android:textColor="@color/black"
                         android:theme="@style/Theme.App.Base" />

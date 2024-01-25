@@ -2,7 +2,7 @@ package com.base.hilt.ui.challenge.ui
 
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.base.hilt.MainActivity
@@ -10,6 +10,7 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentChallengeBinding
+import com.base.hilt.ui.challenge.BtnNextValidations
 import com.base.hilt.ui.challenge.adapter.ChallengeViewPagerAdapter
 import com.base.hilt.ui.challenge.viewmodel.ChallengeViewModel
 
@@ -64,11 +65,15 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
     override fun getViewModelClass(): Class<ChallengeViewModel> = ChallengeViewModel::class.java
 
 
+   lateinit var createChallengeFragment : Fragment
+   lateinit var createDetailFragment : Fragment
+   lateinit var createDescriptionFragment : Fragment
+   lateinit var reviewChallengeFragment : Fragment
     private fun setUpViewPagerAdapter() {
 
-        val createChallengeFragment = CreateChallengeFragment()
-        createChallengeFragment.setInterface(this)
-//        var createDetailFragment = ChallengeDetailFragment().setInterface(this)
+        createChallengeFragment = CreateChallengeFragment()
+        (createChallengeFragment as CreateChallengeFragment).setInterface(this)
+        createDetailFragment = ChallengeDetailFragment()
 //        var createDescriptionFragment = ChallengeDescriptionFragment().setInterface(this)
 //        var reviewChallengeFragment = ReviewChallengeFragment().setInterface(this)
 
@@ -77,7 +82,7 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                 requireActivity(),
                 arrayListOf(
                     createChallengeFragment,
-                    ChallengeDetailFragment(),
+                    createDetailFragment,
                     ChallengeDescriptionFragment(),
                     ReviewChallengeFragment()
                 )
@@ -164,7 +169,12 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
 
                 when (getDataBinding().vpChallenges.currentItem) {
                     0 -> getDataBinding().vpChallenges.setCurrentItem(1, true)
-                    1 -> getDataBinding().vpChallenges.setCurrentItem(2, true)
+                    1 -> {
+                        if((createDetailFragment as ChallengeDetailFragment).checkValidations()){
+                            getDataBinding().vpChallenges.setCurrentItem(2, true)
+                        }
+
+                    }
                     2 -> getDataBinding().vpChallenges.setCurrentItem(3, true)
                     3 -> {
                         findNavController().popBackStack()
@@ -192,6 +202,3 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
 
 }
 
-interface BtnNextValidations {
-    fun btnEnabled(selectedContacts: Int)
-}

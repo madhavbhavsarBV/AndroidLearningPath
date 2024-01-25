@@ -77,7 +77,7 @@ object Validation {
     fun validatePhone(phoneNumber: String): Boolean {
         var result = phoneNumber.filter { it.isDigit() }
         Log.i("madph", "validatePhone: ${phoneNumber}")
-        if (result.length<11){
+        if (result.length<10){
             return true
         }
         return false
