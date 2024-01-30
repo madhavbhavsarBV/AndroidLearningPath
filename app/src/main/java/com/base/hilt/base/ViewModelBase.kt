@@ -2,6 +2,11 @@ package com.base.hilt.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.apollographql.apollo3.api.ApolloResponse
+import com.apollographql.apollo3.api.Operation
+import com.base.hilt.network.HttpCommonMethod
+import com.base.hilt.network.HttpErrorCode
+import com.base.hilt.network.ResponseHandler
 
 
 open class ViewModelBase : ViewModel() {
@@ -36,5 +41,7 @@ open class ViewModelBase : ViewModel() {
     fun hideKeyboard() {
         getHideKeyBoardEvent().value = true
     }
+
+
 
 }

@@ -8,18 +8,25 @@ import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.text.isDigitsOnly
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import com.apollographql.apollo3.api.CustomTypeValue.GraphQLNull.value
+import com.apollographql.apollo3.api.Optional
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentLoginBinding
+import com.base.hilt.network.ResponseHandler
+import com.base.hilt.type.LoginInput
 import com.base.hilt.ui.login.viewmodel.LoginViewModel
+import com.base.hilt.utils.CommonDialogs
 import com.base.hilt.utils.MyPreference
 import com.base.hilt.utils.PrefKey
 import com.base.hilt.utils.Validation
@@ -60,25 +67,58 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
     override fun getViewModelClass(): Class<LoginViewModel> = LoginViewModel::class.java
 
     private fun observeData() {
-        viewModel.apply {
 
-            onBtnLoginClick?.observe(viewLifecycleOwner) {
-                if (checkValidations()) {
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                    pref.setValueBoolean(PrefKey.IS_LOGINED, true)
-                } else {
-                    getDataBinding().btnLogin.isEnabled = false
-                }
 
+        viewModel.onBtnLoginClick?.observe(viewLifecycleOwner) {
+//            Toast.makeText(requireContext(), "${getDataBinding().etMobile.text.toString().trim()}", Toast.LENGTH_SHORT).show()
+            if (checkValidations()) {
+
+                viewModel.loginApi(LoginInput(
+                    phone = "+11111111111",
+                    password = getDataBinding().etPassword.text.toString().trim(),
+                    device_id = Optional.Present(""),
+                    device_type =Optional.Present(""),
+                    ip_address =Optional.Present(""),
+                    user_timezone = Optional.Present(""),
+                ))
+
+            } else {
+                getDataBinding().btnLogin.isEnabled = false
             }
 
-            onBtnForgotPasswordClick?.observe(viewLifecycleOwner) {
-                findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
-            }
+
 
 
         }
+
+        viewModel.onBtnForgotPasswordClick?.observe(viewLifecycleOwner) {
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        }
+
+        viewModel.loginLiveData.observe(this) {
+            Log.i("madmad live", "observeData: vm")
+            when (it) {
+                ResponseHandler.Loading -> {
+                    Log.i("madmad live", "observeData: loading")
+                    viewModel.showProgressBar(true)
+                }
+
+                is ResponseHandler.OnFailed -> {
+                    viewModel.showProgressBar(false)
+                    Log.i("madmad live", "observeData: failed ${it.message}")
+                    CommonDialogs.showOkDialog(requireContext(),it.message)
+                }
+
+                is ResponseHandler.OnSuccessResponse -> {
+                    viewModel.showProgressBar(false)
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    pref.setValueBoolean(PrefKey.IS_LOGINED, true)
+                    Log.i("madmad live", "observeData: success ${it.response?.data}")
+                }
+            }
+        }
     }
+
 
     private fun updateButton() {
         getDataBinding().btnLogin.isEnabled = checkValidations()
@@ -216,13 +256,16 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
             getDataBinding().etMobile.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             Validation.validatePhone(getDataBinding().etMobile.text.toString().trim()) -> {
                 isValidForm = false
 
             }
+
             getDataBinding().etPassword.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             !Validation.isValidPassword(getDataBinding().etPassword.text.toString()) -> {
                 isValidForm = false
             }

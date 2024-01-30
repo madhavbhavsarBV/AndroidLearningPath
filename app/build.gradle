@@ -21,6 +21,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    sourceSets{
+        main.java.srcDirs += 'src/main/graphql'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -103,4 +107,5 @@ dependencies {
 
 apollo {
     packageName.set("com.base.hilt")
+    generateKotlinModels.set(true)
 }

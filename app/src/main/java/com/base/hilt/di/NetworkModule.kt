@@ -18,6 +18,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -65,11 +66,12 @@ class NetworkModule {
         return builder.build()
     }
 
+
+
     @Provides
-    fun getApolloClient(authorizationInterceptor: AuthorizationInterceptor,okHttpClient: OkHttpClient ): ApolloClient{
+    fun getApolloClient(okHttpClient: OkHttpClient): ApolloClient {
         return ApolloClient.Builder()
-            .serverUrl(ConfigFiles.DEV_BASE_URL)
-//            .webSocketServerUrl("wss://apollo-fullstack-tutorial.herokuapp.com/graphql")
+            .serverUrl("https://vmeapi.demo.brainvire.dev/graphql")
             .okHttpClient(okHttpClient)
             .build()
     }
