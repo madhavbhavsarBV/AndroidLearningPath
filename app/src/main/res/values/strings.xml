@@ -149,5 +149,13 @@
     <string name="_2">2</string>
     <string name="_11">11</string>
     <string name="invites_3">INVITES</string>
+    <string name="plaus1">+1</string>
+    <string name="create_account1">Create Account</string>
+    <string name="asia_culcutta">Asia/Culcutta</string>
+    <string name="_192_168_1_45">192.168.1.45</string>
+    <string name="_one1">1</string>
+    <string name="terms_conditions">terms conditions</string>
+    <string name="privacy">privacy</string>
+    <string name="forgot_password2">Forgot Password</string>
 
 </resources>

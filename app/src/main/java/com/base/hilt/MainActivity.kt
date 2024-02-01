@@ -270,6 +270,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+//        Log.i("madmad3", "onBackPressed: ${navHostFragment.}")
         when (navHostFragment.childFragmentManager.fragments[0]) {
             is MessagesFragment, is NotificationsFragment, is AccountFragment ,is UniverseFragment-> {
                 navHostFragment.navController.navigate(R.id.homeFragment)

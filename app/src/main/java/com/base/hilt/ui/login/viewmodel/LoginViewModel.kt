@@ -43,6 +43,7 @@ class LoginViewModel @Inject constructor(
 
 
     fun loginApi(loginReq : LoginInput){
+        Log.i("mad2", "loginApi: vm called")
         viewModelScope.launch {
 
             _loginLiveData.postValue(ResponseHandler.Loading)
@@ -50,6 +51,7 @@ class LoginViewModel @Inject constructor(
                 val result =  loginRepository.onLoginApi(loginReq)
                 _loginLiveData.postValue(result)
             } catch (e: Exception) {
+                _loginLiveData.postValue( ResponseHandler.OnFailed(0,"exception ${e}","0"))
             }
         }
     }

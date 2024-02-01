@@ -73,13 +73,18 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
 //            Toast.makeText(requireContext(), "${getDataBinding().etMobile.text.toString().trim()}", Toast.LENGTH_SHORT).show()
             if (checkValidations()) {
 
+//                Log.i("madmad", "observeData: on ${ }")
+
                 viewModel.loginApi(LoginInput(
-                    phone = "+11111111111",
+                    phone = getString(R.string.plaus1).plus(
+                        getDataBinding().etMobile.text.toString().trim()
+                            .filter { it.isDigit() }),
                     password = getDataBinding().etPassword.text.toString().trim(),
                     device_id = Optional.Present(""),
                     device_type =Optional.Present(""),
                     ip_address =Optional.Present(""),
                     user_timezone = Optional.Present(""),
+
                 ))
 
             } else {
@@ -212,7 +217,7 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
 
                     var cursorPosition = p1 + p3
                     val digits = s?.filter(Char::isDigit)
-                        ?.dropWhile { it == '0' }
+
                         ?.take(11)
                     cursorPosition -= s?.take(cursorPosition)?.run {
                         count { !it.isDigit() } + filter(Char::isDigit).takeWhile { it == '0' }

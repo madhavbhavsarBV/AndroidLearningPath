@@ -3,6 +3,7 @@ package com.base.hilt.ui.signup.ui
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Path.Op
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
@@ -14,17 +15,20 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
+import com.apollographql.apollo3.api.Optional
 import com.base.hilt.MainActivity
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentCreateAccountBinding
+import com.base.hilt.type.SignUpInput
 import com.base.hilt.ui.signup.viewmodel.CreateAccountViewModel
 import com.base.hilt.utils.Validation
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-
+@AndroidEntryPoint
 class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreateAccountBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_create_account
 
@@ -32,7 +36,7 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
         viewModel.setToolbarItems(
             ToolbarModel(
                 isVisible = true,
-                title = "Create Account",
+                title = getString(R.string.create_account1),
                 loginVisible = true
             )
         )
@@ -71,11 +75,13 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                         getDataBinding().etEmail.text.toString().trim().isEmpty() -> {
                             setError(getDataBinding().tilEmail, getString(R.string.val_email_empty))
                         }
+
                         !Validation.isEmailValid(
                             getDataBinding().etEmail.text.toString().trim()
                         ) -> {
                             setError(getDataBinding().tilEmail, getString(R.string.val_email))
                         }
+
                         else -> {
                             removeError(getDataBinding().tilEmail)
                         }
@@ -95,6 +101,7 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                                     getString(R.string.val_conf_password_empty)
                                 )
                             }
+
                             !getDataBinding().etConfirmPassword.text.toString().trim()
                                 .equals(getDataBinding().etPassword.text.toString().trim()) -> {
                                 setError(
@@ -102,6 +109,7 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                                     getString(R.string.val_conf_password)
                                 )
                             }
+
                             else -> {
                                 removeError(getDataBinding().tilConfirmPass)
                             }
@@ -118,12 +126,14 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                                     getString(R.string.val_last_name)
                                 )
                             }
+
                             getDataBinding().etLastName.text.toString().length < 2 -> {
                                 setError(
                                     getDataBinding().tilLastName,
                                     getString(R.string.val_last_name_short)
                                 )
                             }
+
                             else -> {
                                 removeError(getDataBinding().tilLastName)
                             }
@@ -141,12 +151,14 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                                 )
 
                             }
+
                             getDataBinding().etFirstName.text.toString().length < 2 -> {
                                 setError(
                                     getDataBinding().tilFirtName,
                                     getString(R.string.val_first_name_short)
                                 )
                             }
+
                             else -> {
                                 removeError(getDataBinding().tilFirtName)
                             }
@@ -163,9 +175,11 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                                 getString(R.string.val_mobile_empty)
                             )
                         }
+
                         Validation.validatePhone(getDataBinding().etMobile.text.toString()) -> {
                             setError(getDataBinding().tilMobile, getString(R.string.val_mobile))
                         }
+
                         else -> {
                             removeError(getDataBinding().tilMobile)
                         }
@@ -213,6 +227,44 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
         viewModel.apply {
             onBtnNextClick?.observe(viewLifecycleOwner) {
                 if (checkValidations()) {
+                    viewModel.signUpApi(
+                        SignUpInput(
+                            first_name = Optional.Present(
+                                getDataBinding().etFirstName.text.toString().trim()
+                            ),
+                            last_name = Optional.Present(
+                                getDataBinding().etLastName.text.toString().trim()
+                            ),
+                            mobile_number = Optional.Present(
+                                getString(R.string.plaus1) + getDataBinding().etMobile.text.toString()
+                                    .trim().filter { it.isDigit() }),
+                            alias = Optional.Present(
+                                getDataBinding().etAlias.text.toString().trim()
+                            ),
+                            password = Optional.Present(
+                                getDataBinding().etPassword.text.toString().trim()
+                            ),
+                            confirm_password = Optional.Present(
+                                getDataBinding().etConfirmPassword.text.toString().trim()
+                            ),
+                            email = Optional.Present(
+                                getDataBinding().etEmail.text.toString().trim()
+                            ),
+                            dob = Optional.Present(
+                                getDataBinding().etDateOfBirth.text.toString().trim()
+                            ),
+                            referral_code = Optional.Present(
+                                getDataBinding().etReferralCode.text.toString().trim()
+                            ),
+                            device_id = Optional.Present(""),
+                            device_type = Optional.Present(getString(R.string._one1)),
+                            ip_address = Optional.Present(getString(R.string._192_168_1_45)),
+                            user_timezone = Optional.Present(getString(R.string.asia_culcutta))
+
+                        )
+                    )
+
+
                     findNavController().navigate(R.id.action_createAccountFragment_to_otpFragment)
                 }
             }
@@ -229,14 +281,14 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                 override fun onClick(p0: View) {
                 }
             },
-            terms.indexOf("terms conditions"),
-            terms.indexOf("terms conditions") + 16,
+            terms.indexOf(getString(R.string.terms_conditions)),
+            terms.indexOf(getString(R.string.terms_conditions)) + 16,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         terms.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.green)),
-            terms.indexOf("terms conditions"), terms.indexOf("terms conditions") + 16,
+            terms.indexOf(getString(R.string.terms_conditions)), terms.indexOf(getString(R.string.terms_conditions)) + 16,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
@@ -246,13 +298,13 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
                 override fun onClick(p0: View) {
                 }
             },
-            terms.indexOf("privacy"),
+            terms.indexOf(getString(R.string.privacy)),
             terms.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         terms.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.green)),
-            terms.indexOf("privacy"), terms.length,
+            terms.indexOf(getString(R.string.privacy)), terms.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
@@ -303,7 +355,7 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
 
                 var cursorPosition = p1 + p3
                 val digits = s?.filter(Char::isDigit)
-                    ?.dropWhile { it == '0' }
+
                     ?.take(11)
                 cursorPosition -= s?.take(cursorPosition)?.run {
                     count { !it.isDigit() } + filter(Char::isDigit).takeWhile { it == '0' }
@@ -360,13 +412,17 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
 
             getDataBinding().tilDateOfBirth.setOnClickListener {
                 datePickerDialog.show()
-                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
-                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)
+                    .setTextColor(Color.BLACK)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)
+                    .setTextColor(Color.BLACK)
             }
             getDataBinding().etDateOfBirth.setOnClickListener {
                 datePickerDialog.show()
-                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
-                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)
+                    .setTextColor(Color.BLACK)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)
+                    .setTextColor(Color.BLACK)
             }
 
 
@@ -381,43 +437,56 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
             getDataBinding().etFirstName.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             getDataBinding().etFirstName.text.toString().length < 2 -> {
                 isValidForm = false
             }
+
             getDataBinding().etLastName.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             getDataBinding().etLastName.text.toString().length < 2 -> {
                 isValidForm = false
             }
+
             getDataBinding().etMobile.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             Validation.validatePhone(getDataBinding().etMobile.text.toString().trim()) -> {
                 isValidForm = false
             }
+
             getDataBinding().etPassword.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             !Validation.isValidPassword(getDataBinding().etPassword.text.toString()) -> {
                 isValidForm = false
             }
+
             getDataBinding().etConfirmPassword.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             !getDataBinding().etConfirmPassword.text.toString().trim()
                 .equals(getDataBinding().etPassword.text.toString().trim()) -> {
                 isValidForm = false
             }
+
             getDataBinding().etEmail.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             !Validation.isEmailValid(getDataBinding().etEmail.text.toString().trim()) -> {
                 isValidForm = false
             }
+
             getDataBinding().etDateOfBirth.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             !getDataBinding().cbSignUp.isChecked -> {
                 isValidForm = false
             }

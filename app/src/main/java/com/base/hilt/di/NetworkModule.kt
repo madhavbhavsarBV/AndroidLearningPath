@@ -52,7 +52,10 @@ class NetworkModule {
      * generate OKhttp client
      */
     @Provides
-    fun getOkHttpClient(httpHandleIntercept: HttpHandleIntercept, authorizationInterceptor: AuthorizationInterceptor): OkHttpClient {
+    fun getOkHttpClient(
+        httpHandleIntercept: HttpHandleIntercept,
+        authorizationInterceptor: AuthorizationInterceptor
+    ): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG) logging.level = HttpLoggingInterceptor.Level.BODY
         val builder = OkHttpClient.Builder()
@@ -65,7 +68,6 @@ class NetworkModule {
 
         return builder.build()
     }
-
 
 
     @Provides

@@ -69,8 +69,6 @@
             app:popUpTo="@id/otpFragment"
             app:popUpToInclusive="true"/>
         <action
-            app:popUpTo="@id/otpFragment"
-            app:popUpToInclusive="true"
             android:id="@+id/action_otpFragment_to_resetPasswordFragment"
             app:destination="@id/resetPasswordFragment" />
     </fragment>

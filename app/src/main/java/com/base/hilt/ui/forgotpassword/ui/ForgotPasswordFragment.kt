@@ -3,19 +3,27 @@ package com.base.hilt.ui.forgotpassword.ui
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
+import com.apollographql.apollo3.api.Optional
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentForgotPasswordBinding
+import com.base.hilt.network.ResponseHandler
+import com.base.hilt.type.ForgotPasswordInput
 import com.base.hilt.ui.forgotpassword.viewmodel.ForgotPasswordViewModel
+import com.base.hilt.utils.CommonDialogs
 import com.base.hilt.utils.Extention.removeError
+import com.base.hilt.utils.PrefKey
 import com.base.hilt.utils.Validation
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class ForgotPasswordFragment :
     FragmentBase<ForgotPasswordViewModel, FragmentForgotPasswordBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_forgot_password
@@ -25,7 +33,7 @@ class ForgotPasswordFragment :
         viewModel.setToolbarItems(
             ToolbarModel(
                 isVisible = true,
-                title = "Forgot Password",
+                title = getString(R.string.forgot_password2),
                 type = 1,
                 backBtnVisible = true,
                 loginVisible = false
@@ -52,25 +60,60 @@ class ForgotPasswordFragment :
 
     private fun observeData() {
 
-        viewModel.apply {
 
+        viewModel.btnSendOtpClick?.observe(viewLifecycleOwner) {
+            if (checkValidations()) {
+                findNavController().navigate(R.id.action_forgotPasswordFragment_to_otpFragment)
 
-            btnSendOtpClick?.observe(viewLifecycleOwner) {
-                if (checkValidations()) {
+                Log.i(
+                    "madmad",
+                    "observeData: pn ${
+                        getDataBinding().etMobile.text.toString().trim().filter { it.isDigit() }
+                    }"
+                )
+                viewModel.forgotPasswordApi(
+                    ForgotPasswordInput(
+                        Optional.Present(
+                            getString(R.string.plaus1).plus(
+                                getDataBinding().etMobile.text.toString().trim()
+                                    .filter { it.isDigit() })
+                        ),
+                        type = Optional.Present("2")
+                    )
+                )
 
-                    findNavController().navigate(R.id.action_forgotPasswordFragment_to_otpFragment)
-                }
 
             }
 
+        }
 
+        viewModel.forgotPasswordLiveData.observe(this) {
+            Log.i("madmad", "observeData: fp vm")
+            when (it) {
+                ResponseHandler.Loading -> {
+                    Log.i("madmad", "observeData:fp loading")
+                    viewModel.showProgressBar(true)
+                }
+
+                is ResponseHandler.OnFailed -> {
+                    viewModel.showProgressBar(false)
+                    Log.i("madmad", "observeData:fp failed ${it.message}")
+                    CommonDialogs.showOkDialog(requireContext(), it.message)
+                }
+
+                is ResponseHandler.OnSuccessResponse -> {
+                    viewModel.showProgressBar(false)
+                    findNavController().navigate(R.id.action_forgotPasswordFragment_to_otpFragment)
+                    Log.i("madmad", "observeData:fp success ${it.response?.data}")
+                }
+            }
         }
 
 
     }
 
 
-    fun updateButton() {
+    private fun updateButton() {
         getDataBinding().btnSendCode.isEnabled = checkValidations()
     }
 
@@ -115,6 +158,7 @@ class ForgotPasswordFragment :
             getDataBinding().etMobile.text.toString().trim().isEmpty() -> {
                 isValidForm = false
             }
+
             Validation.validatePhone(getDataBinding().etMobile.text.toString().trim()) -> {
                 isValidForm = false
             }
@@ -143,7 +187,7 @@ class ForgotPasswordFragment :
 
                     var cursorPosition = p1 + p3
                     val digits = s?.filter(Char::isDigit)
-                        ?.dropWhile { it == '0' }
+
                         ?.take(11)
                     cursorPosition -= s?.take(cursorPosition)?.run {
                         count { !it.isDigit() } + filter(Char::isDigit).takeWhile { it == '0' }
