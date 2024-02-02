@@ -10,21 +10,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:background="@drawable/dialog_error_bg"
-        android:backgroundTint="@color/grey_2"
+        android:backgroundTint="@color/grey"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/lblError"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
-            android:paddingHorizontal="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:gravity="center"
             android:fontFamily="@font/poppins_medium"
             android:textSize="@dimen/_13ssp"
             android:textColor="@color/black"
-            android:paddingVertical="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_20sdp"
             tools:text="Credentials are not correct. Please try again"
             />
 
@@ -32,7 +32,7 @@
             android:id="@+id/vHLine1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
-            android:background="@color/light_grey"
+            android:background="@color/grey_2"
             app:layout_constraintTop_toBottomOf="@id/lblError"
             />
 

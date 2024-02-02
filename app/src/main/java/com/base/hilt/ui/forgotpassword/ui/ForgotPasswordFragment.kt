@@ -62,11 +62,13 @@ class ForgotPasswordFragment :
 
 
         viewModel.btnSendOtpClick?.observe(viewLifecycleOwner) {
+
+            Log.i("madmad21", "fp observeData: ${it}")
             if (checkValidations()) {
-                findNavController().navigate(R.id.action_forgotPasswordFragment_to_otpFragment)
+//                findNavController().navigate(R.id.action_forgotPasswordFragment_to_otpFragment)
 
                 Log.i(
-                    "madmad",
+                    "madmad21",
                     "observeData: pn ${
                         getDataBinding().etMobile.text.toString().trim().filter { it.isDigit() }
                     }"
@@ -88,23 +90,23 @@ class ForgotPasswordFragment :
         }
 
         viewModel.forgotPasswordLiveData.observe(this) {
-            Log.i("madmad", "observeData: fp vm")
+            Log.i("madmad21", "observeData: fp vm")
             when (it) {
                 ResponseHandler.Loading -> {
-                    Log.i("madmad", "observeData:fp loading")
+                    Log.i("madmad21", "observeData:fp loading")
                     viewModel.showProgressBar(true)
                 }
 
                 is ResponseHandler.OnFailed -> {
                     viewModel.showProgressBar(false)
-                    Log.i("madmad", "observeData:fp failed ${it.message}")
-                    CommonDialogs.showOkDialog(requireContext(), it.message)
+                    Log.i("madmad21", "observeData:fp failed ${it.message}")
+                   // CommonDialogs.showOkDialog(requireContext(), it.message)
                 }
 
                 is ResponseHandler.OnSuccessResponse -> {
                     viewModel.showProgressBar(false)
+                    Log.i("madmad21", "observeData:fp success ${it.response?.data}")
                     findNavController().navigate(R.id.action_forgotPasswordFragment_to_otpFragment)
-                    Log.i("madmad", "observeData:fp success ${it.response?.data}")
                 }
             }
         }

@@ -1,0 +1,38 @@
+mutation verifySmsOtp($input: OtpInput!){
+    verifySmsOtp(input:$input){
+        data{
+            user{
+                uuid
+                chat_id
+                first_name
+                last_name
+                email
+                avatar
+                mobile_number
+                status
+                verified
+                dob
+                referral_code
+                wallet_amount
+                usable_wallet_amount
+                total_credit_amount
+                # notification_settings{
+                #     sounds_on
+                #     vibration_on
+                #     preview_on
+                #     inapp_sounds_on
+                #     inapp_vibration_on
+                #     inapp_preview_on
+                # }
+            }
+            access_token
+            password_reset_token
+        }
+        meta{
+            status
+            message
+            message_code
+            status_code
+        }
+    }
+}

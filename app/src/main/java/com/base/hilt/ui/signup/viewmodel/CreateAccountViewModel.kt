@@ -5,20 +5,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.ApolloResponse
-import com.base.hilt.LoginMutation
 import com.base.hilt.SignupMutation
 import com.base.hilt.base.ViewModelBase
+import com.base.hilt.domain.repository.AuthRepository
 import com.base.hilt.network.ResponseHandler
-import com.base.hilt.type.LoginInput
 import com.base.hilt.type.SignUpInput
-import com.base.hilt.ui.signup.repository.CreateAccountRepository
 import com.base.hilt.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateAccountViewModel @Inject constructor(val repository: CreateAccountRepository):ViewModelBase() {
+class CreateAccountViewModel @Inject constructor(val repository: AuthRepository):ViewModelBase() {
 
     var onBtnNextClick: SingleLiveEvent<Boolean>? = SingleLiveEvent()
 

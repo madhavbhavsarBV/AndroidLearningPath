@@ -1,0 +1,14 @@
+mutation resendSmsOtp($input:ResendSmsOtpInput!){
+    resendSmsOtp(input:$input){
+        data{
+            otp
+            uuid
+        }
+        meta{
+            status
+            message
+            message_code
+            status_code
+        }
+    }
+}

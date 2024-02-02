@@ -1,15 +1,89 @@
 package com.base.hilt.base
 
-import com.apollographql.apollo3.ApolloClient
+import android.util.Log
 import com.apollographql.apollo3.api.ApolloResponse
-import com.apollographql.apollo3.api.Mutation
-import com.apollographql.apollo3.api.Query
+import com.apollographql.apollo3.api.Operation
+import com.apollographql.apollo3.exception.ApolloException
+import com.apollographql.apollo3.exception.ApolloHttpException
+import com.base.hilt.network.HttpErrorCode
+import com.base.hilt.network.ResponseHandler
 
 
 open class BaseRepository() {
 
+    suspend fun <T:Operation.Data> graphQlApiCall( call: suspend ()-> ApolloResponse<T> ) : ResponseHandler<ApolloResponse<T>> {
+        return try {
+            Log.i("madmad2", "graphQlApiCall: reached")
+            val response = call.invoke()
 
+            if (response == null) {
+                return ResponseHandler.OnFailed(
+                    HttpErrorCode.BAD_RESPONSE.code,
+                    HttpErrorCode.BAD_RESPONSE.name,
+                    ""
+                )
+            } else if (response.hasErrors()) {
+                Log.i("madmad", "onLoginApi: here2")
+                return ResponseHandler.OnFailed(0, response.errors!![0].message, "")
+            } else {
+                return ResponseHandler.OnSuccessResponse(response)
+            }
 
+        } catch (e: Exception) {
+            Log.i("madmad", "onLoginApi: ${e}")
+
+            when(e){
+                is ApolloException->{
+
+                }
+                is ApolloHttpException->{
+
+                }
+                else->{
+
+                }
+
+            }
+            return (ResponseHandler.OnFailed(0, e.message.toString(), ""))
+        }
+    }
+
+}
+
+//suspend fun <T:Any> makeAPICallGraphQL(call: suspend ()->ApolloResponse<Mutation.Data>): ResponseHandler<T>{
+//    return try {
+//        val response = call
+//
+//        if(response==null){
+//            return ResponseHandler.OnFailed(HttpErrorCode.BAD_RESPONSE.code, HttpErrorCode.BAD_RESPONSE.name,"")
+//        }else if(response.hasErrors()){
+//            Log.i("madmad", "onLoginApi: here2")
+//            return ResponseHandler.OnFailed(0, response.errors!![0].message,"")
+//        }else{
+//            return ResponseHandler.OnSuccessResponse(response)
+//        }
+//
+//    } catch (e:Exception){
+//        Log.i("madmad", "onLoginApi: ${e}")
+//        when(e){
+//            is ApolloException ->{
+//                return (ResponseHandler.OnFailed(
+//                    HttpErrorCode.NO_CONNECTION.code,
+//                    HttpErrorCode.NO_CONNECTION.name,""))
+//            }
+//            is ApolloHttpException ->{
+//                return (ResponseHandler.OnFailed(HttpErrorCode.BAD_RESPONSE.code,e.message.toString(),""))
+//            }
+//            else->{
+//                Log.i("madmad", "onLoginApi: this is called")
+//                null
+//                //return (ResponseHandler.OnFailed(HttpErrorCode.BAD_RESPONSE.code,e.message.toString(),""))
+//            }
+//
+//        }
+////
+//    }
+//    }
 
 
 //
@@ -148,4 +222,4 @@ open class BaseRepository() {
 //            )
 //        }
 //    }
-}
+//}

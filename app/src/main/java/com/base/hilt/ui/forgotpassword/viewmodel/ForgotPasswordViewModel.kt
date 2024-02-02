@@ -9,6 +9,7 @@ import com.apollographql.apollo3.api.Optional
 import com.base.hilt.ForgotPasswordMutation
 import com.base.hilt.LoginMutation
 import com.base.hilt.base.ViewModelBase
+import com.base.hilt.domain.repository.AuthRepository
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ForgotPasswordInput
 import com.base.hilt.ui.forgotpassword.repository.ForgotPasswordRepository
@@ -21,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForgotPasswordViewModel @Inject constructor(
-    private val forgotPasswordRepository: ForgotPasswordRepository
+    private val authRepository: AuthRepository
 ):ViewModelBase() {
 
     init {
@@ -42,7 +43,7 @@ class ForgotPasswordViewModel @Inject constructor(
         viewModelScope.launch {
             _forgotPasswordLiveData.postValue(ResponseHandler.Loading)
             try {
-                val response = forgotPasswordRepository.onForgotPasswordApi(forgotPasswordInput)
+                val response = authRepository.onForgotPasswordApi(forgotPasswordInput)
                 _forgotPasswordLiveData.postValue(response)
             } catch (e:Exception){
 

@@ -7,7 +7,7 @@ import com.base.hilt.network.ResponseData
 import com.base.hilt.network.ResponseHandler
 import javax.inject.Inject
 
-class HomeRepository @Inject constructor(private val apolloClient: ApolloClient) :
+class HomeRepository @Inject constructor(apolloClient: ApolloClient) :
     BaseRepository() {
 
 //    suspend fun callHomeScreenAPI(): ResponseHandler<ResponseData<HomeScreenVendorsListResponse>?> {
