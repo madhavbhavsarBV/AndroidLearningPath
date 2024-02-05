@@ -12,8 +12,6 @@ import com.base.hilt.base.ViewModelBase
 import com.base.hilt.domain.repository.AuthRepository
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ForgotPasswordInput
-import com.base.hilt.ui.forgotpassword.repository.ForgotPasswordRepository
-import com.base.hilt.ui.login.repository.LoginRepository
 import com.base.hilt.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

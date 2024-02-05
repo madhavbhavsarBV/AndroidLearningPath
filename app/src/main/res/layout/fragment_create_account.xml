@@ -15,16 +15,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        android:paddingHorizontal="@dimen/_12sdp"
         tools:context=".ui.auth.ui.SignUpFragment">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".96" />
+
+        <ScrollView
             android:id="@+id/nsvSignUp"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@color/black"
             android:fillViewport="true"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintBottom_toTopOf="@id/btnNext"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -294,7 +309,7 @@
                     app:layout_constraintTop_toTopOf="@id/cbSignUp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNext"
@@ -302,12 +317,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:onClick="@{()->viewmodel.onBtnNextClick()}"
             android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
