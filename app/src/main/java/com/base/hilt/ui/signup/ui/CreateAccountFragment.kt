@@ -3,7 +3,6 @@ package com.base.hilt.ui.signup.ui
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.Path.Op
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
@@ -12,6 +11,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
@@ -21,12 +21,16 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentCreateAccountBinding
+import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.SignUpInput
 import com.base.hilt.ui.signup.viewmodel.CreateAccountViewModel
+import com.base.hilt.utils.CommonDialogs
 import com.base.hilt.utils.Validation
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 
 @AndroidEntryPoint
 class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreateAccountBinding>() {
@@ -224,48 +228,75 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
 
     private fun observeData() {
 
-        viewModel.apply {
-            onBtnNextClick?.observe(viewLifecycleOwner) {
-                if (checkValidations()) {
-                    viewModel.signUpApi(
-                        SignUpInput(
-                            first_name = Optional.Present(
-                                getDataBinding().etFirstName.text.toString().trim()
-                            ),
-                            last_name = Optional.Present(
-                                getDataBinding().etLastName.text.toString().trim()
-                            ),
-                            mobile_number = Optional.Present(
-                                getString(R.string.plaus1) + getDataBinding().etMobile.text.toString()
-                                    .trim().filter { it.isDigit() }),
-                            alias = Optional.Present(
-                                getDataBinding().etAlias.text.toString().trim()
-                            ),
-                            password = Optional.Present(
-                                getDataBinding().etPassword.text.toString().trim()
-                            ),
-                            confirm_password = Optional.Present(
-                                getDataBinding().etConfirmPassword.text.toString().trim()
-                            ),
-                            email = Optional.Present(
-                                getDataBinding().etEmail.text.toString().trim()
-                            ),
-                            dob = Optional.Present(
-                                getDataBinding().etDateOfBirth.text.toString().trim()
-                            ),
-                            referral_code = Optional.Present(
-                                getDataBinding().etReferralCode.text.toString().trim()
-                            ),
-                            device_id = Optional.Present(""),
-                            device_type = Optional.Present(getString(R.string._one1)),
-                            ip_address = Optional.Present(getString(R.string._192_168_1_45)),
-                            user_timezone = Optional.Present(getString(R.string.asia_culcutta))
 
-                        )
+        viewModel.onBtnNextClick?.observe(viewLifecycleOwner) {
+            if (checkValidations()) {
+                viewModel.signUpApi(
+                    SignUpInput(
+                        first_name = Optional.Present(
+                            getDataBinding().etFirstName.text.toString().trim()
+                        ),
+                        last_name = Optional.Present(
+                            getDataBinding().etLastName.text.toString().trim()
+                        ),
+                        mobile_number = Optional.Present(
+                            getString(R.string.plaus1) + getDataBinding().etMobile.text.toString()
+                                .trim().filter { it.isDigit() }),
+                        alias = Optional.Present(
+                            getDataBinding().etAlias.text.toString().trim()
+                        ),
+                        password = Optional.Present(
+                            getDataBinding().etPassword.text.toString().trim()
+                        ),
+                        confirm_password = Optional.Present(
+                            getDataBinding().etConfirmPassword.text.toString().trim()
+                        ),
+                        email = Optional.Present(
+                            getDataBinding().etEmail.text.toString().trim()
+                        ),
+                        dob = Optional.Present(
+                            dobString
+                        ),
+                        referral_code = Optional.Present(
+                            getDataBinding().etReferralCode.text.toString().trim()
+                        ),
+                        device_id = Optional.Present(""),
+                        device_type = Optional.Present(getString(R.string._one1)),
+                        ip_address = Optional.Present(getString(R.string._192_168_1_45)),
+                        user_timezone = Optional.Present(getString(R.string.asia_culcutta))
+
                     )
+                )
+            }
+        }
 
+        viewModel.signUpLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                ResponseHandler.Loading -> {
+                    viewModel.showProgressBar(true)
+                }
 
-                    findNavController().navigate(R.id.action_createAccountFragment_to_otpFragment)
+                is ResponseHandler.OnFailed -> {
+                    viewModel.showProgressBar(false)
+                    CommonDialogs.showOkDialog(requireContext(),it.message)
+                }
+
+                is ResponseHandler.OnSuccessResponse -> {
+                    viewModel.showProgressBar(false)
+                    // uuid mobile otp
+                    if (it.response.data!=null){
+                        val email = it.response.data?.signup?.data?.email
+                        val mobile =it.response.data?.signup?.data?.mobile_number
+                        val otp = it.response.data?.signup?.data?.otp
+                        val type = getString(R.string._one1)
+                        val uuid = it.response.data?.signup?.data?.uuid
+
+                        val otpData= arrayOf(email,mobile,otp,type,uuid)
+
+                        val action = CreateAccountFragmentDirections.actionCreateAccountFragmentToOtpFragment(otpData)
+                        findNavController().navigate(action)
+                    }
+
                 }
             }
         }
@@ -288,7 +319,8 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
 
         terms.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.green)),
-            terms.indexOf(getString(R.string.terms_conditions)), terms.indexOf(getString(R.string.terms_conditions)) + 16,
+            terms.indexOf(getString(R.string.terms_conditions)),
+            terms.indexOf(getString(R.string.terms_conditions)) + 16,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
@@ -391,18 +423,36 @@ class CreateAccountFragment : FragmentBase<CreateAccountViewModel, FragmentCreat
 
     }
 
+    var dobString = ""
+
     private fun setUpDatePicker() {
         context.apply {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
-            val cyear = c.get(Calendar.YEAR)
+            val cyear = year
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
 
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 { view, year, monthOfYear, dayOfMonth ->
-                    getDataBinding().etDateOfBirth.setText("" + (monthOfYear + 1) + "/" + dayOfMonth + "/" + year)
+                    val cal = Calendar.getInstance()
+                    cal[Calendar.MONTH] = monthOfYear
+                    cal[Calendar.DAY_OF_MONTH] = dayOfMonth
+                    cal[Calendar.YEAR] = year
+                    val myDate: Date = cal.time
+                    val str = SimpleDateFormat("MMM dd yyyy").format(myDate)
+                    getDataBinding().etDateOfBirth.setText(str)
+
+                    dobString = SimpleDateFormat("MM-dd-yyyy").format(myDate)
+
+                    if (cyear - year < 18) {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.you_must_be_18_years_old_or_above),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 },
                 year,
                 month,

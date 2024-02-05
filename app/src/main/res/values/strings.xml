@@ -25,7 +25,8 @@
     <string name="welcome">Welcome!</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="or">OR</string>
-    <string name="don_t_have_an_account_sign_up">Don\'t have an account? SIGN UP</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account?&#160;</string>
+    <string name="lbl_sign_up">SIGN UP</string>
     <string name="login">LOGIN</string>
     <string name="mobile">Mobile #*</string>
     <string name="_1">+1</string>
@@ -42,8 +43,8 @@
     <string name="sports">Sports</string>
     <string name="terms">I agree with terms conditions and privacy policy</string>
     <string name="mm_dd_yyyy">MM/DD/YYYY</string>
-    <string name="we_ve_sent_a_4_digit_verification_code">We\'ve sent a 4 digit verification code</string>
-    <string name="n_to_1123_457_890">to +1123 457 890</string>
+    <string name="we_ve_sent_a_4_digit_verification_code">We\'ve sent a 6 digit verification code to</string>
+    <string name="n_to_1123_457_890">+1123 457 890</string>
     <string name="resend_password">Resend Code</string>
     <string name="_00_30s">00:30s</string>
     <string name="continue1">Continue</string>
@@ -158,5 +159,6 @@
     <string name="privacy">privacy</string>
     <string name="forgot_password2">Forgot Password</string>
     <string name="accept_play_get_paid">Accept. Play. Get Paid.</string>
+    <string name="you_must_be_18_years_old_or_above">You must be 18 years old or above.</string>
 
 </resources>

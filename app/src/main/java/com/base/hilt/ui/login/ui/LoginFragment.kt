@@ -6,6 +6,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
+import android.text.style.BackgroundColorSpan
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.util.Log
@@ -70,7 +71,6 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
 
 
         viewModel.onBtnLoginClick?.observe(viewLifecycleOwner) {
-//            Toast.makeText(requireContext(), "${getDataBinding().etMobile.text.toString().trim()}", Toast.LENGTH_SHORT).show()
             if (checkValidations()) {
 
 //                Log.i("madmad", "observeData: on ${ }")
@@ -101,16 +101,13 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
         }
 
         viewModel.loginLiveData.observe(this) {
-            Log.i("madmad live", "observeData: vm")
             when (it) {
                 ResponseHandler.Loading -> {
-                    Log.i("madmad live", "observeData: loading")
                     viewModel.showProgressBar(true)
                 }
 
                 is ResponseHandler.OnFailed -> {
                     viewModel.showProgressBar(false)
-                    Log.i("madmad live", "observeData: failed ${it.message}")
                     CommonDialogs.showOkDialog(requireContext(),it.message)
                 }
 
@@ -118,7 +115,6 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
                     viewModel.showProgressBar(false)
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     pref.setValueBoolean(PrefKey.IS_LOGINED, true)
-                    Log.i("madmad live", "observeData: success ${it.response?.data}")
                 }
             }
         }
@@ -131,21 +127,15 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
 
 
     private fun setSignUpNavigation() {
-        val signup = SpannableString(getString(R.string.don_t_have_an_account_sign_up))
+        val signup = SpannableString(getString(R.string.lbl_sign_up))
 
         signup.setSpan(object : ClickableSpan() {
             override fun onClick(p0: View) {
                 findNavController().navigate(R.id.action_loginFragment_to_createAccountFragment)
             }
 
-        }, 23, signup.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }, 0, signup.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        signup.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.green_2)),
-            23,
-            signup.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
         getDataBinding().tvSignUp.movementMethod = LinkMovementMethod.getInstance()
 
 

@@ -30,8 +30,8 @@ class LoginViewModel @Inject constructor(
     var onBtnLoginClick: SingleLiveEvent<Boolean>? = SingleLiveEvent()
     var onBtnForgotPasswordClick: SingleLiveEvent<Boolean>? = SingleLiveEvent()
 
-    private val _loginLiveData = MutableLiveData<ResponseHandler<ApolloResponse<LoginMutation.Data>>?>()
-    val loginLiveData: LiveData<ResponseHandler<ApolloResponse<LoginMutation.Data>>?> = _loginLiveData
+    private val _loginLiveData = SingleLiveEvent<ResponseHandler<ApolloResponse<LoginMutation.Data>>?>()
+    val loginLiveData: SingleLiveEvent<ResponseHandler<ApolloResponse<LoginMutation.Data>>?> = _loginLiveData
 
 
     fun btnLoginClick() {

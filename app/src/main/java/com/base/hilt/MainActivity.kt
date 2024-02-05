@@ -16,9 +16,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+//import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        installSplashScreen()
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
@@ -87,31 +90,13 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         binding.layToolbar.imgBack.setOnClickListener {
-            onBackPressed()
+            navController.popBackStack()
         }
+
+        handleBackClick()
 
         // set up create challenge dialog
         setUpCreateChallengeDialog()
-
-
-//        binding.navView.menu.getItem(2).setOnMenuItemClickListener {
-//            val builder = AlertDialog.Builder(this@MainActivity, R.style.CustomAlertDialog)
-//                .create()
-//            val view = layoutInflater.inflate(R.layout.dialog_challenge, null)
-//            view.findViewById<ImageView>(R.id.ivClose).setOnClickListener {
-//                builder.dismiss()
-//            }
-//
-//            view.findViewById<Button>(R.id.btnCreateChallenge).setOnClickListener {
-//                navController.navigate(R.id.challengeFragment)
-//                builder.dismiss()
-//            }
-//
-//            builder.setView(view)
-//            builder.setCanceledOnTouchOutside(true)
-//            builder.show()
-//            true
-//        }
 
 
     }
@@ -154,44 +139,6 @@ class MainActivity : AppCompatActivity() {
     /**
      * Toolbar manages items and visibility according to
      */
-//    fun toolBarManagement(toolbarModel: ToolbarModel?) {
-//        if (toolbarModel != null) {
-////            when {
-////                toolbarModel.isVisible -> {
-////                    binding.layToolbar.appBar.visibility = View.VISIBLE
-////                    binding.layToolbar.toolbarTitle.text = toolbarModel.title
-////                }
-////                else -> {
-////                    binding.layToolbar.appBar.visibility = View.GONE
-////                }
-////            }
-////
-////            when {
-////                toolbarModel.loginVisible -> {
-////                    binding.layToolbar.toolbarLogin.visibility = View.VISIBLE
-////                }
-////                else -> {
-////                    binding.layToolbar.toolbarLogin.visibility = View.INVISIBLE
-////                }
-////            }
-////            when {
-////                toolbarModel.backBtnVisible -> {
-////                    binding.layToolbar.imgBack.visibility = View.VISIBLE
-////                }
-////                else -> {
-////                    binding.layToolbar.imgBack.visibility = View.INVISIBLE
-////                }
-////            }
-//            if (toolbarModel.isBottomNavVisible) {
-//                binding.navView.visibility = View.VISIBLE
-//                binding.imgBrandLogo.visibility = View.VISIBLE
-//            } else {
-//                binding.navView.visibility = View.GONE
-//                binding.imgBrandLogo.visibility = View.GONE
-//            }
-//
-//        }
-//    }
 
 
     fun toolBarManagement(toolbarModel: ToolbarModel?) {
@@ -269,11 +216,11 @@ class MainActivity : AppCompatActivity() {
         super.applyOverrideConfiguration(overrideConfiguration)
     }
 
-    override fun onBackPressed() {
+    fun onBackClicked() {
 //        Log.i("madmad3", "onBackPressed: ${navHostFragment.}")
         when (navHostFragment.childFragmentManager.fragments[0]) {
             is MessagesFragment, is NotificationsFragment, is AccountFragment ,is UniverseFragment-> {
-                navHostFragment.navController.navigate(R.id.homeFragment)
+                navController.navigate(R.id.homeFragment)
             }
 
             is LoginFragment, is HomeFragment -> {
@@ -281,12 +228,21 @@ class MainActivity : AppCompatActivity() {
             }
 
             else -> {
-                navHostFragment.navController.popBackStack()
+                navController.popBackStack()
             }
 
         }
 
 
+    }
+
+    private fun handleBackClick() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // back is pressed
+                onBackClicked()
+            }
+        })
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

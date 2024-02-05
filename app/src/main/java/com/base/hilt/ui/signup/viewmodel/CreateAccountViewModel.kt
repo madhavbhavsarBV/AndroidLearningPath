@@ -26,20 +26,16 @@ class CreateAccountViewModel @Inject constructor(val repository: AuthRepository)
     }
 
 
-    private val _signUpLiveData = MutableLiveData<ResponseHandler<ApolloResponse<SignupMutation.Data>>>()
-    val signUpLiveData: LiveData<ResponseHandler<ApolloResponse<SignupMutation.Data>>> = _signUpLiveData
+    private val _signUpLiveData = SingleLiveEvent<ResponseHandler<ApolloResponse<SignupMutation.Data>>>()
+    val signUpLiveData: SingleLiveEvent<ResponseHandler<ApolloResponse<SignupMutation.Data>>> = _signUpLiveData
+
 
     fun signUpApi(signUpInput : SignUpInput){
         Log.i("mad2", "loginApi: vm called")
         viewModelScope.launch {
-
             _signUpLiveData.postValue(ResponseHandler.Loading)
-            try {
-                val result =  repository.onSignUpApi(signUpInput)
-                _signUpLiveData.postValue(result)
-            } catch (e: Exception) {
-                _signUpLiveData.postValue( ResponseHandler.OnFailed(0,"exception ${e}","0"))
-            }
+            val result =  repository.onSignUpApi(signUpInput)
+            _signUpLiveData.postValue(result)
         }
     }
 

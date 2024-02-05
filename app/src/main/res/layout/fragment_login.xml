@@ -222,18 +222,40 @@
         </ScrollView>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvSignUp"
+            android:id="@+id/tvSignUpLbl"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="bottom"
+            android:background="@color/black"
+            android:backgroundTint="@color/black"
             android:text="@string/don_t_have_an_account_sign_up"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintEnd_toStartOf="@id/tvSignUp"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:focusable="false"
+            android:clickable="false"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="bottom"
+            android:background="@color/black"
+            android:backgroundTint="@color/black"
+            android:text="@string/lbl_sign_up"
+            android:textColor="@color/green_2"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/tvSignUpLbl"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
