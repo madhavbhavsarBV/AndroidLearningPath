@@ -14,31 +14,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        android:padding="@dimen/_24sdp"
         tools:context=".ui.onboarding.ui.OnBoardingFragment">
 
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".96" />
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpOnBoarding"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:overScrollMode="never"
             app:layout_constraintBottom_toTopOf="@id/btnNext"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNext"
-            android:layout_width="match_parent"
-            android:minHeight="0dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_background"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="@string/next"
+            style="@style/CustomButton"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:enabled="true"
             android:onClick="@{()->viewmodel.onBtnNextClick()}"
-            android:letterSpacing="0"
-            android:textSize="@dimen/_14ssp"
-            app:backgroundTint="@null"
+            android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toBottomOf="@id/vpOnBoarding" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

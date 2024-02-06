@@ -217,7 +217,7 @@
             android:visibility="@{toolbar.type==4 ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="parent">
 
-            \
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgBackStep"
                 android:layout_width="wrap_content"

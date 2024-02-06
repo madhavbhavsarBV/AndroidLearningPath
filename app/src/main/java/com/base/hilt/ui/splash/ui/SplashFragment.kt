@@ -32,7 +32,7 @@ class SplashFragment : FragmentBase<ViewModelBase, FragmentSplashBinding>() {
         viewModel.setToolbarItems(ToolbarModel())
     }
 
-    override fun getViewModelClass(): Class<ViewModelBase> = ViewModelBase::class.java
+    override fun getViewModelClass(): Class<ViewModelBase   > = ViewModelBase::class.java
 
 
     override fun initializeScreenVariables() {

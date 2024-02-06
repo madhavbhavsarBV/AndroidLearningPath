@@ -8,13 +8,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.base.hilt"
         minSdkVersion 24
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -103,6 +103,9 @@ dependencies {
 
     // view pager 2
     implementation 'androidx.viewpager2:viewpager2:1.0.0-beta02'
+
+    // slpash
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 }
 
 apollo {
