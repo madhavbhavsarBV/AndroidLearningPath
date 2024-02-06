@@ -51,7 +51,7 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
         getDataBinding().viewmodel = viewModel
 
         // set spannable signup and btn navigation
-        setSignUpNavigation()
+       // setSignUpNavigation()
 
         // text watcher for mobile number style +1 (111) 111-1111
         setTextWatcherMobile()
@@ -69,6 +69,10 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
 
     private fun observeData() {
 
+
+        viewModel.onBtnSignUpClick?.observe(viewLifecycleOwner){
+            findNavController().navigate(R.id.action_loginFragment_to_createAccountFragment)
+        }
 
         viewModel.onBtnLoginClick?.observe(viewLifecycleOwner) {
             if (checkValidations()) {
@@ -115,6 +119,7 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
                     viewModel.showProgressBar(false)
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     pref.setValueBoolean(PrefKey.IS_LOGINED, true)
+                    pref.setValueString(PrefKey.TOKEN, it.response.data?.login?.data?.access_token)
                 }
             }
         }
@@ -131,7 +136,7 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
 
         signup.setSpan(object : ClickableSpan() {
             override fun onClick(p0: View) {
-                findNavController().navigate(R.id.action_loginFragment_to_createAccountFragment)
+
             }
 
         }, 0, signup.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

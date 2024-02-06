@@ -24,7 +24,7 @@ open class BaseRepository() {
                 )
             } else if (response.hasErrors()) {
                 Log.i("madmad", "onLoginApi: here2")
-                return ResponseHandler.OnFailed(0, response.errors!![0].message, "")
+                return ResponseHandler.OnFailed(0, response.errors.toString(), "")
             } else {
                 return ResponseHandler.OnSuccessResponse(response)
             }

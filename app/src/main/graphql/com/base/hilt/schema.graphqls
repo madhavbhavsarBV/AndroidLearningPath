@@ -209,6 +209,7 @@ type PaginatorInfo {
 
 type Query {
     Configuration(app_version: String!, device_type: Int!, version_code: String!): ConfigurationResponse
+#    Configuration: ConfigurationResponse
     Faq: FaqListResponse
     LikeChallengeCommentList(input: LikeChallengeCommentListInput!): LikeChallengeCommentListResponse!
     UserData: UserDataResponse!

@@ -27,11 +27,12 @@ class LoginViewModel @Inject constructor(
 ) : ViewModelBase() {
 
 
+    val onBtnSignUpClick: SingleLiveEvent<Boolean>? = SingleLiveEvent()
     var onBtnLoginClick: SingleLiveEvent<Boolean>? = SingleLiveEvent()
     var onBtnForgotPasswordClick: SingleLiveEvent<Boolean>? = SingleLiveEvent()
 
-    private val _loginLiveData = SingleLiveEvent<ResponseHandler<ApolloResponse<LoginMutation.Data>>?>()
-    val loginLiveData: SingleLiveEvent<ResponseHandler<ApolloResponse<LoginMutation.Data>>?> = _loginLiveData
+    val loginLiveData = SingleLiveEvent<ResponseHandler<ApolloResponse<LoginMutation.Data>>?>()
+
 
 
     fun btnLoginClick() {
@@ -39,14 +40,17 @@ class LoginViewModel @Inject constructor(
         Log.i("madmad", "observeData: vm 0")
     }
 
+    fun btnSignUpClick() {
+        onBtnSignUpClick?.call()
+    }
 
 
-    fun loginApi(loginReq : LoginInput){
+    fun loginApi(loginReq: LoginInput) {
         Log.i("mad2", "loginApi: vm called")
         viewModelScope.launch {
-            _loginLiveData.postValue(ResponseHandler.Loading)
-            val result =  authRepository.onLoginApi(loginReq)
-            _loginLiveData.postValue(result)
+            loginLiveData.postValue(ResponseHandler.Loading)
+            val result = authRepository.onLoginApi(loginReq)
+            loginLiveData.postValue(result)
         }
     }
 

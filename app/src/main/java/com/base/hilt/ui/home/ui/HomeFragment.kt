@@ -1,14 +1,19 @@
 package com.base.hilt.ui.home.ui
 
+import android.util.Log
 import com.base.hilt.MainActivity
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentHomeBinding
+import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.home.adapter.HomeViewPagerAdapter
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
+import com.base.hilt.utils.MyPreference
+import com.base.hilt.utils.PrefKey
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : FragmentBase<HomeViewModel, FragmentHomeBinding>() {
@@ -42,6 +47,59 @@ class HomeFragment : FragmentBase<HomeViewModel, FragmentHomeBinding>() {
                 2->tab.text = getString(R.string.past_1)
             }
         }.attach()
+
+        viewModel.userDataApiCall()
+        viewModel.challengeListingCountApiCall()
+        viewModel.unreadNotificationCountApiCall()
+
+        observeData()
+
+    }
+
+    @Inject
+    lateinit var pref:MyPreference
+    private fun observeData() {
+        Log.i("madhome", "observeData: ${pref.getValueString(PrefKey.TOKEN,"ff")}")
+        viewModel.userDataLiveData.observe(viewLifecycleOwner){
+            when(it){
+                ResponseHandler.Loading -> {
+
+                }
+                is ResponseHandler.OnFailed -> {
+                    Log.i("madhome", "ud observeData: ${it.message}")
+                }
+                is ResponseHandler.OnSuccessResponse ->{
+                    Log.i("madhome", "observeData: ${it.response}")
+                }
+            }
+        }
+        viewModel.challengeListingCountLiveData.observe(viewLifecycleOwner){
+            when(it){
+                ResponseHandler.Loading -> {
+
+                }
+                is ResponseHandler.OnFailed -> {
+                    Log.i("madhome", "clc observeData: ${it.message}")
+                }
+                is ResponseHandler.OnSuccessResponse ->{
+                    Log.i("madhome", "observeData: ${it.response}")
+                }
+            }
+        }
+        viewModel.unreadNotificationCountLiveData.observe(viewLifecycleOwner){
+            when(it){
+                ResponseHandler.Loading -> {
+
+                }
+                is ResponseHandler.OnFailed -> {
+                    Log.i("madhome", "unc observeData: ${it.message}")
+                }
+                is ResponseHandler.OnSuccessResponse ->{
+                    Log.i("madhome", "observeData: ${it.response}")
+                }
+            }
+        }
+
 
     }
 

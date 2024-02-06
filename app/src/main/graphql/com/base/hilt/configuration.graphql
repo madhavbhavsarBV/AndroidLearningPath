@@ -1,0 +1,41 @@
+query configuration($device_type:Int!, $version_code:String!, $app_version : String!) {
+    Configuration(device_type: $device_type, version_code: $version_code, app_version: $app_version ){
+        meta{
+            status
+            message
+            message_code
+            status_code
+        }
+        data{
+            credit_conversion_rate
+            deposit_percentage_charge
+            withdrawal_disclaimer_text
+            withdrawal_percentage_charge
+            min_wallet_amount_transfer_between_two_user
+            max_wallet_amount_transfer_between_two_users_wallet
+            max_challenge_amount
+            min_add_amount_to_wallet
+            max_add_amount_to_wallet
+            min_withdrawl_amount_from_wallet
+            max_withdrawl_amount_from_wallet
+            max_active_challenges_per_user
+            notification_settings
+            abuse_report_categories{
+                id
+                name
+            }
+            support_categories{
+                cat_type
+                id
+                name
+                order
+            }
+            force_updates{
+                force_update
+                link
+                message
+            }
+
+        }
+    }
+}

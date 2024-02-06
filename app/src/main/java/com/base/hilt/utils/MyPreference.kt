@@ -20,11 +20,19 @@ class MyPreference @Inject constructor(private var mSharedPref: SharedPreference
         return mSharedPref.getString(key, defaultValue)
     }
 
-    fun setValueString(key: String, value: String) {
-        mSharedPref.edit {
-            putString(key, value)
-            apply()
+    fun setValueString(key: String, value: String?) {
+        if(value==null){
+            mSharedPref.edit {
+                putString(key, "")
+                apply()
+            }
+        }else{
+            mSharedPref.edit {
+                putString(key, value)
+                apply()
+            }
         }
+
     }
 
     fun getValueBoolean(

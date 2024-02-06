@@ -1,5 +1,9 @@
 package com.base.hilt.di
 
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.network.okHttpClient
 import com.base.hilt.BuildConfig
@@ -7,10 +11,13 @@ import com.base.hilt.ConfigFiles
 import com.base.hilt.network.ApiInterface
 import com.base.hilt.network.AuthorizationInterceptor
 import com.base.hilt.network.HttpHandleIntercept
+import com.base.hilt.utils.MyPreference
+import com.base.hilt.utils.PrefKey
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -41,9 +48,19 @@ class NetworkModule {
     fun provideApiInterface(@RetrofitStore retrofit: Retrofit): ApiInterface =
         retrofit.create(ApiInterface::class.java)
 
+    @Provides
+    fun provideSharedPreferencess(@ApplicationContext context: Context): SharedPreferences =
+        EncryptedSharedPreferences.create(
+            PrefKey.PREFERENCE_NAME,
+            MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+            context,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
 
     @Provides
-    fun provideHttpHandleIntercept(): HttpHandleIntercept = HttpHandleIntercept()
+    fun provideHttpHandleIntercept(@ApplicationContext context: Context): HttpHandleIntercept =
+        HttpHandleIntercept(myPreference = MyPreference(provideSharedPreferencess(context)))
 
     @Provides
     fun provideHAuthIntercept(): AuthorizationInterceptor = AuthorizationInterceptor()

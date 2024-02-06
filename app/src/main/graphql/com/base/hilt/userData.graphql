@@ -1,0 +1,26 @@
+query userData{
+    UserData {
+        meta{
+            status
+            message
+            message_code
+            status_code
+        }
+        data{
+            uuid
+            chat_id
+            first_name
+            last_name
+            mobile_number
+            dob
+            email
+            referral_code
+            verified
+            wallet_amount
+            total_credit_amount
+            usable_credit_amount
+            notification_settings
+            avatar
+        }
+    }
+}

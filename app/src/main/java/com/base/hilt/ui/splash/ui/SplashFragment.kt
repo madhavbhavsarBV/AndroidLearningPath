@@ -1,12 +1,17 @@
 package com.base.hilt.ui.splash.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.fragment.findNavController
+import com.base.hilt.BuildConfig
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.base.ViewModelBase
 import com.base.hilt.databinding.FragmentSplashBinding
+import com.base.hilt.domain.model.ConfigInput
+import com.base.hilt.network.ResponseHandler
+import com.base.hilt.ui.splash.viewmodel.SplashViewModel
 import com.base.hilt.utils.MyPreference
 import com.base.hilt.utils.PrefKey
 import com.bumptech.glide.Glide
@@ -19,7 +24,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SplashFragment : FragmentBase<ViewModelBase, FragmentSplashBinding>() {
+class SplashFragment : FragmentBase<SplashViewModel, FragmentSplashBinding>() {
 
     @Inject
     lateinit var pref:MyPreference
@@ -32,11 +37,37 @@ class SplashFragment : FragmentBase<ViewModelBase, FragmentSplashBinding>() {
         viewModel.setToolbarItems(ToolbarModel())
     }
 
-    override fun getViewModelClass(): Class<ViewModelBase   > = ViewModelBase::class.java
+    override fun getViewModelClass(): Class<SplashViewModel> = SplashViewModel::class.java
 
 
     override fun initializeScreenVariables() {
-        Glide.with(requireContext()).load(R.drawable.splash_anim).into(DrawableImageViewTarget(getDataBinding().ivLogo));
+        Glide.with(requireContext()).load(R.drawable.splash_anim).into(DrawableImageViewTarget(getDataBinding().ivLogo))
+
+        viewModel.callConfigApi(ConfigInput(
+            device_type = 2,
+            app_version = BuildConfig.VERSION_NAME,
+            version_code = BuildConfig.VERSION_CODE.toString()
+        ))
+        observeData()
+
+    }
+
+    private fun observeData() {
+
+        viewModel.configLiveData.observe(viewLifecycleOwner){
+            when(it){
+                ResponseHandler.Loading -> {
+                    Log.i("madconfig", "observeData: config loading")
+                }
+                is ResponseHandler.OnFailed -> {
+                    Log.i("madconfig", "observeData: config failed ${it.message}")
+                }
+                is ResponseHandler.OnSuccessResponse -> {
+                    Log.i("madconfig", "observeData: config succ ${it.response.data}")
+                }
+            }
+        }
+
     }
 
     override fun onResume() {

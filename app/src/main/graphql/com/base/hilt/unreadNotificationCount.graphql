@@ -1,0 +1,13 @@
+query unreadNotificationCount{
+    unreadNotificationCount{
+        meta{
+            status
+            message
+            message_code
+            status_code
+        },
+        data{
+            notificationCount
+        }
+    }
+}

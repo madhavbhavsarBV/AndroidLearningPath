@@ -14,5 +14,6 @@ object PrefKey {
     const val TOKEN = "token"
     const val GETTING_STARTED = "getting_started"
     const val IS_LOGINED = "is_logined"
+    const val IS_LOGIN = "is_logined"
 
 }

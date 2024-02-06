@@ -9,12 +9,14 @@ import com.base.hilt.base.ToolbarModel
 import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.FragmentHomeInvitesBinding
 import com.base.hilt.databinding.RowHomeInvitesBinding
+import com.base.hilt.type.ChallengeListInput
 import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
 import com.base.hilt.ui.home.model.HomeInvitesModel
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.LineNumberReader
 
-
+@AndroidEntryPoint
 class HomeInvitesFragment : FragmentBase<HomeViewModel, FragmentHomeInvitesBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_invites
 
@@ -23,6 +25,10 @@ class HomeInvitesFragment : FragmentBase<HomeViewModel, FragmentHomeInvitesBindi
     }
 
     override fun initializeScreenVariables() {
+        // challenge list api
+//        viewModel.challengeListApiCall(ChallengeListInput(
+//
+//        ))
 
         setUpHomeInvitesAdapter()
     }
