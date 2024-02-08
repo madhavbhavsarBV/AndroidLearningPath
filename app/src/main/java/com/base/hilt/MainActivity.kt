@@ -250,9 +250,9 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun backGroundColor() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        window.statusBarColor = ContextCompat.getColor(this, android.R.color.black)
         window.navigationBarColor = ContextCompat.getColor(this, android.R.color.black)
-        window.setBackgroundDrawableResource(R.drawable.bg_account)
+//        window.setBackgroundDrawableResource(R.drawable.bg_account)
     }
 
     fun backGroundColorBlack() {

@@ -5,6 +5,7 @@ import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Operation
 import com.apollographql.apollo3.exception.ApolloException
 import com.apollographql.apollo3.exception.ApolloHttpException
+import com.base.hilt.network.GraphQLErrors
 import com.base.hilt.network.HttpErrorCode
 import com.base.hilt.network.ResponseHandler
 
@@ -23,8 +24,10 @@ open class BaseRepository() {
                     ""
                 )
             } else if (response.hasErrors()) {
+
+                val error = response.errors?.let { GraphQLErrors(it) }
                 Log.i("madmad", "onLoginApi: here2")
-                return ResponseHandler.OnFailed(0, response.errors.toString(), "")
+                return ResponseHandler.OnFailed(0, response.errors.toString(),"")
             } else {
                 return ResponseHandler.OnSuccessResponse(response)
             }

@@ -14,11 +14,13 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentGroupDetailBinding
+import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.groupdetail.adapter.ParticipantsRecyclerViewAdapter
 import com.base.hilt.ui.groupdetail.model.ParticipantsModel
 import com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDetailBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_group_detail
 
@@ -70,14 +72,26 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     }
 
     private fun observeData() {
-        viewModel.apply {
-            onCommentClick?.observe(viewLifecycleOwner) {
-                val dialog = CommentsBottomSheetFragment()
-                dialog.show(childFragmentManager, "")
-            }
 
-
+        viewModel.onCommentClick?.observe(viewLifecycleOwner) {
+            val dialog = CommentsBottomSheetFragment()
+            dialog.show(childFragmentManager, "")
         }
+
+        viewModel.challengeDetailLiveData.observe(viewLifecycleOwner){
+            when(it){
+                ResponseHandler.Loading -> {
+
+                }
+                is ResponseHandler.OnFailed -> {
+
+                }
+                is ResponseHandler.OnSuccessResponse -> {
+
+                }
+            }
+        }
+
     }
 
     override fun getViewModelClass(): Class<GroupDetailViewModel> = GroupDetailViewModel::class.java
@@ -86,6 +100,16 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
         //setStatus bar color black
         (requireActivity() as MainActivity).backGroundColorBlack()
         super.onDestroyView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        callApi()
+    }
+
+    private fun callApi() {
+
+//        viewModel.challengeDetailApiCall()
     }
 }
 

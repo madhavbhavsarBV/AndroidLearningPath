@@ -1,27 +1,30 @@
 package com.base.hilt.ui.home.adapter
 
 import android.content.Context
+import com.base.hilt.ChallengeListQuery
 import com.base.hilt.R
 import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowHomeInvitesBinding
 import com.base.hilt.ui.home.model.HomeInvitesModel
 
-class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<HomeInvitesModel>, var onClick:()->Unit
+class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<ChallengeListQuery.Data1>, var onClick:()->Unit
 )
-    : GenericRecyclerViewAdapter<HomeInvitesModel, RowHomeInvitesBinding>(context,list){
+    : GenericRecyclerViewAdapter<ChallengeListQuery.Data1, RowHomeInvitesBinding>(context,list){
 
     override val layoutResId: Int
         get() = R.layout.row_home_invites
 
     override fun onBindData(
-        model: HomeInvitesModel,
+        model: ChallengeListQuery.Data1,
         position: Int,
         dataBinding: RowHomeInvitesBinding
     ) {
+
+        dataBinding.tvCardTitle.text = model.title.toString()
         //
     }
 
-    override fun onItemClick(model: HomeInvitesModel, position: Int, dataBinding: RowHomeInvitesBinding) {
+    override fun onItemClick(model: ChallengeListQuery.Data1, position: Int, dataBinding: RowHomeInvitesBinding) {
         onClick.invoke()
     }
 }

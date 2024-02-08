@@ -2,6 +2,7 @@ package com.base.hilt.domain.repository
 
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
+import com.base.hilt.ChallengeDetailQuery
 import com.base.hilt.ChallengeListQuery
 import com.base.hilt.ChallengeListingCountQuery
 import com.base.hilt.UnreadNotificationCountQuery
@@ -37,6 +38,12 @@ class DashboardRepository @Inject constructor(
     suspend fun unreadNotificationCount(): ResponseHandler<ApolloResponse<UnreadNotificationCountQuery.Data>> {
         return graphQlApiCall {
             apolloClient.query(UnreadNotificationCountQuery()).execute()
+        }
+    }
+
+    suspend fun challengeDetailApi(uuid:String): ResponseHandler<ApolloResponse<ChallengeDetailQuery.Data>> {
+        return graphQlApiCall {
+            apolloClient.query(ChallengeDetailQuery(uuid)).execute()
         }
     }
 }

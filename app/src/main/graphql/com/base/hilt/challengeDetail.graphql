@@ -1,0 +1,84 @@
+query challengeDetail($uuid:String!){
+    challengeDetail(input: {uuid:$uuid}) {
+        meta {
+            status
+            message
+            message_code
+            status_code
+        }
+        data {
+            uuid
+            title
+            description
+            image
+            type
+            amount
+            jackpot_amount
+            total_spectators
+            total_participants
+            start_at
+            accept_by
+            end_at
+            is_judge
+            is_author
+            is_winner
+            is_spectator
+            is_participant
+            is_ended
+            current_date
+            author {
+                uuid
+                first_name
+                last_name
+                avatar
+            }
+            judge {
+                uuid
+                first_name
+                last_name
+                avatar
+            }
+            participants {
+                uuid
+                first_name
+                last_name
+                avatar
+                invite_status
+                mobile_number
+            }
+            winner {
+                uuid
+                first_name
+                last_name
+                avatar
+            }
+            modification_request {
+                uuid
+                challenge_id
+                amount
+                description
+                judge {
+                    uuid
+                    first_name
+                    last_name
+                    avatar
+                }
+                invitation_accept_date
+                end_at
+                amount_approved
+                description_approved
+                judge_id_approved
+                invitation_accept_date_approved
+                end_at_approved
+                status
+                action_on
+            }
+            winner_declare_by
+            winner_declare_at
+            allow_to_edit
+            invite_status
+            challenge_status
+            invitation_status_label
+        }
+    }
+}

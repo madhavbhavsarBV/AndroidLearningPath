@@ -1,4 +1,6 @@
 package com.base.hilt.ui.home.model
 
-class HomeInvitesModel {
+import com.base.hilt.ChallengeListQuery
+
+class HomeInvitesModel() {
 }

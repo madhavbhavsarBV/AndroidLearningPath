@@ -160,5 +160,11 @@
     <string name="forgot_password2">Forgot Password</string>
     <string name="accept_play_get_paid">Accept. Play. Get Paid.</string>
     <string name="you_must_be_18_years_old_or_above">You must be 18 years old or above.</string>
+    <string name="api_invites">invites</string>
+    <string name="api_past">past</string>
+    <string name="api_active">active</string>
+    <string name="challenge_ending_soon1">Challenge Ending Soon</string>
+    <string name="you_re_in_details"><![CDATA[You\'re In! Details > >]]></string>
+    <string name="ending_on_feb_08_2024">ENDING ON: Feb 08 2024</string>
 
 </resources>

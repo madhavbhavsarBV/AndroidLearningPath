@@ -6,9 +6,10 @@ import okhttp3.Response
 class AuthorizationInterceptor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
-            .addHeader("Authorization", HttpCommonMethod.getAuthToken())
-            .build()
-
-        return chain.proceed(request)
+        val token = HttpCommonMethod.getAuthToken()
+        if (token.isNotEmpty()) {
+            request.addHeader("Authorization", HttpCommonMethod.getAuthToken())
+        }
+        return chain.proceed(request.build())
     }
 }

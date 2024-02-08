@@ -120,6 +120,7 @@
                 android:padding="5dp"
                 android:paddingStart="@dimen/_5sdp"
                 android:text="@string/_99c"
+                android:focusable="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
                 app:cornerRadius="16dp"

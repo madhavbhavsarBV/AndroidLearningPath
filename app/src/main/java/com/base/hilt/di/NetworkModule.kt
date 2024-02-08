@@ -59,8 +59,8 @@ class NetworkModule {
         )
 
     @Provides
-    fun provideHttpHandleIntercept(@ApplicationContext context: Context): HttpHandleIntercept =
-        HttpHandleIntercept(myPreference = MyPreference(provideSharedPreferencess(context)))
+    fun provideHttpHandleIntercept(): HttpHandleIntercept =
+        HttpHandleIntercept()
 
     @Provides
     fun provideHAuthIntercept(): AuthorizationInterceptor = AuthorizationInterceptor()
