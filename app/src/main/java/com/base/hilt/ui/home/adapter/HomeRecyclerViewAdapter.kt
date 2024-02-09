@@ -1,13 +1,15 @@
 package com.base.hilt.ui.home.adapter
 
 import android.content.Context
+import android.util.Log
 import com.base.hilt.ChallengeListQuery
 import com.base.hilt.R
 import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowHomeInvitesBinding
 import com.base.hilt.ui.home.model.HomeInvitesModel
+import kotlin.math.log
 
-class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<ChallengeListQuery.Data1>, var onClick:()->Unit
+class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<ChallengeListQuery.Data1>, var onClick:(String?)->Unit
 )
     : GenericRecyclerViewAdapter<ChallengeListQuery.Data1, RowHomeInvitesBinding>(context,list){
 
@@ -25,6 +27,7 @@ class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<ChallengeListQ
     }
 
     override fun onItemClick(model: ChallengeListQuery.Data1, position: Int, dataBinding: RowHomeInvitesBinding) {
-        onClick.invoke()
+        Log.i("maduuid", "onItemClick: ic")
+        onClick.invoke(model.uuid)
     }
 }

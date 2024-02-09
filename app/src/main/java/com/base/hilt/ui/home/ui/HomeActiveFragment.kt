@@ -1,5 +1,6 @@
 package com.base.hilt.ui.home.ui
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
 import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
+import com.base.hilt.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -26,6 +28,8 @@ class HomeActiveFragment : FragmentBase<HomeViewModel,FragmentHomeActiveBinding 
     }
 
     override fun initializeScreenVariables() {
+
+        callApi()
 
         // observeData
         observeData()
@@ -71,11 +75,11 @@ class HomeActiveFragment : FragmentBase<HomeViewModel,FragmentHomeActiveBinding 
                     it.response.data.let {
                         it?.challengeList?.data.let {
                             if (!it.isNullOrEmpty()) {
-                                getDataBinding().groupIfListEmpty.visibility = View.GONE
+                                getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
                                 getDataBinding().rvHomeActive.visibility = View.VISIBLE
                                 setUpHomeInvitesAdapter(it)
                             } else {
-                                getDataBinding().groupIfListEmpty.visibility = View.VISIBLE
+                                getDataBinding().layNoData.groupIfListEmpty.visibility = View.VISIBLE
                                 getDataBinding().rvHomeActive.visibility = View.GONE
                             }
                         }
@@ -95,16 +99,13 @@ class HomeActiveFragment : FragmentBase<HomeViewModel,FragmentHomeActiveBinding 
         getDataBinding().rvHomeActive.adapter =
             HomeRecyclerViewAdapter(requireContext(),
                 list as ArrayList<ChallengeListQuery.Data1>, onClick = {
-                    findNavController().navigate(R.id.groupDetailFragment)
+                    val bundle = Bundle()
+                    bundle.putString(Constants.UUID,it)
+                    findNavController().navigate(R.id.groupDetailFragment,bundle)
                 })
         getDataBinding().rvHomeActive.layoutManager = LinearLayoutManager(requireContext())
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        callApi()
-        Log.i("madres", "onResume: active tab change res called")
-    }
 
 }

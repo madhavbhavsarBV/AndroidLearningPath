@@ -1,5 +1,6 @@
 package com.base.hilt.ui.home.ui
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import com.base.hilt.type.ChallengeListInput
 import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
 import com.base.hilt.ui.home.model.HomeInvitesModel
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
+import com.base.hilt.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -79,11 +81,11 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
                     it.response.data.let {
                         it?.challengeList?.data.let {
                             if (!it.isNullOrEmpty()) {
-                                getDataBinding().groupIfListEmpty.visibility = View.GONE
+                                getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
                                 getDataBinding().rvHomePast.visibility = View.VISIBLE
                                 setUpHomeInvitesAdapter(it)
                             } else {
-                                getDataBinding().groupIfListEmpty.visibility = View.VISIBLE
+                                getDataBinding().layNoData.groupIfListEmpty.visibility = View.VISIBLE
                                 getDataBinding().rvHomePast.visibility = View.GONE
                             }
                         }
@@ -104,7 +106,9 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
         getDataBinding().rvHomePast.adapter =
             HomeRecyclerViewAdapter(requireContext(),
                 list as ArrayList<ChallengeListQuery.Data1>, onClick = {
-                    findNavController().navigate(R.id.groupDetailFragment)
+                    val bundle = Bundle()
+                    bundle.putString(Constants.UUID,it)
+                    findNavController().navigate(R.id.groupDetailFragment,bundle)
                 })
         getDataBinding().rvHomePast.layoutManager = LinearLayoutManager(requireContext())
 

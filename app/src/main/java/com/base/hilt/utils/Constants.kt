@@ -6,4 +6,5 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 object Constants {
     val JSON = jacksonObjectMapper()
     val PREF_NAME = BuildConfig.APPLICATION_ID
+    const val UUID = "uuid"
 }

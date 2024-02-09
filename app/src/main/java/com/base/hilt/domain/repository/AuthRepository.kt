@@ -5,6 +5,7 @@ import com.apollographql.apollo3.api.ApolloResponse
 import com.base.hilt.ConfigurationQuery
 import com.base.hilt.ForgotPasswordMutation
 import com.base.hilt.LoginMutation
+import com.base.hilt.LogoutMutation
 import com.base.hilt.ResendSmsOtpMutation
 import com.base.hilt.SignupMutation
 import com.base.hilt.VerifySmsOtpMutation
@@ -60,6 +61,12 @@ class AuthRepository @Inject constructor (
         }
     }
 
+
+    suspend fun onLogoutApi(): ResponseHandler<ApolloResponse<LogoutMutation.Data>> {
+        return graphQlApiCall {
+            apolloClient.mutation(LogoutMutation()).execute()
+        }
+    }
 
 
 }

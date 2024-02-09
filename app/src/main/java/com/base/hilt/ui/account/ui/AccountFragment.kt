@@ -10,6 +10,7 @@ import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.base.ViewModelBase
 import com.base.hilt.databinding.FragmentAccountBinding
+import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.account.adapter.AccountRecyclerViewAdapter
 import com.base.hilt.ui.account.model.AccountModel
 import com.base.hilt.ui.account.viewmodel.AccountViewModel
@@ -66,10 +67,25 @@ class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
         viewModel.apply {
 
             onLogOutClick?.observe(viewLifecycleOwner){
-                findNavController().navigate(R.id.action_accountsFragment_to_loginFragment)
-                pref.setBeanValue(PrefKey.IS_LOGINED, false)
+                logoutApi()
             }
 
+
+            onLogOutLiveData.observe(viewLifecycleOwner){
+                when(it){
+                    ResponseHandler.Loading -> {
+                        viewModel.showProgressBar(true)
+                    }
+                    is ResponseHandler.OnFailed -> {
+                        viewModel.showProgressBar(false)
+                    }
+                    is ResponseHandler.OnSuccessResponse -> {
+                        viewModel.showProgressBar(false)
+                        findNavController().navigate(R.id.action_accountsFragment_to_loginFragment)
+                        pref.setBeanValue(PrefKey.IS_LOGINED, false)
+                    }
+                }
+            }
 
         }
 
@@ -84,4 +100,9 @@ class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
 
     override fun getViewModelClass(): Class<AccountViewModel> = AccountViewModel::class.java
 
+//    fun fun
+
+    fun logoutApi(){
+        viewModel.onLogoutApi()
+    }
 }

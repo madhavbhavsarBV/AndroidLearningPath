@@ -1,6 +1,7 @@
 package com.base.hilt.ui.home.ui
 
 import android.util.Log
+import android.widget.TextView
 import com.base.hilt.MainActivity
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
@@ -42,6 +43,7 @@ class HomeFragment : FragmentBase<HomeViewModel, FragmentHomeBinding>() {
                 0-> {
                     tab.text = getString(R.string.invites_1)
                     tab.setCustomView(R.layout.layout_tab_item)
+//                    tab.getPosition(0).customView?.findViewById<TextView>(R.id.tvBadge).setText()
                 }
                 1->tab.text = getString(R.string.active_1)
                 2->tab.text = getString(R.string.past_1)

@@ -165,10 +165,12 @@
                 app:layout_constraintTop_toTopOf="@id/tvCredits" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nscScrollView"
+
+        <ScrollView
+            android:id="@+id/scvAccount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/clAccount">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -178,29 +180,34 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvAccount"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:nestedScrollingEnabled="true"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLogOut"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:onClick="@{()->viewmodel.onLogoutClick()}"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:text="@string/logout"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rcvAccount" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvLogOut"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center"
-            android:onClick="@{()->viewmodel.onLogoutClick()}"
-            android:paddingVertical="@dimen/_6sdp"
-            android:text="@string/logout"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nscScrollView" />
+        </ScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

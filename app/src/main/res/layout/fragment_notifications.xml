@@ -10,17 +10,24 @@
             type="com.base.hilt.ui.notifications.viewmodel.NotificationsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.notifications.ui.NotificationsFragment">
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srlNotification"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rcvNotifications"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvNotifications"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

@@ -2,6 +2,7 @@ package com.base.hilt.ui.groupdetail.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,11 +19,14 @@ import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.groupdetail.adapter.ParticipantsRecyclerViewAdapter
 import com.base.hilt.ui.groupdetail.model.ParticipantsModel
 import com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel
+import com.base.hilt.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDetailBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_group_detail
+
+    private var uuid: String? = null
 
     override fun setupToolbar() {
         viewModel.setToolbarItems(
@@ -40,6 +44,8 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     }
 
     override fun initializeScreenVariables() {
+
+        uuid = arguments?.getString(Constants.UUID)
 
         getDataBinding().layGroupDetail.viewmodel = viewModel
 //        getDataBinding().layComments.viewmodel= viewModel
@@ -81,12 +87,16 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
         viewModel.challengeDetailLiveData.observe(viewLifecycleOwner){
             when(it){
                 ResponseHandler.Loading -> {
-
+                    viewModel.showProgressBar(true)
+                    Log.i("maduuid", "callApi:loading")
                 }
                 is ResponseHandler.OnFailed -> {
-
+                    viewModel.showProgressBar(false)
+                    Log.i("maduuid", "callApi: ${it.message}")
                 }
                 is ResponseHandler.OnSuccessResponse -> {
+                    viewModel.showProgressBar(false)
+                    Log.i("maduuid", "callApi: ${it.response.data?.challengeDetail.toString()}")
 
                 }
             }
@@ -104,12 +114,16 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
 
     override fun onResume() {
         super.onResume()
+        uuid = arguments?.getString(Constants.UUID)
         callApi()
     }
 
     private fun callApi() {
+        Log.i("maduuid", "callApi: ${uuid} ${arguments?.getString(Constants.UUID)}")
+        uuid?.let {
 
-//        viewModel.challengeDetailApiCall()
+            viewModel.challengeDetailApiCall(it)
+        }
     }
 }
 
