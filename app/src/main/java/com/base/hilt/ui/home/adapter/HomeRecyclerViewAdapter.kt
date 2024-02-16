@@ -21,9 +21,7 @@ class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<ChallengeListQ
         position: Int,
         dataBinding: RowHomeInvitesBinding
     ) {
-
-        dataBinding.tvCardTitle.text = model.title.toString()
-        //
+        dataBinding.model =model
     }
 
     override fun onItemClick(model: ChallengeListQuery.Data1, position: Int, dataBinding: RowHomeInvitesBinding) {

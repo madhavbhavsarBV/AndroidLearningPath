@@ -166,5 +166,9 @@
     <string name="challenge_ending_soon1">Challenge Ending Soon</string>
     <string name="you_re_in_details"><![CDATA[You\'re In! Details > >]]></string>
     <string name="ending_on_feb_08_2024">ENDING ON: Feb 08 2024</string>
+    <string name="lbl_judge">JUDGE</string>
+    <string name="_3_participants">3 Participants</string>
+    <string name="_0_spectators">0 Spectators</string>
+    <string name="space_world">Space World</string>
 
 </resources>

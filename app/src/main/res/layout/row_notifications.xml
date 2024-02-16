@@ -7,14 +7,15 @@
 
         <variable
             name="model"
-            type="com.base.hilt.ui.notifications.model.NotificationsModel" />
+            type="com.base.hilt.NotificationsListQuery.Data1" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:id="@+id/clNotification"
-        android:background="@{model.isRead ? @color/white: @color/light_green, default= @color/light_green}"
         android:layout_height="wrap_content">
+<!--        android:background="@{model.isRead ? @color/white: @color/light_green, default= @color/light_green}"-->
+
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/sivProfile"
@@ -37,7 +38,7 @@
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:fontFamily="@font/poppins_semibold"
             android:maxLines="2"
-            android:text="@string/theelderbanshee_has_2000_challenged_you"
+            android:text="@{model.content.toString()}"
             android:textColor="@color/black"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold"
@@ -50,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/_24w"
+            android:text="@{model.ago.toString()}"
             android:textColor="@color/grey_5"
             android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toBottomOf="@id/sivProfile"

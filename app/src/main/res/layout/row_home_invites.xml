@@ -60,6 +60,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/black"
+                android:text="@{model.title}"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="@+id/tvChallengeEndingSoon"
                 app:layout_constraintStart_toStartOf="parent"

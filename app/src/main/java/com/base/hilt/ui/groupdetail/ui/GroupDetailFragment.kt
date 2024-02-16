@@ -17,6 +17,7 @@ import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentGroupDetailBinding
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.groupdetail.adapter.ParticipantsRecyclerViewAdapter
+import com.base.hilt.ui.groupdetail.model.ChallengeModel
 import com.base.hilt.ui.groupdetail.model.ParticipantsModel
 import com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel
 import com.base.hilt.utils.Constants
@@ -59,6 +60,13 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
         //set Up Participants Recycler Adapter
         setUpParticipantsRecyclerAdapter()
 
+        //scroll listener
+        scrollListener()
+
+
+    }
+
+    private fun scrollListener() {
 
     }
 
@@ -97,6 +105,9 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
                 is ResponseHandler.OnSuccessResponse -> {
                     viewModel.showProgressBar(false)
                     Log.i("maduuid", "callApi: ${it.response.data?.challengeDetail.toString()}")
+                    it.response.data?.challengeDetail.let {
+                        getDataBinding().layGroupDetail.model = ChallengeModel(type = it?.data?.type)
+                    }
 
                 }
             }

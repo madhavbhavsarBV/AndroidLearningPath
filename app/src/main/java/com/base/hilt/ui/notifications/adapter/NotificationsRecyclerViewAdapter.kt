@@ -20,9 +20,7 @@ class NotificationsRecyclerViewAdapter(context: Context, list: ArrayList<Notific
         position: Int,
         dataBinding: RowNotificationsBinding
     ) {
-
-
-
+        dataBinding.model = model
     }
 
     override fun onItemClick(model: NotificationsListQuery.Data1, position: Int,dataBinding: RowNotificationsBinding) {

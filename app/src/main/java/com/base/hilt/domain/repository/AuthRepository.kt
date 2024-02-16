@@ -8,6 +8,7 @@ import com.base.hilt.LoginMutation
 import com.base.hilt.LogoutMutation
 import com.base.hilt.ResendSmsOtpMutation
 import com.base.hilt.SignupMutation
+import com.base.hilt.UserDataQuery
 import com.base.hilt.VerifySmsOtpMutation
 import com.base.hilt.base.BaseRepository
 import com.base.hilt.base.ViewModelBase
@@ -67,6 +68,10 @@ class AuthRepository @Inject constructor (
             apolloClient.mutation(LogoutMutation()).execute()
         }
     }
-
+    suspend fun userData(): ResponseHandler<ApolloResponse<UserDataQuery.Data>> {
+        return graphQlApiCall {
+            apolloClient.query(UserDataQuery()).execute()
+        }
+    }
 
 }

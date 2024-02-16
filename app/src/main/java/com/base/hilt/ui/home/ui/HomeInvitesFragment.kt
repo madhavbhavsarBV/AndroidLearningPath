@@ -87,16 +87,27 @@ class HomeInvitesFragment : FragmentBase<HomeViewModel, FragmentHomeInvitesBindi
                     Log.i("maddata", "observeData: ${it.response.data?.challengeList}")
                     it.response.data.let {
                         it?.challengeList?.data.let {
+                            Log.i("madhere", "observeData: ${it}")
                             if (!it.isNullOrEmpty()) {
+                                Log.i("madhere", "observeData:1")
                                 getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
                                 getDataBinding().rvHomeInvites.visibility = View.VISIBLE
                                 setUpHomeInvitesAdapter(it)
                             } else {
+                                Log.i("madhere", "observeData:2")
+                                getDataBinding().layNoData.groupIfListEmpty.visibility = View.VISIBLE
+                                getDataBinding().rvHomeInvites.visibility = View.GONE
+                            }
+                        }
+
+                        it?.challengeList?.paginatorInfo?.totalRecords.let {
+                            if (it==0){
                                 getDataBinding().layNoData.groupIfListEmpty.visibility = View.VISIBLE
                                 getDataBinding().rvHomeInvites.visibility = View.GONE
                             }
                         }
                     }
+
 
                 }
             }

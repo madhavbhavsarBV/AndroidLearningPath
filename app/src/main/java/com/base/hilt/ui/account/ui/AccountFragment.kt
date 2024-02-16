@@ -35,6 +35,8 @@ class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
 
         getDataBinding().viewmodel = viewModel
 
+        viewModel.onUserDataApiCall()
+
         // observe live data
         observeData()
 
@@ -83,6 +85,20 @@ class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
                         viewModel.showProgressBar(false)
                         findNavController().navigate(R.id.action_accountsFragment_to_loginFragment)
                         pref.setBeanValue(PrefKey.IS_LOGINED, false)
+                    }
+                }
+            }
+
+            userDataLiveData.observe(viewLifecycleOwner){
+                when(it){
+                    ResponseHandler.Loading -> {
+                        viewModel.showProgressBar(true)
+                    }
+                    is ResponseHandler.OnFailed -> {
+                        viewModel.showProgressBar(true)
+                    }
+                    is ResponseHandler.OnSuccessResponse->{
+                        viewModel.showProgressBar(false)
                     }
                 }
             }

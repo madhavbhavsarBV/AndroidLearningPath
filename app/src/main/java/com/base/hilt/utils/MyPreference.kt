@@ -39,11 +39,11 @@ class MyPreference @Inject constructor(private var mSharedPref: SharedPreference
         key: String,
         defaultValue: Boolean
     ): Boolean {
-        return mSharedPref!!.getBoolean(key, defaultValue)
+        return mSharedPref.getBoolean(key, defaultValue)
     }
 
     fun setValueBoolean(key: String, value: Boolean) {
-        mSharedPref?.edit {
+        mSharedPref.edit {
             putBoolean(key, value)
             apply()
         }
@@ -53,18 +53,18 @@ class MyPreference @Inject constructor(private var mSharedPref: SharedPreference
         key: String,
         defaultValue: Int
     ): Int {
-        return mSharedPref!!.getInt(key, defaultValue)
+        return mSharedPref.getInt(key, defaultValue)
     }
 
     fun setValueInt(key: String, value: Int) {
-        mSharedPref?.edit {
+        mSharedPref.edit {
             putInt(key, value)
             apply()
         }
     }
 
     private fun clearAllData() {
-        mSharedPref?.edit {
+        mSharedPref.edit {
             clear()
             clearAllData()
             apply()
@@ -72,7 +72,7 @@ class MyPreference @Inject constructor(private var mSharedPref: SharedPreference
     }
 
     fun setBeanValue(key: String, myObj: Any) {
-        val prefsPrivateEditor = mSharedPref!!.edit()
+        val prefsPrivateEditor = mSharedPref.edit()
 
         val arrayOutputStream = ByteArrayOutputStream()
 
@@ -100,7 +100,7 @@ class MyPreference @Inject constructor(private var mSharedPref: SharedPreference
 
     fun getBeanValue(key: String): Any? {
 
-        val bytes = mSharedPref!!.getString(key, "{}")!!.toByteArray()
+        val bytes = mSharedPref.getString(key, "{}")!!.toByteArray()
         if (bytes.isEmpty()) {
             return null
         }

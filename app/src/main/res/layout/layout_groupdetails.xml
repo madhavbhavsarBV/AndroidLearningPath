@@ -5,17 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel" />
 
+        <import type="android.view.View"/>
+        <variable
+            name="model"
+            type="com.base.hilt.ui.groupdetail.model.ChallengeModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clGroupDetail"
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:visibility="visible">
 
 
@@ -28,63 +33,85 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:background="@color/white"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/g1v1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{(model.type1v1())?View.VISIBLE:View.GONE,default = gone}"
+                    app:constraint_referenced_ids="sivPlayer1,sivPlayer2,tvPlayer1,tvPlayer2,ivIcon2" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/gGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{(model.typeGroup())?View.VISIBLE:View.GONE,default = gone}"
+                    app:constraint_referenced_ids="tvParticipants, rcvParticipants,tvNoParticipants,tvNoSpectators,ivIcon1" />
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.04" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.96" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideMid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clTopCard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_140sdp"
                     android:background="@drawable/bg_account"
                     android:paddingBottom="@dimen/_70sdp"
                     app:layout_constraintTop_toTopOf="parent">
 
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvInvitedYou"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:visibility="invisible"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/invited_you_to"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp"
-                        app:layout_constraintBottom_toTopOf="@id/tvSecondAnnual"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvSecondAnnual"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:gravity="center"
-                        android:lines="2"
-                        android:text="@string/_2nd_annual_running_and_cornhole_challenge_lorem_ipsum_dolor"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_15ssp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvInvitedYou" />
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvSecondAnnual"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="@string/_2nd_annual_running_and_cornhole_challenge_lorem_ipsum_dolor"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    app:layout_constraintBottom_toTopOf="@id/imgProfile"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart" />
 
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgProfile"
                     android:layout_width="@dimen/_85sdp"
                     android:layout_height="@dimen/_85sdp"
+                    android:background="@drawable/iv_border"
                     android:paddingStart="@dimen/_7sdp"
                     android:scaleType="centerCrop"
-                    android:background="@drawable/iv_border"
                     android:src="@drawable/ic_launcher_background"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/clTopCard"
                     app:layout_constraintBottom_toBottomOf="@id/clTopCard"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
+                    app:layout_constraintTop_toBottomOf="@id/clTopCard"
                     app:shapeAppearanceOverlay="@style/customRoundedImageView" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -157,17 +184,18 @@
                     android:text="@string/group_challenge"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/clJackpot" />
 
                 <View
                     android:id="@+id/vHorizontalLine"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:background="@color/light_grey"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/tvGroupChallenge" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -179,58 +207,61 @@
                     android:drawablePadding="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_medium"
                     android:paddingHorizontal="@dimen/_20sdp"
-                    android:text="@string/challenge_ending_soon"
                     android:paddingVertical="@dimen/_2sdp"
-                    android:textSize="@dimen/_8ssp"
+                    android:text="@string/challenge_ending_soon"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="@dimen/_8ssp"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/vHorizontalLine" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvParticipants"
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/participants"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/tvChallengeEnding" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvParticipants"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+
                     android:orientation="horizontal"
-                    tools:itemCount="2"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    tools:listitem="@layout/row_participants"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@id/tvParticipants" />
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
+                    app:layout_constraintTop_toBottomOf="@id/tvParticipants"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/row_participants" />
 
 
                 <View
                     android:id="@+id/vHorizontalLine2"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/_1sdp"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@color/light_grey"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/rcvParticipants" />
+
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgProfIcon"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:padding="@dimen/_2sdp"
                     android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@+id/vHorizontalLine2"
                     app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
                     app:srcCompat="@drawable/ic_launcher_background"
@@ -267,18 +298,6 @@
                     app:layout_constraintStart_toStartOf="@+id/tvHost"
                     app:layout_constraintTop_toBottomOf="@id/tvHost" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_3sdp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="@string/group"
-                    android:textColor="@color/green"
-                    android:textSize="@dimen/_10ssp"
-                    app:layout_constraintBottom_toBottomOf="@id/tvHost"
-                    app:layout_constraintStart_toEndOf="@+id/tvHost"
-                    app:layout_constraintTop_toTopOf="@+id/tvHost" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgProfWinner"
@@ -291,7 +310,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imgProfIcon"
                     app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
                     app:srcCompat="@drawable/ic_launcher_background"
-                    app:strokeColor="@color/pink"
+                    app:strokeColor="#FF9800"
                     app:strokeWidth="2dp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -299,11 +318,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_2sdp"
-                    android:background="@drawable/bg_gradient_pink"
+                    android:background="@drawable/bg_gradient_yellow"
                     android:fontFamily="@font/poppins_medium"
                     android:paddingHorizontal="@dimen/_5sdp"
                     android:paddingTop="@dimen/_2sdp"
-                    android:text="@string/winner"
+                    android:text="@string/lbl_judge"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8ssp"
@@ -323,6 +342,105 @@
                     app:layout_constraintTop_toBottomOf="@id/tvWinner" />
 
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivIcon1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/ic_vme_icon"
+                    app:layout_constraintEnd_toEndOf="@id/guideMid"
+                    app:layout_constraintStart_toStartOf="@id/guideMid"
+                    app:layout_constraintTop_toBottomOf="@id/vHorizontalLine2" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvNoParticipants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/_3_participants"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintTop_toBottomOf="@id/vHorizontalLine2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvNoSpectators"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/_0_spectators"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintTop_toBottomOf="@id/tvNoParticipants" />
+
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/sivPlayer1"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toStartOf="@id/ivIcon2"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWinnerName"
+                    app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    app:strokeWidth="2dp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvPlayer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="@id/sivPlayer1"
+                    app:layout_constraintStart_toStartOf="@id/sivPlayer1"
+                    app:layout_constraintTop_toBottomOf="@id/sivPlayer1"
+                    tools:text="@string/space_world" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivIcon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/ic_vme_icon"
+                    app:layout_constraintEnd_toStartOf="@id/sivPlayer2"
+                    app:layout_constraintStart_toEndOf="@id/sivPlayer1"
+                    app:layout_constraintTop_toBottomOf="@id/vHorizontalLine2"
+                    app:layout_constraintTop_toTopOf="@id/sivPlayer1" />
+
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/sivPlayer2"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toEndOf="@id/ivIcon2"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWinnerName"
+                    app:shapeAppearanceOverlay="@style/ImageShapeAppearanceCircle"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    app:strokeWidth="2dp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvPlayer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="@id/sivPlayer2"
+                    app:layout_constraintStart_toStartOf="@id/sivPlayer2"
+                    app:layout_constraintTop_toBottomOf="@id/sivPlayer2"
+                    tools:text="@string/space_world" />
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clEndingChallenge"
                     android:layout_width="match_parent"
@@ -330,9 +448,9 @@
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/btn_ending"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imgProfWinner">
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlayer1">
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -358,33 +476,30 @@
                     android:id="@+id/tvTestChallenge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_20sdp"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="@string/test_challenge"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/clEndingChallenge" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvAcceptBy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="@string/accept_by_jan_11_2024"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_regular"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvEndBy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="@string/end_by_jan_11_2024"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_regular"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
                     app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
 
 
@@ -398,8 +513,8 @@
                     android:enabled="true"
                     android:text="@string/select_winner"
                     android:textAllCaps="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/tvEndBy"
 
                     />
@@ -407,11 +522,12 @@
 
                 <View
                     android:id="@+id/vHorizontalLine3"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/_1sdp"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:background="@color/light_grey"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/btnSelectWinner" />
 
                 <com.google.android.material.button.MaterialButton
@@ -421,26 +537,27 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:drawableEnd="@drawable/ic_messages"
                     android:drawableTint="@color/white"
-                    android:onClick="@{()->viewmodel.onCommentClick()}"
                     android:fontFamily="@font/poppins_medium"
+                    android:letterSpacing="0"
+                    android:onClick="@{()->viewmodel.onCommentClick()}"
                     android:paddingHorizontal="@dimen/_30sdp"
                     android:text="@string/comments"
-                    android:letterSpacing="0"
                     android:textAllCaps="false"
                     app:backgroundTint="@color/blue_3"
                     app:cornerRadius="@dimen/_20sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/vHorizontalLine3" />
 
                 <View
                     android:id="@+id/vHorizontalLine4"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/_1sdp"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginVertical="@dimen/_5sdp"
                     android:background="@color/light_grey"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideEnd"
+                    app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/btnComments" />
 
 
@@ -449,18 +566,18 @@
 
         </androidx.core.widget.NestedScrollView>
 
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/_2sdp"-->
-<!--            android:background="@color/light_grey"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/cvComments"/>-->
+        <!--        <View-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="@dimen/_2sdp"-->
+        <!--            android:background="@color/light_grey"-->
+        <!--            app:layout_constraintBottom_toTopOf="@id/cvComments"/>-->
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvComments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardPreventCornerOverlap="false"
             app:cardElevation="@dimen/_8sdp"
+            app:cardPreventCornerOverlap="false"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -490,23 +607,23 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etComments"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:background="@drawable/btn_comment"
+                    android:clickable="true"
+                    android:drawableEnd="@drawable/ic_emoji"
                     android:editable="false"
                     android:focusable="true"
-                    android:textColorHint="@color/grey_2"
-                    android:inputType="none"
-                    android:onClick="@{()->viewmodel.onCommentClick()}"
-                    android:clickable="true"
                     android:fontFamily="@font/poppins_regular"
-                    android:drawableEnd="@drawable/ic_emoji"
                     android:hint="@string/write_a_comment"
+                    android:inputType="none"
                     android:maxLines="4"
-                    android:id="@+id/etComments"
+                    android:onClick="@{()->viewmodel.onCommentClick()}"
                     android:paddingHorizontal="@dimen/_8sdp"
                     android:paddingVertical="@dimen/_8sdp"
+                    android:textColorHint="@color/grey_2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/ivGif"
