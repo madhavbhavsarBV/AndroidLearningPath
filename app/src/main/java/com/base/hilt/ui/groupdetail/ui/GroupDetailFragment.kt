@@ -1,15 +1,8 @@
 package com.base.hilt.ui.groupdetail.ui
 
-import android.os.Build
-import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.base.hilt.ChallengeDetailQuery
 import com.base.hilt.MainActivity
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
@@ -18,7 +11,6 @@ import com.base.hilt.databinding.FragmentGroupDetailBinding
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.groupdetail.adapter.ParticipantsRecyclerViewAdapter
 import com.base.hilt.ui.groupdetail.model.ChallengeModel
-import com.base.hilt.ui.groupdetail.model.ParticipantsModel
 import com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel
 import com.base.hilt.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +20,7 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     override fun getLayoutId(): Int = R.layout.fragment_group_detail
 
     private var uuid: String? = null
+    private var adapter :ParticipantsRecyclerViewAdapter?=null
 
     override fun setupToolbar() {
         viewModel.setToolbarItems(
@@ -49,7 +42,6 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
         uuid = arguments?.getString(Constants.UUID)
 
         getDataBinding().layGroupDetail.viewmodel = viewModel
-//        getDataBinding().layComments.viewmodel= viewModel
 
         //observe data
         observeData()
@@ -57,8 +49,6 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
         //status bar color change
         (requireActivity() as MainActivity).backGroundColor()
 
-        //set Up Participants Recycler Adapter
-        setUpParticipantsRecyclerAdapter()
 
         //scroll listener
         scrollListener()
@@ -70,20 +60,7 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
 
     }
 
-    private fun setUpParticipantsRecyclerAdapter() {
-        val adapter = ParticipantsRecyclerViewAdapter(requireContext(), arrayListOf(
-            ParticipantsModel(),
-            ParticipantsModel(),
-            ParticipantsModel()
-        ), onItemBtnClick = {
-            val dialog = ParticipantsListFragment()
-            dialog.show(childFragmentManager, "")
-        })
-        getDataBinding().layGroupDetail.rcvParticipants.adapter = adapter
-        getDataBinding().layGroupDetail.rcvParticipants.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-    }
 
     private fun observeData() {
 
@@ -107,7 +84,16 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
                     Log.i("maduuid", "callApi: ${it.response.data?.challengeDetail.toString()}")
                     it.response.data?.challengeDetail.let {
                         getDataBinding().layGroupDetail.model = ChallengeModel(type = it?.data?.type)
+
+                        it?.data?.participants.let {
+                            if (it!=null){
+                                setUpParticipantsRecyclerView(it as List<ChallengeDetailQuery.Participant>)
+                            }
+                        }
+
                     }
+
+
 
                 }
             }
@@ -117,7 +103,6 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
 
     override fun getViewModelClass(): Class<GroupDetailViewModel> = GroupDetailViewModel::class.java
     override fun onDestroyView() {
-
         //setStatus bar color black
         (requireActivity() as MainActivity).backGroundColorBlack()
         super.onDestroyView()
@@ -132,9 +117,19 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     private fun callApi() {
         Log.i("maduuid", "callApi: ${uuid} ${arguments?.getString(Constants.UUID)}")
         uuid?.let {
-
             viewModel.challengeDetailApiCall(it)
         }
+    }
+
+    private fun setUpParticipantsRecyclerView(list:List<ChallengeDetailQuery.Participant>) {
+       adapter = ParticipantsRecyclerViewAdapter(requireContext(), list as ArrayList<ChallengeDetailQuery.Participant>, onItemBtnClick = {
+            val dialog = ParticipantsListFragment()
+            dialog.show(childFragmentManager, "")
+        })
+        getDataBinding().layGroupDetail.rcvParticipants.adapter = adapter
+        getDataBinding().layGroupDetail.rcvParticipants.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
     }
 }
 

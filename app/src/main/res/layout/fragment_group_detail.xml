@@ -18,16 +18,16 @@
             layout="@layout/layout_groupdetails"
             android:id="@+id/layGroupDetail"
             />
-        <include
-            layout="@layout/layout_comments"
-            android:id="@+id/layComments"
-            android:visibility="gone"
-            />
-        <include
-            layout="@layout/layout_participants"
-            android:id="@+id/layParticipants"
-            android:visibility="gone"
-            />
+<!--        <include-->
+<!--            layout="@layout/layout_comments"-->
+<!--            android:id="@+id/layComments"-->
+<!--            android:visibility="gone"-->
+<!--            />-->
+<!--        <include-->
+<!--            layout="@layout/layout_participants"-->
+<!--            android:id="@+id/layParticipants"-->
+<!--            android:visibility="gone"-->
+<!--            />-->
 
 
     </FrameLayout>

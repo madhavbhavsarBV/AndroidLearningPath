@@ -1,5 +1,7 @@
 package com.base.hilt.ui.groupdetail.model
 
-class ParticipantsModel {
+import com.base.hilt.ChallengeDetailQuery
+
+class ParticipantsModel(){
 
 }

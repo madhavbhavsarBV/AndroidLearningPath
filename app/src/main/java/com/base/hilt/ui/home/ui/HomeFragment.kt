@@ -61,7 +61,6 @@ class HomeFragment : FragmentBase<HomeViewModel, FragmentHomeBinding>() {
     @Inject
     lateinit var pref:MyPreference
     private fun observeData() {
-        Log.i("madhome", "observeData: ${pref.getValueString(PrefKey.TOKEN,"ff")}")
         viewModel.userDataLiveData.observe(viewLifecycleOwner){
             when(it){
                 ResponseHandler.Loading -> {

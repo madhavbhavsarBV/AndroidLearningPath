@@ -22,4 +22,13 @@ object Extention {
         this.setErrorIconDrawable(0)
         this.boxStrokeErrorColor = ColorStateList.valueOf(resources.getColor(R.color.black))
     }
+
+
+//    fun <T, Q> T.asQ(): Q {
+//        if (this is Q) {
+//            return this as Q
+//        } else {
+//            throw ClassCastException("Cannot cast ${this::class.simpleName} to ${Q::class.simpleName}")
+//        }
+//    }
 }
