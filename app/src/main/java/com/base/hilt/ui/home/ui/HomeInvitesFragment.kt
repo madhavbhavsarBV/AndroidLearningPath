@@ -12,25 +12,28 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentHomeInvitesBinding
+import com.base.hilt.domain.model.ChallengeData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
+import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
 import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
 import com.base.hilt.ui.home.model.ChallengeListModel
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.base.hilt.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import mapToChallengeData
 
 @AndroidEntryPoint
 class HomeInvitesFragment() :
     FragmentBase<HomeViewModel, FragmentHomeInvitesBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_invites
 
-    lateinit var adapter: HomeRecyclerViewAdapter
+    lateinit var adapter: ChallengeListRecyclerAdapter
     var page = 1
     var isLastPage = false
     var isLoading = false
     lateinit var layoutManager: LinearLayoutManager
-    var invitesList: ArrayList<ChallengeListModel> = arrayListOf()
+    var invitesList: ArrayList<ChallengeData> = arrayListOf()
 
     override fun setupToolbar() {
         viewModel.setToolbarItems(
@@ -48,6 +51,7 @@ class HomeInvitesFragment() :
 
         //set Recycler View
         setRecyclerView()
+
         // observeData
         observeData()
 
@@ -60,6 +64,10 @@ class HomeInvitesFragment() :
 
     private fun setRecyclerView() {
         layoutManager = LinearLayoutManager(requireContext())
+        adapter = ChallengeListRecyclerAdapter(requireContext(),invitesList, onClick = {
+
+        })
+        getDataBinding().rvHomeInvites.adapter = adapter
         getDataBinding().rvHomeInvites.layoutManager = layoutManager
     }
 
@@ -68,7 +76,9 @@ class HomeInvitesFragment() :
         getDataBinding().rvHomeInvites.addOnScrollListener(object :
             PaginationScrollListener(layoutManager) {
             override fun loadMoreItems() {
-                if (!isLoading && !isLastPage) callApi(page)
+                isLoading = true
+                page++
+                callApi(page)
             }
 
             override fun isLastPage(): Boolean {
@@ -119,63 +129,74 @@ class HomeInvitesFragment() :
                 is ResponseHandler.OnSuccessResponse -> {
                     getDataBinding().srlInvites.isRefreshing = false
 
+                    val paginatorInfo = it.response?.data?.challengeList?.paginatorInfo
+                    val response = it.response.data?.challengeList?.data
 
-                    it.response.data.let {
-                        it?.challengeList?.data.let {
-                            Log.i("madhere", "observeData: ${it}")
-                            if (!it.isNullOrEmpty()) {
-                                Log.i("madhere", "observeData:1")
-                                getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
-                                getDataBinding().rvHomeInvites.visibility = View.VISIBLE
-                            } else {
-                                Log.i("madhere", "observeData:2")
-                                it?.forEach { model ->
-//                                    val challengeListModel = model as ChallengeListModel
-//                                    val stringAnimal = Gson().toJson(this, Animal::class.java)
-//                                    invitesList.add(challengeListModel)
-                                }
-                                Log.i("madhere", "observeData: madhere ${invitesList}")
-                                getDataBinding().layNoData.groupIfListEmpty.visibility =
-                                    View.VISIBLE
-                                getDataBinding().rvHomeInvites.visibility = View.GONE
+                    response.let {
+
+                        if (!it.isNullOrEmpty()) {
+                            getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
+                            getDataBinding().rvHomeInvites.visibility = View.VISIBLE
+                        } else {
+                            val list = it?.map { model ->
+                                model.mapToChallengeData()
+                            }.let {
+                                ArrayList(it)
                             }
-                        }
+                            invitesList.addAll(list)
+//                            adapter.addItems(list as A)
 
-                        it?.challengeList?.paginatorInfo?.let { it ->
-                            if (it.totalRecords == 0) {
-                                getDataBinding().layNoData.groupIfListEmpty.visibility =
-                                    View.VISIBLE
-                                getDataBinding().rvHomeInvites.visibility = View.GONE
-                            } else {
-                                if (it.totalPages != null) {
-                                    isLastPage = it.totalPages <= page
-                                    if (it.totalPages > page) {
-                                        page++
-                                    }
+                            getDataBinding().layNoData.groupIfListEmpty.visibility =
+                                View.VISIBLE
+                            getDataBinding().rvHomeInvites.visibility = View.GONE
+                        }
+                    }
+
+                    paginatorInfo?.let { it ->
+                        if (it.totalRecords == 0) {
+                            getDataBinding().layNoData.groupIfListEmpty.visibility =
+                                View.VISIBLE
+                            getDataBinding().rvHomeInvites.visibility = View.GONE
+                        } else {
+                            if (it.totalPages != null) {
+                                isLastPage = it.totalPages <= page
+                                if (it.totalPages > page) {
+                                    page++
                                 }
                             }
                         }
                     }
-
-
                 }
+
+
             }
         }
-
-
     }
 
-    private fun setUpHomeInvitesAdapter(list: List<ChallengeListQuery.Data1>) {
 
-//        val list = arrayListOf(HomeInvitesModel(), HomeInvitesModel(), HomeInvitesModel())
-        getDataBinding().rvHomeInvites.adapter =
-            HomeRecyclerViewAdapter(requireContext(),
-                list as ArrayList<ChallengeListQuery.Data1>, onClick = {
-                    val bundle = Bundle()
-                    bundle.putString(Constants.UUID, it)
-                    findNavController().navigate(R.id.groupDetailFragment, bundle)
-                })
-        getDataBinding().rvHomeInvites.layoutManager = LinearLayoutManager(requireContext())
-
+    override fun onResume() {
+        super.onResume()
+        page =1
+        isLoading = false
+        isLastPage = false
+        callApi(page)
     }
+
 }
+
+
+
+//private fun setUpHomeInvitesAdapter(list: List<ChallengeListQuery.Data1>) {
+//
+////        val list = arrayListOf(HomeInvitesModel(), HomeInvitesModel(), HomeInvitesModel())
+//    getDataBinding().rvHomeInvites.adapter =
+//        HomeRecyclerViewAdapter(requireContext(),
+//            list as ArrayList<ChallengeListQuery.Data1>, onClick = {
+//                val bundle = Bundle()
+//                bundle.putString(Constants.UUID, it)
+//                findNavController().navigate(R.id.groupDetailFragment, bundle)
+//            })
+//    getDataBinding().rvHomeInvites.layoutManager = LinearLayoutManager(requireContext())
+//
+//}
+//}

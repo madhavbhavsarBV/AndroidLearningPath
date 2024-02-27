@@ -1,6 +1,7 @@
 package com.base.hilt.ui.notifications.ui
 
 import PaginationScrollListener
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo3.api.Optional
 import com.base.hilt.NotificationsListQuery
@@ -24,6 +25,7 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
 
     lateinit var linearLayoutManager: LinearLayoutManager
     private var adapter: NotificationsRecyclerViewAdapter? = null
+    var notificationList: ArrayList<NotificationsListQuery.Data1> = arrayListOf()
     private var isLoading = false
     private var page = 1
     private var unreadNotificationCount = 0
@@ -67,17 +69,12 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
     }
 
     private fun scrollListener() {
-        linearLayoutManager = LinearLayoutManager(requireContext())
-        getDataBinding().rcvNotifications.layoutManager = linearLayoutManager
-
         getDataBinding().rcvNotifications.addOnScrollListener(object :
             PaginationScrollListener(linearLayoutManager) {
             override fun loadMoreItems() {
-                if (!isLoading && !isLastPage) {
-                    callNotificationListApi(
-                        page
-                    )
-                }
+                isLoading = true
+                callNotificationListApi(page)
+
             }
 
             override fun isLastPage(): Boolean = isLastPage
@@ -89,8 +86,11 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
     }
 
     private fun setPullToRefresh() {
-        page =1
+
         getDataBinding().srlNotification.setOnRefreshListener {
+            page = 1
+            isLastPage = false
+            isLoading = false
             callNotificationListApi(page)
             callUnReadNotificationCountApi()
         }
@@ -100,25 +100,47 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
         viewModel.notificationListLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 ResponseHandler.Loading -> {
-                    getDataBinding().srlNotification.isRefreshing = true
+                    if (page == 1) {
+                        getDataBinding().srlNotification.isRefreshing = true
+                    } else {
+                        getDataBinding().pbNotification.visibility = View.VISIBLE
+                    }
                 }
 
                 is ResponseHandler.OnFailed -> {
                     getDataBinding().srlNotification.isRefreshing = false
+                    isLoading = false
+                    getDataBinding().pbNotification.visibility = View.GONE
                 }
 
                 is ResponseHandler.OnSuccessResponse -> {
                     getDataBinding().srlNotification.isRefreshing = false
+                    isLoading = false
+                    getDataBinding().pbNotification.visibility = View.GONE
                     it.response.data?.notficationsList?.data.let {
                         if (it != null) {
-                            setNotificationList(it)
+                            if (page == 1) notificationList.clear()
+                            notificationList.addAll(it)
+                            adapter?.notifyDataSetChanged()
                         }
+                    }
+
+                    val paginatorInfo = it.response.data?.notficationsList?.paginatorInfo
+                    paginatorInfo?.let { it ->
+                        if (it.totalPages != null) {
+                            isLastPage = it.totalPages == it.currentPage
+                            if (it.totalPages > page) {
+                                page++
+                            }
+                        }
+
                     }
                 }
             }
         }
 
-        viewModel.unreadNotificationCountLiveData.observe(viewLifecycleOwner) {
+        viewModel.unreadNotificationCountLiveData.observe(viewLifecycleOwner)
+        {
             when (it) {
                 ResponseHandler.Loading -> {
                     getDataBinding().srlNotification.isRefreshing = true
@@ -133,16 +155,6 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
                 }
             }
         }
-
-    }
-
-    private fun setNotificationList(list: List<NotificationsListQuery.Data1>) {
-
-        getDataBinding().rcvNotifications.adapter = NotificationsRecyclerViewAdapter(
-            requireContext(),
-            list as ArrayList<NotificationsListQuery.Data1>
-        )
-
 
     }
 
@@ -165,8 +177,10 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
 
 
     private fun setUpNotificationRecyclerView() {
-
-
+        linearLayoutManager = LinearLayoutManager(requireContext())
+        getDataBinding().rcvNotifications.layoutManager = linearLayoutManager
+        adapter = NotificationsRecyclerViewAdapter(requireContext(), notificationList)
+        getDataBinding().rcvNotifications.adapter = adapter
     }
 
 }

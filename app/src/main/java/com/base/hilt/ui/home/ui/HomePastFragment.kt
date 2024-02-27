@@ -1,5 +1,6 @@
 package com.base.hilt.ui.home.ui
 
+import PaginationScrollListener
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,17 +14,28 @@ import com.base.hilt.base.ToolbarModel
 import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.FragmentHomePastBinding
 import com.base.hilt.databinding.RowHomeInvitesBinding
+import com.base.hilt.domain.model.ChallengeData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
+import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
 import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
 import com.base.hilt.ui.home.model.HomeInvitesModel
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.base.hilt.utils.Constants
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_past
+
+    lateinit var adapter: ChallengeListRecyclerAdapter
+    var page = 1
+    var isLastPage = false
+    var isLoading = false
+    lateinit var layoutManager: LinearLayoutManager
+    var invitesList: ArrayList<ChallengeData> = arrayListOf()
 
     override fun setupToolbar() {
         viewModel.setToolbarItems(
@@ -37,19 +49,49 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
 
     override fun initializeScreenVariables() {
 
+        //set Up Recycler View
+        setUpRecyclerView()
+
         // observeData
         observeData()
 
         // setOnRefreshListener
         setOnRefreshListener()
 
+        // set Pagination in Recycler View
+        setPaginationRecyclerView()
     }
 
-    private fun callApi() {
+    private fun setPaginationRecyclerView() {
+
+        getDataBinding().rvHomePast.addOnScrollListener(object:PaginationScrollListener(layoutManager){
+            override fun loadMoreItems() {
+                isLoading = true
+                callApi(page)
+            }
+
+            override fun isLastPage(): Boolean = isLastPage
+
+            override fun isLoading(): Boolean = isLoading
+
+        })
+
+    }
+
+    private fun setUpRecyclerView() {
+        adapter = ChallengeListRecyclerAdapter(requireContext(), invitesList, onClick = {
+
+        })
+        getDataBinding().rvHomePast.adapter = adapter
+        layoutManager = LinearLayoutManager(requireContext())
+        getDataBinding().rvHomePast.layoutManager = layoutManager
+    }
+
+    private fun callApi(page:Int) {
         viewModel.challengeListApiCall(
             ChallengeListInput(
                 first = Optional.Present(10),
-                page = Optional.Present(1),
+                page = Optional.Present(page),
                 type = Optional.Present(getString(R.string.api_past))
             )
         )
@@ -58,7 +100,7 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
     private fun setOnRefreshListener() {
 
         getDataBinding().srlInvites.setOnRefreshListener {
-            callApi()
+            callApi(page)
         }
     }
 
@@ -91,6 +133,28 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
                         }
                     }
 
+                    val response = it.response.data?.challengeList?.data
+                    response.let {
+                        val gson = Gson()
+                        var jsonString = gson.toJson(it)
+                        val type = object : TypeToken<List<ChallengeData>>() {}.type
+                        val myObjectList: List<ChallengeData> = gson.fromJson(jsonString, type)
+
+                        if (page==1) invitesList.clear()
+                        invitesList.addAll(myObjectList)
+                        adapter.notifyDataSetChanged()
+                    }
+
+
+                    val paginatorInfo= it.response.data?.challengeList?.paginatorInfo
+                    paginatorInfo?.let { it ->
+                        if (it.totalPages != null) {
+                            isLastPage = it.totalPages == it.currentPage
+                            if (it.totalPages > page) {
+                                page++
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -103,22 +167,24 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
     private fun setUpHomeInvitesAdapter(list: List<ChallengeListQuery.Data1>) {
 
 //        val list = arrayListOf(HomeInvitesModel(), HomeInvitesModel(), HomeInvitesModel())
-        getDataBinding().rvHomePast.adapter =
-            HomeRecyclerViewAdapter(requireContext(),
-                list as ArrayList<ChallengeListQuery.Data1>, onClick = {
-                    val bundle = Bundle()
-                    bundle.putString(Constants.UUID,it)
-                    findNavController().navigate(R.id.groupDetailFragment,bundle)
-                })
-        getDataBinding().rvHomePast.layoutManager = LinearLayoutManager(requireContext())
+//        getDataBinding().rvHomePast.adapter =
+//            HomeRecyclerViewAdapter(requireContext(),
+//                list as ArrayList<ChallengeListQuery.Data1>, onClick = {
+//                    val bundle = Bundle()
+//                    bundle.putString(Constants.UUID,it)
+//                    findNavController().navigate(R.id.groupDetailFragment,bundle)
+//                })
+//        getDataBinding().rvHomePast.layoutManager = LinearLayoutManager(requireContext())
 
     }
 
 
     override fun onResume() {
         super.onResume()
-        callApi()
-        Log.i("madres", "onResume: past tab change res called")
+        page =1
+        isLoading = false
+        isLastPage = false
+        callApi(page)
     }
 
 }

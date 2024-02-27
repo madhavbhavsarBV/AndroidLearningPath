@@ -11,8 +11,10 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentHomeActiveBinding
+import com.base.hilt.domain.model.ChallengeData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
+import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
 import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.base.hilt.utils.Constants
@@ -20,16 +22,28 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeActiveFragment : FragmentBase<HomeViewModel,FragmentHomeActiveBinding >(){
+class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_active
+    lateinit var adapter: ChallengeListRecyclerAdapter
+    var page = 1
+    var isLastPage = false
+    var isLoading = false
+    lateinit var layoutManager: LinearLayoutManager
+    var invitesList: ArrayList<ChallengeData> = arrayListOf()
 
     override fun setupToolbar() {
-        viewModel.setToolbarItems(ToolbarModel(isBottomNavVisible = true, type = 2, isVisible = true))
+        viewModel.setToolbarItems(
+            ToolbarModel(
+                isBottomNavVisible = true,
+                type = 2,
+                isVisible = true
+            )
+        )
     }
 
     override fun initializeScreenVariables() {
 
-        callApi()
+        callApi(page)
 
         // observeData
         observeData()
@@ -39,11 +53,11 @@ class HomeActiveFragment : FragmentBase<HomeViewModel,FragmentHomeActiveBinding 
 
     }
 
-    private fun callApi(){
+    private fun callApi(page:Int) {
         viewModel.challengeListApiCall(
             ChallengeListInput(
                 first = Optional.Present(10),
-                page = Optional.Present(1),
+                page = Optional.Present(page),
                 type = Optional.Present(getString(R.string.api_active))
             )
         )
@@ -52,7 +66,7 @@ class HomeActiveFragment : FragmentBase<HomeViewModel,FragmentHomeActiveBinding 
     private fun setOnRefreshListener() {
 
         getDataBinding().srlInvites.setOnRefreshListener {
-            callApi()
+            callApi(page)
         }
     }
 
@@ -79,7 +93,8 @@ class HomeActiveFragment : FragmentBase<HomeViewModel,FragmentHomeActiveBinding 
                                 getDataBinding().rvHomeActive.visibility = View.VISIBLE
                                 setUpHomeInvitesAdapter(it)
                             } else {
-                                getDataBinding().layNoData.groupIfListEmpty.visibility = View.VISIBLE
+                                getDataBinding().layNoData.groupIfListEmpty.visibility =
+                                    View.VISIBLE
                                 getDataBinding().rvHomeActive.visibility = View.GONE
                             }
                         }
@@ -100,12 +115,16 @@ class HomeActiveFragment : FragmentBase<HomeViewModel,FragmentHomeActiveBinding 
             HomeRecyclerViewAdapter(requireContext(),
                 list as ArrayList<ChallengeListQuery.Data1>, onClick = {
                     val bundle = Bundle()
-                    bundle.putString(Constants.UUID,it)
-                    findNavController().navigate(R.id.groupDetailFragment,bundle)
+                    bundle.putString(Constants.UUID, it)
+                    findNavController().navigate(R.id.groupDetailFragment, bundle)
                 })
         getDataBinding().rvHomeActive.layoutManager = LinearLayoutManager(requireContext())
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        callApi(page)
+    }
 
 }

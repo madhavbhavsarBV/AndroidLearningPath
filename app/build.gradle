@@ -21,7 +21,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    sourceSets{
+    sourceSets {
         main.java.srcDirs += 'src/main/graphql'
     }
 
@@ -109,6 +109,9 @@ dependencies {
 
     //swipe refresh layout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.10'
 
 }
 
