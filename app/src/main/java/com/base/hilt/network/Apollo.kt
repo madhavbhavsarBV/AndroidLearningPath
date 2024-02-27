@@ -3,9 +3,7 @@ package com.base.hilt.network
 import android.content.Context
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.network.okHttpClient
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 
 private var instance: ApolloClient? = null
 

@@ -1,8 +1,6 @@
 package com.base.hilt.ui.signup.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.ApolloResponse
 import com.base.hilt.SignupMutation

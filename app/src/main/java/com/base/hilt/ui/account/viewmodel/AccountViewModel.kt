@@ -4,12 +4,10 @@ import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.ApolloResponse
 import com.base.hilt.LogoutMutation
 import com.base.hilt.UserDataQuery
-import com.base.hilt.base.BaseRepository
 import com.base.hilt.base.ViewModelBase
 import com.base.hilt.domain.repository.AuthRepository
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.utils.SingleLiveEvent
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

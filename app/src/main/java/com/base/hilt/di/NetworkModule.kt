@@ -11,7 +11,6 @@ import com.base.hilt.ConfigFiles
 import com.base.hilt.network.ApiInterface
 import com.base.hilt.network.AuthorizationInterceptor
 import com.base.hilt.network.HttpHandleIntercept
-import com.base.hilt.utils.MyPreference
 import com.base.hilt.utils.PrefKey
 import dagger.Module
 import dagger.Provides
@@ -25,7 +24,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)

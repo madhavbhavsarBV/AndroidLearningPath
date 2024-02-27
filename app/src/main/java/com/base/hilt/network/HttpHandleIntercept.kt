@@ -1,15 +1,16 @@
 package com.base.hilt.network
 
-import android.util.Log
 import com.base.hilt.utils.DebugLog
-import com.base.hilt.utils.MyPreference
-import com.base.hilt.utils.PrefKey
-import okhttp3.*
+import okhttp3.Headers
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.Protocol
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.ResponseBody
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import javax.inject.Inject
 
 class HttpHandleIntercept() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

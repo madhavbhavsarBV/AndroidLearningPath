@@ -1,27 +1,20 @@
 package com.base.hilt.ui.home.ui
 
 import PaginationScrollListener
-import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo3.api.Optional
 import com.base.hilt.ChallengeListQuery
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
-import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.FragmentHomePastBinding
-import com.base.hilt.databinding.RowHomeInvitesBinding
 import com.base.hilt.domain.model.ChallengeData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
 import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
-import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
-import com.base.hilt.ui.home.model.HomeInvitesModel
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
-import com.base.hilt.utils.Constants
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint

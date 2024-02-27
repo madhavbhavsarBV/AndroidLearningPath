@@ -1,21 +1,13 @@
 package com.base.hilt.ui.login.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.ApolloResponse
-import com.apollographql.apollo3.exception.ApolloException
-import com.apollographql.apollo3.exception.ApolloHttpException
 import com.base.hilt.LoginMutation
-import com.base.hilt.R
 import com.base.hilt.base.ViewModelBase
 import com.base.hilt.domain.repository.AuthRepository
-import com.base.hilt.network.HttpErrorCode
-import com.base.hilt.network.ResponseData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.LoginInput
-import com.base.hilt.utils.PrefKey
 import com.base.hilt.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

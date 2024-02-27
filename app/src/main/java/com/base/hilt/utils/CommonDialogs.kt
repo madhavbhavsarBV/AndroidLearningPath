@@ -3,7 +3,6 @@ package com.base.hilt.utils
 import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import com.base.hilt.R
 import com.base.hilt.databinding.DialogErrorOkBinding
 

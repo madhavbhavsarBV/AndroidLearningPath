@@ -15,9 +15,7 @@ import com.base.hilt.databinding.FragmentForgotPasswordBinding
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ForgotPasswordInput
 import com.base.hilt.ui.forgotpassword.viewmodel.ForgotPasswordViewModel
-import com.base.hilt.utils.CommonDialogs
 import com.base.hilt.utils.Extention.removeError
-import com.base.hilt.utils.PrefKey
 import com.base.hilt.utils.Validation
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint

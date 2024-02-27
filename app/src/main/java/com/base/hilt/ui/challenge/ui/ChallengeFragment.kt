@@ -10,8 +10,8 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentChallengeBinding
-import com.base.hilt.ui.challenge.interfaces.BtnNextValidations
 import com.base.hilt.ui.challenge.adapter.ChallengeViewPagerAdapter
+import com.base.hilt.ui.challenge.interfaces.BtnNextValidations
 import com.base.hilt.ui.challenge.viewmodel.ChallengeViewModel
 
 

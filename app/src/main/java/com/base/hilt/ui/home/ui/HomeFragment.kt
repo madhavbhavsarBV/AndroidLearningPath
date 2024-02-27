@@ -1,8 +1,6 @@
 package com.base.hilt.ui.home.ui
 
 import android.util.Log
-import android.widget.TextView
-import com.base.hilt.MainActivity
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
@@ -11,7 +9,6 @@ import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.home.adapter.HomeViewPagerAdapter
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.base.hilt.utils.MyPreference
-import com.base.hilt.utils.PrefKey
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

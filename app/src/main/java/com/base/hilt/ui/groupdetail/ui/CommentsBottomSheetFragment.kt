@@ -3,12 +3,9 @@ package com.base.hilt.ui.groupdetail.ui
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
-import androidx.fragment.app.Fragment
 import com.base.hilt.R
 import com.base.hilt.base.BaseBottomSheetDialogFragment
 import com.base.hilt.databinding.FragmentCommentsBottomSheetBinding

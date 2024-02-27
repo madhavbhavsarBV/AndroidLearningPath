@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.databinding.FragmentCreateChallengeBinding
-import com.base.hilt.ui.challenge.interfaces.BtnNextValidations
 import com.base.hilt.ui.challenge.adapter.ContactsRecyclerAdapter
+import com.base.hilt.ui.challenge.interfaces.BtnNextValidations
 import com.base.hilt.ui.challenge.model.ContactsModel
 import com.base.hilt.ui.challenge.viewmodel.ChallengeViewModel
 

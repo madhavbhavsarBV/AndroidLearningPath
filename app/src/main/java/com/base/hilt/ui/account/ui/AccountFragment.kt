@@ -1,14 +1,11 @@
 package com.base.hilt.ui.account.ui
 
-import android.util.Log
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.hilt.MainActivity
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
-import com.base.hilt.base.ViewModelBase
 import com.base.hilt.databinding.FragmentAccountBinding
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.account.adapter.AccountRecyclerViewAdapter

@@ -3,7 +3,6 @@ package com.base.hilt.ui.otp.ui
 import android.os.CountDownTimer
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.ClickableSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.View

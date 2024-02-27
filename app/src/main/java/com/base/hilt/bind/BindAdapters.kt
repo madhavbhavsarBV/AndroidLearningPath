@@ -3,13 +3,10 @@ package com.base.hilt.bind
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.util.Log
-import android.view.View
 import android.view.View.OnFocusChangeListener
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.base.hilt.R
 import com.base.hilt.databinding.RowItemHomeListBinding

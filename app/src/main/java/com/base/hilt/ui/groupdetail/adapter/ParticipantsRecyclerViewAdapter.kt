@@ -5,8 +5,6 @@ import com.base.hilt.ChallengeDetailQuery
 import com.base.hilt.R
 import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowParticipantsBinding
-import com.base.hilt.ui.groupdetail.model.ParticipantsModel
-import com.base.hilt.ui.groupdetail.ui.ParticipantsListFragment
 
 class ParticipantsRecyclerViewAdapter(
     mContext: Context, data: ArrayList<ChallengeDetailQuery.Participant>,

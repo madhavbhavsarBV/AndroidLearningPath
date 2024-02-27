@@ -1,13 +1,11 @@
 package com.base.hilt.ui.splash.ui
 
-import android.os.Bundle
 import android.util.Log
 import androidx.navigation.fragment.findNavController
 import com.base.hilt.BuildConfig
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
-import com.base.hilt.base.ViewModelBase
 import com.base.hilt.databinding.FragmentSplashBinding
 import com.base.hilt.domain.model.ConfigInput
 import com.base.hilt.network.ResponseHandler

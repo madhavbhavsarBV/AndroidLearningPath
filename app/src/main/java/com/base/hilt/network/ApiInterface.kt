@@ -1,11 +1,5 @@
 package com.base.hilt.network
 
-import androidx.lifecycle.MutableLiveData
-import com.base.hilt.ConfigFiles
-import com.base.hilt.ui.home.repository.HomeScreenVendorsListResponse
-import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Query
 import javax.inject.Singleton
 
 /**

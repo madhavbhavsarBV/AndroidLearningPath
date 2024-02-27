@@ -10,7 +10,6 @@ import com.base.hilt.base.ViewModelBase
 import com.base.hilt.domain.repository.DashboardRepository
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
-import com.base.hilt.ui.home.repository.HomeRepository
 import com.base.hilt.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

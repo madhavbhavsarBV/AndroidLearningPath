@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.ApolloResponse
-import com.apollographql.apollo3.api.Optional
 import com.base.hilt.ForgotPasswordMutation
-import com.base.hilt.LoginMutation
 import com.base.hilt.base.ViewModelBase
 import com.base.hilt.domain.repository.AuthRepository
 import com.base.hilt.network.ResponseHandler
@@ -15,7 +13,6 @@ import com.base.hilt.type.ForgotPasswordInput
 import com.base.hilt.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel

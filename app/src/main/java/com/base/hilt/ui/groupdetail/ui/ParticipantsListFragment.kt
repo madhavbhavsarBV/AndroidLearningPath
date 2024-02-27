@@ -2,15 +2,11 @@ package com.base.hilt.ui.groupdetail.ui
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import com.base.hilt.R
 import com.base.hilt.base.BaseBottomSheetDialogFragment
-import com.base.hilt.base.ViewModelBase
 import com.base.hilt.databinding.FragmentParticipantsListBinding
 import com.base.hilt.ui.groupdetail.viewmodel.ParticipantsListViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior

@@ -3,7 +3,6 @@ package com.base.hilt.ui.splash.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.api.ApolloResponse
 import com.base.hilt.ConfigurationQuery
-import com.base.hilt.LoginMutation
 import com.base.hilt.base.ViewModelBase
 import com.base.hilt.domain.model.ConfigInput
 import com.base.hilt.domain.repository.AuthRepository

@@ -11,7 +11,6 @@ import com.base.hilt.ui.challenge.viewmodel.ChallengeDetailViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 
 

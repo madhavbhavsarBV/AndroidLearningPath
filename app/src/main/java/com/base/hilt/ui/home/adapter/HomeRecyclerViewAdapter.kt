@@ -6,8 +6,6 @@ import com.base.hilt.ChallengeListQuery
 import com.base.hilt.R
 import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowHomeInvitesBinding
-import com.base.hilt.ui.home.model.HomeInvitesModel
-import kotlin.math.log
 
 class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<ChallengeListQuery.Data1>, var onClick:(String?)->Unit
 )

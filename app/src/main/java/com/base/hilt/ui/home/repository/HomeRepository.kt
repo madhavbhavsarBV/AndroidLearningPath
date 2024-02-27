@@ -2,9 +2,6 @@ package com.base.hilt.ui.home.repository
 
 import com.apollographql.apollo3.ApolloClient
 import com.base.hilt.base.BaseRepository
-import com.base.hilt.network.ApiInterface
-import com.base.hilt.network.ResponseData
-import com.base.hilt.network.ResponseHandler
 import javax.inject.Inject
 
 class HomeRepository @Inject constructor(apolloClient: ApolloClient) :

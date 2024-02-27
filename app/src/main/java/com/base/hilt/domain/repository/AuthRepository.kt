@@ -11,7 +11,6 @@ import com.base.hilt.SignupMutation
 import com.base.hilt.UserDataQuery
 import com.base.hilt.VerifySmsOtpMutation
 import com.base.hilt.base.BaseRepository
-import com.base.hilt.base.ViewModelBase
 import com.base.hilt.domain.model.ConfigInput
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ForgotPasswordInput
@@ -19,9 +18,7 @@ import com.base.hilt.type.LoginInput
 import com.base.hilt.type.OtpInput
 import com.base.hilt.type.ResendSmsOtpInput
 import com.base.hilt.type.SignUpInput
-import dagger.Provides
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
 //@Singleton
