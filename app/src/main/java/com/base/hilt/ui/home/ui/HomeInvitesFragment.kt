@@ -2,6 +2,7 @@ package com.base.hilt.ui.home.ui
 
 import PaginationScrollListener
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo3.api.Optional
 import com.base.hilt.R
@@ -13,6 +14,8 @@ import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
 import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 import mapToChallengeData
 
@@ -21,12 +24,14 @@ class HomeInvitesFragment() :
     FragmentBase<HomeViewModel, FragmentHomeInvitesBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_invites
 
-    lateinit var adapter: ChallengeListRecyclerAdapter
+    val gson = Gson()
+    val type = object : TypeToken<List<ChallengeData>>() {}.type
     var page = 1
     var isLastPage = false
     var isLoading = false
-    lateinit var layoutManager: LinearLayoutManager
     var invitesList: ArrayList<ChallengeData> = arrayListOf()
+    lateinit var adapter: ChallengeListRecyclerAdapter
+    lateinit var layoutManager: LinearLayoutManager
 
     override fun setupToolbar() {
         viewModel.setToolbarItems(
@@ -39,8 +44,6 @@ class HomeInvitesFragment() :
     }
 
     override fun initializeScreenVariables() {
-
-        callApi(1)
 
         //set Recycler View
         setRecyclerView()
@@ -56,11 +59,11 @@ class HomeInvitesFragment() :
     }
 
     private fun setRecyclerView() {
-        layoutManager = LinearLayoutManager(requireContext())
-        adapter = ChallengeListRecyclerAdapter(requireContext(),invitesList, onClick = {
-
+        adapter = ChallengeListRecyclerAdapter(requireContext(), invitesList, onClick = {
+            findNavController().navigate(R.id.groupDetailFragment)
         })
         getDataBinding().rvHomeInvites.adapter = adapter
+        layoutManager = LinearLayoutManager(requireContext())
         getDataBinding().rvHomeInvites.layoutManager = layoutManager
     }
 
@@ -70,7 +73,6 @@ class HomeInvitesFragment() :
             PaginationScrollListener(layoutManager) {
             override fun loadMoreItems() {
                 isLoading = true
-                page++
                 callApi(page)
             }
 
@@ -100,7 +102,11 @@ class HomeInvitesFragment() :
 
     private fun setOnRefreshListener() {
         getDataBinding().srlInvites.setOnRefreshListener {
-            callApi(1)
+            page = 1
+            invitesList.clear()
+            isLastPage = false
+            isLoading = false
+            callApi(page)
         }
     }
 
@@ -111,37 +117,35 @@ class HomeInvitesFragment() :
         viewModel.challengeListLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 ResponseHandler.Loading -> {
-                    getDataBinding().srlInvites.isRefreshing = true
+                    if (page == 1) getDataBinding().srlInvites.isRefreshing = true
                 }
 
                 is ResponseHandler.OnFailed -> {
                     getDataBinding().srlInvites.isRefreshing = false
-                    ResponseHandler.OnFailed(0, it.message.toString(), "")
+                    isLoading = false
                 }
 
                 is ResponseHandler.OnSuccessResponse -> {
                     getDataBinding().srlInvites.isRefreshing = false
+                    isLoading = false
 
                     val paginatorInfo = it.response?.data?.challengeList?.paginatorInfo
                     val response = it.response.data?.challengeList?.data
 
                     response.let {
 
-                        if (!it.isNullOrEmpty()) {
-                            getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
-                            getDataBinding().rvHomeInvites.visibility = View.VISIBLE
-                        } else {
-                            val list = it?.map { model ->
-                                model.mapToChallengeData()
-                            }.let {
-                                ArrayList(it)
-                            }
-                            invitesList.addAll(list)
-//                            adapter.addItems(list as A)
-
+                        if (it.isNullOrEmpty()) {
                             getDataBinding().layNoData.groupIfListEmpty.visibility =
                                 View.VISIBLE
                             getDataBinding().rvHomeInvites.visibility = View.GONE
+                        } else {
+                            getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
+                            getDataBinding().rvHomeInvites.visibility = View.VISIBLE
+                            val myObjectList: List<ChallengeData> =
+                                gson.fromJson(gson.toJson(it), type)
+                            if (page == 1) invitesList.clear()
+                            invitesList.addAll(myObjectList)
+                            adapter.notifyDataSetChanged()
                         }
                     }
 
@@ -152,7 +156,7 @@ class HomeInvitesFragment() :
                             getDataBinding().rvHomeInvites.visibility = View.GONE
                         } else {
                             if (it.totalPages != null) {
-                                isLastPage = it.totalPages <= page
+                                isLastPage = it.totalPages == it.currentPage
                                 if (it.totalPages > page) {
                                     page++
                                 }
@@ -169,14 +173,14 @@ class HomeInvitesFragment() :
 
     override fun onResume() {
         super.onResume()
-        page =1
+        page = 1
+        invitesList.clear()
         isLoading = false
         isLastPage = false
         callApi(page)
     }
 
 }
-
 
 
 //private fun setUpHomeInvitesAdapter(list: List<ChallengeListQuery.Data1>) {

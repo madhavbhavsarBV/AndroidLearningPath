@@ -68,4 +68,7 @@ data class ChallengeData(
         val chat_user_id: String? = null,
         var isEditable: Boolean? = true,
     )
+
+
+    var endingOn:String = "ENDING ON: "+ this.end_at
 }

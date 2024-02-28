@@ -19,11 +19,10 @@ class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<ChallengeListQ
         position: Int,
         dataBinding: RowHomeInvitesBinding
     ) {
-        dataBinding.model =model
+//        dataBinding.model =model
     }
 
     override fun onItemClick(model: ChallengeListQuery.Data1, position: Int, dataBinding: RowHomeInvitesBinding) {
-        Log.i("maduuid", "onItemClick: ic")
         onClick.invoke(model.uuid)
     }
 }

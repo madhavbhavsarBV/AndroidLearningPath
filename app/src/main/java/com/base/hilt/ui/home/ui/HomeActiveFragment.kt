@@ -1,5 +1,6 @@
 package com.base.hilt.ui.home.ui
 
+import PaginationScrollListener
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -18,18 +19,23 @@ import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
 import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.base.hilt.utils.Constants
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_active
-    lateinit var adapter: ChallengeListRecyclerAdapter
+
+    val gson = Gson()
+    val type = object : TypeToken<List<ChallengeData>>() {}.type
     var page = 1
     var isLastPage = false
     var isLoading = false
-    lateinit var layoutManager: LinearLayoutManager
     var invitesList: ArrayList<ChallengeData> = arrayListOf()
+    lateinit var adapter: ChallengeListRecyclerAdapter
+    lateinit var layoutManager: LinearLayoutManager
 
     override fun setupToolbar() {
         viewModel.setToolbarItems(
@@ -43,7 +49,8 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
 
     override fun initializeScreenVariables() {
 
-        callApi(page)
+        //set Up Recycler View
+        setUpRecyclerView()
 
         // observeData
         observeData()
@@ -51,9 +58,40 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
         // setOnRefreshListener
         setOnRefreshListener()
 
+        // set Pagination in Recycler View
+        setPaginationRecyclerView()
+
     }
 
-    private fun callApi(page:Int) {
+    private fun setPaginationRecyclerView() {
+
+        getDataBinding().rvHomeActive.addOnScrollListener(object :
+            PaginationScrollListener(layoutManager) {
+            override fun loadMoreItems() {
+                Log.i("apicalled", "loadMoreItems: called$page")
+                isLoading = true
+                callApi(page)
+            }
+
+            override fun isLastPage(): Boolean = isLastPage
+
+            override fun isLoading(): Boolean = isLoading
+
+        })
+    }
+
+    private fun setUpRecyclerView() {
+        adapter = ChallengeListRecyclerAdapter(requireContext(), invitesList, onClick = {
+
+            findNavController().navigate(R.id.groupDetailFragment)
+        })
+        getDataBinding().rvHomeActive.adapter = adapter
+        layoutManager = LinearLayoutManager(requireContext())
+        getDataBinding().rvHomeActive.layoutManager = layoutManager
+    }
+
+
+    private fun callApi(page: Int) {
         viewModel.challengeListApiCall(
             ChallengeListInput(
                 first = Optional.Present(10),
@@ -64,8 +102,11 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
     }
 
     private fun setOnRefreshListener() {
-
         getDataBinding().srlInvites.setOnRefreshListener {
+            page = 1
+            invitesList.clear()
+            isLastPage = false
+            isLoading = false
             callApi(page)
         }
     }
@@ -75,27 +116,42 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
         viewModel.challengeListLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 ResponseHandler.Loading -> {
-                    getDataBinding().srlInvites.isRefreshing = true
+                    if (page == 1) getDataBinding().srlInvites.isRefreshing = true
                 }
 
                 is ResponseHandler.OnFailed -> {
                     getDataBinding().srlInvites.isRefreshing = false
-                    ResponseHandler.OnFailed(0, it.message.toString(), "")
+                    isLoading = false
                 }
 
                 is ResponseHandler.OnSuccessResponse -> {
                     getDataBinding().srlInvites.isRefreshing = false
-                    Log.i("maddata", "observeData: ${it.response.data?.challengeList}")
-                    it.response.data.let {
-                        it?.challengeList?.data.let {
-                            if (!it.isNullOrEmpty()) {
-                                getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
-                                getDataBinding().rvHomeActive.visibility = View.VISIBLE
-                                setUpHomeInvitesAdapter(it)
-                            } else {
-                                getDataBinding().layNoData.groupIfListEmpty.visibility =
-                                    View.VISIBLE
-                                getDataBinding().rvHomeActive.visibility = View.GONE
+                    isLoading = false
+
+                    val response = it.response.data?.challengeList?.data
+                    response.let {
+                        if (it.isNullOrEmpty()) {
+                            getDataBinding().layNoData.groupIfListEmpty.visibility =
+                                View.VISIBLE
+                            getDataBinding().rvHomeActive.visibility = View.GONE
+                        } else {
+                            getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
+                            getDataBinding().rvHomeActive.visibility = View.VISIBLE
+                            val myObjectList: List<ChallengeData> =
+                                gson.fromJson(gson.toJson(it), type)
+                            if (page == 1) invitesList.clear()
+                            invitesList.addAll(myObjectList)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+
+
+                    val paginatorInfo = it.response.data?.challengeList?.paginatorInfo
+                    paginatorInfo?.let { it ->
+                        if (it.totalPages != null) {
+                            isLastPage = it.totalPages == it.currentPage
+                            if (it.totalPages > page) {
+                                page++
                             }
                         }
                     }
@@ -124,6 +180,10 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
 
     override fun onResume() {
         super.onResume()
+        page = 1
+        invitesList.clear()
+        isLoading = false
+        isLastPage = false
         callApi(page)
     }
 

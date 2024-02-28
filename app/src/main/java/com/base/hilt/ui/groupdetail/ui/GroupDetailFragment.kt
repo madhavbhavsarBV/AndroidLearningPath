@@ -8,17 +8,22 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentGroupDetailBinding
+import com.base.hilt.domain.model.ChallengeData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.groupdetail.adapter.ParticipantsRecyclerViewAdapter
 import com.base.hilt.ui.groupdetail.model.ChallengeModel
 import com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel
 import com.base.hilt.utils.Constants
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDetailBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_group_detail
 
+    val gson = Gson()
+    val type = object : TypeToken<ChallengeModel>() {}.type
     private var uuid: String? = null
     private var adapter :ParticipantsRecyclerViewAdapter?=null
 
@@ -39,7 +44,7 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
 
     override fun initializeScreenVariables() {
 
-        uuid = arguments?.getString(Constants.UUID)
+
 
         getDataBinding().layGroupDetail.viewmodel = viewModel
 
@@ -49,10 +54,8 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
         //status bar color change
         (requireActivity() as MainActivity).backGroundColor()
 
-
         //scroll listener
         scrollListener()
-
 
     }
 
@@ -82,8 +85,23 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
                 is ResponseHandler.OnSuccessResponse -> {
                     viewModel.showProgressBar(false)
                     Log.i("maduuid", "callApi: ${it.response.data?.challengeDetail.toString()}")
+
+                    val response = it.response.data?.challengeDetail?.data
+
+                    response.let {
+                        val myObjectList: ChallengeModel = gson.fromJson(gson.toJson(it), type)
+                        getDataBinding().layGroupDetail.model = myObjectList
+
+//                        it?.author.let {
+//                            val aithorList: ChallengeModel.Author = gson.fromJson(gson.toJson(it), type)
+//                            getDataBinding().layGroupDetail.model = authorList
+//                        }
+
+                        Log.i("ffrger", "observeData: ${myObjectList.author?.first_name}")
+                    }
+
                     it.response.data?.challengeDetail.let {
-                        getDataBinding().layGroupDetail.model = ChallengeModel(type = it?.data?.type)
+                       // getDataBinding().layGroupDetail.model = ChallengeModel(type = it?.data?.type)
 
                         it?.data?.participants.let {
                             if (it!=null){

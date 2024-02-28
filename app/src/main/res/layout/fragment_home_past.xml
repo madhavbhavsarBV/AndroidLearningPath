@@ -66,9 +66,6 @@
                 bind:layout_constraintStart_toStartOf="parent"
                 bind:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -79,13 +76,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/row_home_invites" />
 
-                    <include
-                        android:id="@+id/layNoData"
-                        layout="@layout/layout_no_data"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

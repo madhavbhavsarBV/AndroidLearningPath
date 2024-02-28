@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.base.hilt.ChallengeListQuery.Data1" />
+            type="com.base.hilt.domain.model.ChallengeData" />
 
     </data>
 
@@ -15,6 +15,7 @@
         android:id="@+id/cvInvites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginVertical="@dimen/_5sdp"
         android:backgroundTint="@color/white"
@@ -24,7 +25,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeWidth="0dp">
+        app:strokeWidth="0dp"
+        android:focusable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clCardView"
@@ -147,15 +149,16 @@
                 android:backgroundTint="@color/grey_6"
                 android:layout_marginHorizontal="@dimen/_5sdp"
                 android:background="@drawable/tv_challenge_btn"
-                app:layout_constraintTop_toTopOf="@id/btnEndingOn"
-                app:layout_constraintBottom_toBottomOf="@id/btnEndingOn"
+                app:layout_constraintTop_toTopOf="@id/tvEndingOn"
+                app:layout_constraintBottom_toBottomOf="@id/tvEndingOn"
                 />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/btnEndingOn"
+                android:id="@+id/tvEndingOn"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_marginBottom="@dimen/_5sdp"
@@ -168,8 +171,31 @@
                 android:drawablePadding="@dimen/_10sdp"
                 android:text="@string/ending_on_feb_08_2024"
                 android:textColor="@color/dark_grey"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvEndAt"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/brBarrier1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvEndAt"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:includeFontPadding="false"
+                android:backgroundTint="@color/grey"
+                android:paddingVertical="@dimen/_7sdp"
+                android:drawableTint="@color/dark_grey"
+                android:gravity="bottom"
+                android:drawablePadding="@dimen/_10sdp"
+                android:text="@{model.end_at}"
+                tools:text="Feb 3, 2024"
+                android:textColor="@color/dark_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/tvEndingOn"
                 app:layout_constraintTop_toBottomOf="@id/brBarrier1" />
 
             <com.google.android.material.textview.MaterialTextView

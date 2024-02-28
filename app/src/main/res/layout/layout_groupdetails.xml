@@ -10,7 +10,8 @@
             name="viewmodel"
             type="com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
+
         <variable
             name="model"
             type="com.base.hilt.ui.groupdetail.model.ChallengeModel" />
@@ -92,7 +93,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="center"
                     android:lines="2"
-                    android:text="@string/_2nd_annual_running_and_cornhole_challenge_lorem_ipsum_dolor"
+                    android:text="@{model.title}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_15ssp"
                     app:layout_constraintBottom_toTopOf="@id/imgProfile"
@@ -194,6 +195,7 @@
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@color/light_grey"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
                     app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/tvGroupChallenge" />
@@ -212,6 +214,7 @@
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8ssp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
                     app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/vHorizontalLine" />
@@ -291,7 +294,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="@string/jackson"
+                    android:text="@{model.author.first_name}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/imgProfIcon"
@@ -334,7 +337,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="@string/nicolus"
+                    android:text="@{model.judge.first_name}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/imgProfWinner"
@@ -463,12 +466,30 @@
                         android:gravity="center"
                         android:letterSpacing="0"
                         android:padding="@dimen/_5sdp"
-                        android:text="@string/ending_on_jan_11_2024"
+                        android:text="@string/ending_on_feb_08_2024"
+                        android:textAllCaps="true"
+                        android:textColor="@color/grey_4"
+                        app:drawableTint="@color/grey_4"
+                        app:layout_constraintEnd_toStartOf="@id/tvEndAt"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvEndAt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:letterSpacing="0"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@{model.end_at}"
                         android:textAllCaps="true"
                         android:textColor="@color/grey_4"
                         app:drawableTint="@color/grey_4"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@id/tvEndingOn" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

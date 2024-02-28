@@ -19,12 +19,14 @@ class ChallengeListRecyclerAdapter(context:Context, val list:ArrayList<Challenge
         position: Int,
         dataBinding: RowHomeInvitesBinding
     ) {
-        Log.i("model here", "onBindData: ${model}")
-//        dataBinding.model =model
+        dataBinding.model =model
+        dataBinding.root.setOnClickListener {
+            Log.i("clickhere1", "onBindData: gerer")
+        }
     }
 
     override fun onItemClick(model: ChallengeData, position: Int, dataBinding: RowHomeInvitesBinding) {
-        Log.i("maduuid", "onItemClick: ic")
+        Log.i("clickhere1", "onItemClick: here0")
         onClick.invoke(model.uuid)
     }
 }
