@@ -25,9 +25,15 @@ import com.google.android.material.snackbar.Snackbar
 abstract class FragmentBase<V : ViewModelBase, DataBinding : ViewDataBinding> :
     FragmentBaseWrapper() {
 
+    var currentFragName:String =""
+
     private lateinit var dataBinding: DataBinding
     private lateinit var mViewModel: V
     val viewModel: V get() = mViewModel
+
+    open fun curFrag(s:String){
+        currentFragName = s
+    }
 
     /**
      * This is the abstract method by which we are generating the

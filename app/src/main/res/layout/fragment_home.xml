@@ -14,27 +14,53 @@
         android:background="@color/black"
         tools:context=".ui.home.ui.HomeFragment">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            bind:layout_constraintGuide_percent="0.04" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            bind:layout_constraintGuide_percent="0.96" />
+
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tlHome"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
             android:backgroundTint="@color/black"
+            bind:layout_constraintStart_toStartOf="@id/guideStart"
+            bind:layout_constraintEnd_toEndOf="@id/guideEnd"
             bind:layout_constraintTop_toTopOf="parent"
             bind:tabIndicatorColor="@color/green"
             bind:tabIndicatorHeight="@dimen/_3sdp"
-            bind:tabTextAppearance="@style/CustomTabTextAppearance"
             bind:tabSelectedTextColor="@color/green"
+            bind:tabTextAppearance="@style/CustomTabTextAppearance"
             bind:tabTextColor="@color/white" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vpHome"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             bind:layout_constraintBottom_toBottomOf="parent"
-            bind:layout_constraintTop_toBottomOf="@id/tlHome"
-            />
+            bind:layout_constraintTop_toBottomOf="@id/tlHome">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpHome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <include
+                android:id="@+id/layNoData"
+                layout="@layout/layout_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

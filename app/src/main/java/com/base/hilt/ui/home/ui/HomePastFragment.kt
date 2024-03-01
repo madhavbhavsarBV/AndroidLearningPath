@@ -17,6 +17,7 @@ import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
 import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
 import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
+import com.base.hilt.ui.home.interfaces.NoRecordsFound
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.base.hilt.utils.Constants
 import com.google.gson.Gson
@@ -27,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_past
 
+    lateinit var noRecords : NoRecordsFound
     val gson = Gson()
     val type = object : TypeToken<List<ChallengeData>>() {}.type
     var page = 1
@@ -48,7 +50,9 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
     }
 
     override fun initializeScreenVariables() {
-
+//        curFrag("past")
+//        currentFragName="pastt"
+//        Log.i("currrfrag", "initializeScreenVariables: ${currentFragName}")
         //set Up Recycler View
         setUpRecyclerView()
 
@@ -82,9 +86,10 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
 
     private fun setUpRecyclerView() {
         adapter = ChallengeListRecyclerAdapter(requireContext(),invitesList, onClick = {
-            Log.i("clickhere1", "setUpRecyclerView: here")
+//            Log.i("clickhere1", "setUpRecyclerView: here")
             val bundle = Bundle()
             bundle.putString(Constants.UUID,it)
+            noRecords.noRecords(false)
             findNavController().navigate(R.id.groupDetailFragment,bundle)
         })
 
@@ -94,7 +99,7 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
     }
 
     private fun callApi(page: Int) {
-        // Log.i("madapicallhere", "callApi: $page")
+//        Log.i("madapicallhere", "callApi: $page")
         viewModel.challengeListApiCall(
             ChallengeListInput(
                 first = Optional.Present(10),
@@ -102,6 +107,10 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
                 type = Optional.Present(getString(R.string.api_past))
             )
         )
+    }
+
+    fun setInterface(i : NoRecordsFound){
+        noRecords = i
     }
 
     private fun setOnRefreshListener() {
@@ -135,11 +144,10 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
                     val response = it.response.data?.challengeList?.data
                     response.let {
                         if (it.isNullOrEmpty()) {
-//                            getDataBinding().layNoData.groupIfListEmpty.visibility =
-//                                View.VISIBLE
+                            noRecords.noRecords(true)
                             getDataBinding().rvHomePast.visibility = View.GONE
                         } else {
-//                            getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
+                            noRecords.noRecords(false)
                             getDataBinding().rvHomePast.visibility = View.VISIBLE
                             oldArray = it as ArrayList<ChallengeListQuery.Data1>
                             val myObjectList: List<ChallengeData> =
@@ -180,10 +188,17 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
     override fun onResume() {
         super.onResume()
         page = 1
+        noRecords.noRecords(false)
         invitesList.clear()
         isLoading = false
         isLastPage = false
         callApi(page)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        invitesList.clear()
+        adapter?.notifyDataSetChanged()
     }
 
 }

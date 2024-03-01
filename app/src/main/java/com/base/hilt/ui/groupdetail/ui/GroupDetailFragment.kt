@@ -8,7 +8,6 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentGroupDetailBinding
-import com.base.hilt.domain.model.ChallengeData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.groupdetail.adapter.ParticipantsRecyclerViewAdapter
 import com.base.hilt.ui.groupdetail.model.ChallengeModel
@@ -25,7 +24,7 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     val gson = Gson()
     val type = object : TypeToken<ChallengeModel>() {}.type
     private var uuid: String? = null
-    private var adapter :ParticipantsRecyclerViewAdapter?=null
+    private var adapter: ParticipantsRecyclerViewAdapter? = null
 
     override fun setupToolbar() {
         viewModel.setToolbarItems(
@@ -43,7 +42,6 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     }
 
     override fun initializeScreenVariables() {
-
 
 
         getDataBinding().layGroupDetail.viewmodel = viewModel
@@ -64,7 +62,6 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     }
 
 
-
     private fun observeData() {
 
         viewModel.onCommentClick?.observe(viewLifecycleOwner) {
@@ -72,19 +69,21 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
             dialog.show(childFragmentManager, "")
         }
 
-        viewModel.challengeDetailLiveData.observe(viewLifecycleOwner){
-            when(it){
+        viewModel.challengeDetailLiveData.observe(viewLifecycleOwner) {
+            when (it) {
                 ResponseHandler.Loading -> {
                     viewModel.showProgressBar(true)
                     Log.i("maduuid", "callApi:loading")
                 }
+
                 is ResponseHandler.OnFailed -> {
                     viewModel.showProgressBar(false)
-                    Log.i("maduuid", "callApi: ${it.message}")
+//                    Log.i("maduuid", "callApi: ${it.message}")
                 }
+
                 is ResponseHandler.OnSuccessResponse -> {
                     viewModel.showProgressBar(false)
-                    Log.i("maduuid", "callApi: ${it.response.data?.challengeDetail.toString()}")
+//                    Log.i("maduuid", "callApi: ${it.response.data?.challengeDetail.toString()}")
 
                     val response = it.response.data?.challengeDetail?.data
 
@@ -96,21 +95,19 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
 //                            val aithorList: ChallengeModel.Author = gson.fromJson(gson.toJson(it), type)
 //                            getDataBinding().layGroupDetail.model = authorList
 //                        }
-
-                        Log.i("ffrger", "observeData: ${myObjectList.author?.first_name}")
+//                        Log.i("ffrger", "observeData: ${myObjectList.author?.first_name}")
                     }
 
                     it.response.data?.challengeDetail.let {
-                       // getDataBinding().layGroupDetail.model = ChallengeModel(type = it?.data?.type)
+                        // getDataBinding().layGroupDetail.model = ChallengeModel(type = it?.data?.type)
 
                         it?.data?.participants.let {
-                            if (it!=null){
+                            if (it != null) {
                                 setUpParticipantsRecyclerView(it as List<ChallengeDetailQuery.Participant>)
                             }
                         }
 
                     }
-
 
 
                 }
@@ -121,7 +118,7 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
 
     override fun getViewModelClass(): Class<GroupDetailViewModel> = GroupDetailViewModel::class.java
     override fun onDestroyView() {
-        //setStatus bar color black
+//        setStatus bar color black
         (requireActivity() as MainActivity).backGroundColorBlack()
         super.onDestroyView()
     }
@@ -133,21 +130,22 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     }
 
     private fun callApi() {
-        Log.i("maduuid", "callApi: ${uuid} ${arguments?.getString(Constants.UUID)}")
         uuid?.let {
             viewModel.challengeDetailApiCall(it)
         }
     }
 
-    private fun setUpParticipantsRecyclerView(list:List<ChallengeDetailQuery.Participant>) {
-       adapter = ParticipantsRecyclerViewAdapter(requireContext(), list as ArrayList<ChallengeDetailQuery.Participant>, onItemBtnClick = {
-            val dialog = ParticipantsListFragment()
-            dialog.show(childFragmentManager, "")
-        })
+    private fun setUpParticipantsRecyclerView(list: List<ChallengeDetailQuery.Participant>) {
+        adapter = ParticipantsRecyclerViewAdapter(
+            requireContext(),
+            list as ArrayList<ChallengeDetailQuery.Participant>,
+            onItemBtnClick = {
+                val dialog = ParticipantsListFragment()
+                dialog.show(childFragmentManager, "")
+            })
         getDataBinding().layGroupDetail.rcvParticipants.adapter = adapter
         getDataBinding().layGroupDetail.rcvParticipants.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
     }
 }
-

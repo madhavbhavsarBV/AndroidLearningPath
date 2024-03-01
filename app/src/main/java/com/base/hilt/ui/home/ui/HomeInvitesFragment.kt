@@ -13,6 +13,7 @@ import com.base.hilt.domain.model.ChallengeData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
 import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
+import com.base.hilt.ui.home.interfaces.NoRecordsFound
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -24,6 +25,7 @@ class HomeInvitesFragment() :
     FragmentBase<HomeViewModel, FragmentHomeInvitesBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_invites
 
+    lateinit var noRecords : NoRecordsFound
     val gson = Gson()
     val type = object : TypeToken<List<ChallengeData>>() {}.type
     var page = 1
@@ -58,8 +60,13 @@ class HomeInvitesFragment() :
         setOnScrollListener()
     }
 
+    fun setInterface(i : NoRecordsFound){
+        noRecords = i
+    }
+
     private fun setRecyclerView() {
         adapter = ChallengeListRecyclerAdapter(requireContext(), invitesList, onClick = {
+            noRecords.noRecords(false)
             findNavController().navigate(R.id.groupDetailFragment)
         })
         getDataBinding().rvHomeInvites.adapter = adapter
@@ -135,11 +142,13 @@ class HomeInvitesFragment() :
                     response.let {
 
                         if (it.isNullOrEmpty()) {
-                            getDataBinding().layNoData.groupIfListEmpty.visibility =
-                                View.VISIBLE
+                            noRecords.noRecords(true)
+//                            getDataBinding().layNoData.groupIfListEmpty.visibility =
+//                                View.VISIBLE
                             getDataBinding().rvHomeInvites.visibility = View.GONE
                         } else {
-                            getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
+                            noRecords.noRecords(false)
+//                            getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
                             getDataBinding().rvHomeInvites.visibility = View.VISIBLE
                             val myObjectList: List<ChallengeData> =
                                 gson.fromJson(gson.toJson(it), type)
@@ -174,10 +183,17 @@ class HomeInvitesFragment() :
     override fun onResume() {
         super.onResume()
         page = 1
+        noRecords.noRecords(false)
         invitesList.clear()
         isLoading = false
         isLastPage = false
         callApi(page)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        invitesList.clear()
+        adapter?.notifyDataSetChanged()
     }
 
 }

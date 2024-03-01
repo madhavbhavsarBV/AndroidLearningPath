@@ -41,6 +41,7 @@
                 <include
                     android:id="@+id/layNoData"
                     layout="@layout/layout_no_data"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

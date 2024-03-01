@@ -7,6 +7,12 @@
 
     </data>
 
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
@@ -60,5 +66,5 @@
                 app:navGraph="@navigation/mobile_navigation" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

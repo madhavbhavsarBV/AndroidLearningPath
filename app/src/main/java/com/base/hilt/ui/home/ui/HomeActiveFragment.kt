@@ -17,6 +17,7 @@ import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
 import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
 import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
+import com.base.hilt.ui.home.interfaces.NoRecordsFound
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.base.hilt.utils.Constants
 import com.google.gson.Gson
@@ -28,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_active
 
+    lateinit var noRecords : NoRecordsFound
     val gson = Gson()
     val type = object : TypeToken<List<ChallengeData>>() {}.type
     var page = 1
@@ -82,14 +84,16 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
 
     private fun setUpRecyclerView() {
         adapter = ChallengeListRecyclerAdapter(requireContext(), invitesList, onClick = {
-
+            noRecords.noRecords(false)
             findNavController().navigate(R.id.groupDetailFragment)
         })
         getDataBinding().rvHomeActive.adapter = adapter
         layoutManager = LinearLayoutManager(requireContext())
         getDataBinding().rvHomeActive.layoutManager = layoutManager
     }
-
+    fun setInterface(i : NoRecordsFound){
+        noRecords = i
+    }
 
     private fun callApi(page: Int) {
         viewModel.challengeListApiCall(
@@ -131,11 +135,13 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
                     val response = it.response.data?.challengeList?.data
                     response.let {
                         if (it.isNullOrEmpty()) {
-                            getDataBinding().layNoData.groupIfListEmpty.visibility =
-                                View.VISIBLE
+                            noRecords.noRecords(true)
+//                            getDataBinding().layNoData.groupIfListEmpty.visibility =
+//                                View.VISIBLE
                             getDataBinding().rvHomeActive.visibility = View.GONE
                         } else {
-                            getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
+                            noRecords.noRecords(false)
+//                            getDataBinding().layNoData.groupIfListEmpty.visibility = View.GONE
                             getDataBinding().rvHomeActive.visibility = View.VISIBLE
                             val myObjectList: List<ChallengeData> =
                                 gson.fromJson(gson.toJson(it), type)
@@ -181,10 +187,15 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
     override fun onResume() {
         super.onResume()
         page = 1
+        noRecords.noRecords(false)
         invitesList.clear()
         isLoading = false
         isLastPage = false
         callApi(page)
     }
-
+    override fun onPause() {
+        super.onPause()
+        invitesList.clear()
+        adapter?.notifyDataSetChanged()
+    }
 }

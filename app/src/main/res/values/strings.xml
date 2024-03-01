@@ -73,6 +73,7 @@
     <string name="video_games">Video Games</string>
     <string name="handshakes">Handshakes</string>
     <string name="currently_no_active_challenges">{currently no active challenges}</string>
+    <string name="currently_no_past_challenges">{currently no past challenges}</string>
     <string name="currently_no_invite">{currently no invite}</string>
     <string name="let_s_go">Let\'s Go!!!</string>
     <string name="click_to_create_na_new_challende">Click to Create \na New Challenge</string>
@@ -112,8 +113,8 @@
     <string name="challenge_ending_soon">Challenge Ending Soon</string>
     <string name="ending_on_jan_11_2024">Ending on: Jan 11 2024</string>
     <string name="test_challenge">Test Challenge</string>
-    <string name="accept_by_jan_11_2024">Accept By: Jan 11 2024</string>
-    <string name="end_by_jan_11_2024">End By: Jan 11 2024</string>
+    <string name="accept_by_jan_11_2024">Accept By: </string>
+    <string name="end_by_jan_11_2024">End By: </string>
     <string name="select_winner">Select Winner</string>
     <string name="comments">Comments</string>
     <string name="write_a_comment">Write a comment</string>

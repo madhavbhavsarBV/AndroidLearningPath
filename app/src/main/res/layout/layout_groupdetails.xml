@@ -504,7 +504,7 @@
                     app:layout_constraintTop_toBottomOf="@id/clEndingChallenge" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvAcceptBy"
+                    android:id="@+id/tvAcceptBylbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
@@ -514,11 +514,31 @@
                     app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvEndBy"
+                    android:id="@+id/tvAcceptBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@{model.accept_by}"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/tvAcceptBylbl"
+                    app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvEndBylbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/end_by_jan_11_2024"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@id/tvEndBy"
+                    app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvEndBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@{model.end_at}"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
                     app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
@@ -536,7 +556,7 @@
                     android:textAllCaps="false"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
                     app:layout_constraintStart_toStartOf="@id/guideStart"
-                    app:layout_constraintTop_toBottomOf="@id/tvEndBy"
+                    app:layout_constraintTop_toBottomOf="@id/tvAcceptBy"
 
                     />
 
