@@ -50,10 +50,7 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
     }
 
     override fun initializeScreenVariables() {
-//        curFrag("past")
-//        currentFragName="pastt"
-//        Log.i("currrfrag", "initializeScreenVariables: ${currentFragName}")
-        //set Up Recycler View
+
         setUpRecyclerView()
 
         // observeData

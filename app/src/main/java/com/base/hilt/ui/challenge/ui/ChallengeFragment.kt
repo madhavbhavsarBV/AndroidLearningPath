@@ -51,6 +51,7 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                 0 -> {
                     findNavController().popBackStack()
                 }
+
                 1 -> getDataBinding().vpChallenges.setCurrentItem(0, true)
                 2 -> getDataBinding().vpChallenges.setCurrentItem(1, true)
                 3 -> getDataBinding().vpChallenges.setCurrentItem(2, true)
@@ -65,10 +66,10 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
     override fun getViewModelClass(): Class<ChallengeViewModel> = ChallengeViewModel::class.java
 
 
-   lateinit var createChallengeFragment : Fragment
-   lateinit var createDetailFragment : Fragment
-   lateinit var createDescriptionFragment : Fragment
-   lateinit var reviewChallengeFragment : Fragment
+    lateinit var createChallengeFragment: Fragment
+    lateinit var createDetailFragment: Fragment
+    lateinit var createDescriptionFragment: Fragment
+    lateinit var reviewChallengeFragment: Fragment
     private fun setUpViewPagerAdapter() {
 
         createChallengeFragment = CreateChallengeFragment()
@@ -170,11 +171,12 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                 when (getDataBinding().vpChallenges.currentItem) {
                     0 -> getDataBinding().vpChallenges.setCurrentItem(1, true)
                     1 -> {
-                        if((createDetailFragment as ChallengeDetailFragment).checkValidations()){
+                        if ((createDetailFragment as ChallengeDetailFragment).checkValidations()) {
                             getDataBinding().vpChallenges.setCurrentItem(2, true)
                         }
 
                     }
+
                     2 -> getDataBinding().vpChallenges.setCurrentItem(3, true)
                     3 -> {
                         findNavController().popBackStack()
