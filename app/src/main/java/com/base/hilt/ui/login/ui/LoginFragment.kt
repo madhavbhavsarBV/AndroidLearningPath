@@ -97,18 +97,13 @@ class LoginFragment : FragmentBase<LoginViewModel, FragmentLoginBinding>() {
         }
 
         viewModel.loginLiveData.observe(this) {
+            viewModel.showProgressBar(it is ResponseHandler.Loading)
             when (it) {
-                ResponseHandler.Loading -> {
-                    viewModel.showProgressBar(true)
-                }
-
                 is ResponseHandler.OnFailed -> {
-                    viewModel.showProgressBar(false)
                     CommonDialogs.showOkDialog(requireContext(),it.message)
                 }
 
                 is ResponseHandler.OnSuccessResponse -> {
-                    viewModel.showProgressBar(false)
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     pref.setValueBoolean(PrefKey.IS_LOGINED, true)
                     pref.setValueString(PrefKey.TOKEN, it.response.data?.login?.data?.access_token)

@@ -51,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/light_grey"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             bind:layout_constraintTop_toBottomOf="@id/cvSearch"
             tools:context=".ui.home.ui.HomeInvitesFragment">
@@ -61,25 +62,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_2sdp"
-                bind:layout_constraintBottom_toBottomOf="parent"
-                bind:layout_constraintEnd_toEndOf="parent"
-                bind:layout_constraintStart_toStartOf="parent"
-                bind:layout_constraintTop_toTopOf="parent">
+                android:layout_weight="1">
 
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvHomePast"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/row_home_invites" />
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHomePast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_weight="1"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/row_home_invites" />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
+            <ProgressBar
+                android:id="@+id/pbLoading"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

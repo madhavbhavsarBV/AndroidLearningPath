@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_past
 
-    lateinit var noRecords : NoRecordsFound
+    lateinit var noRecords: NoRecordsFound
     val gson = Gson()
     val type = object : TypeToken<List<ChallengeData>>() {}.type
     var page = 1
@@ -85,15 +85,19 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
     }
 
     private fun setUpRecyclerView() {
-        adapter = ChallengeListRecyclerAdapter(requireContext(),invitesList, onClick = {
+        adapter =
+            ChallengeListRecyclerAdapter(
+                context = requireContext(),
+                list = invitesList,
+                onClick = {
 //            Log.i("clickhere1", "setUpRecyclerView: here")
-            val bundle = Bundle()
-            bundle.putString(Constants.UUID,it)
-            noRecords.noRecords(false)
-            findNavController().navigate(R.id.groupDetailFragment,bundle)
-        })
+                    val bundle = Bundle()
+                    bundle.putString(Constants.UUID, it)
+                    noRecords.noRecords(false)
+                    findNavController().navigate(R.id.groupDetailFragment, bundle)
+                })
 
-        getDataBinding().rvHomePast.adapter= adapter
+        getDataBinding().rvHomePast.adapter = adapter
         layoutManager = LinearLayoutManager(requireContext())
         getDataBinding().rvHomePast.layoutManager = layoutManager
     }
@@ -109,7 +113,7 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
         )
     }
 
-    fun setInterface(i : NoRecordsFound){
+    fun setInterface(i: NoRecordsFound) {
         noRecords = i
     }
 
@@ -130,17 +134,22 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
             when (it) {
                 ResponseHandler.Loading -> {
                     if (page == 1) getDataBinding().srlInvites.isRefreshing = true
+                    else {
+                        isLoading = true
+                        getDataBinding().pbLoading.visibility = View.VISIBLE
+                    }
                 }
 
                 is ResponseHandler.OnFailed -> {
                     getDataBinding().srlInvites.isRefreshing = false
                     isLoading = false
+                    getDataBinding().pbLoading.visibility = View.GONE
                 }
 
                 is ResponseHandler.OnSuccessResponse -> {
                     getDataBinding().srlInvites.isRefreshing = false
                     isLoading = false
-
+                    getDataBinding().pbLoading.visibility = View.GONE
                     val response = it.response.data?.challengeList?.data
                     response.let {
                         if (it.isNullOrEmpty()) {

@@ -5,49 +5,74 @@ import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Operation
 import com.apollographql.apollo3.exception.ApolloException
 import com.apollographql.apollo3.exception.ApolloHttpException
+import com.apollographql.apollo3.exception.ApolloNetworkException
 import com.base.hilt.network.GraphQLErrors
+import com.base.hilt.network.HttpCommonMethod
 import com.base.hilt.network.HttpErrorCode
 import com.base.hilt.network.ResponseHandler
 
 
 open class BaseRepository() {
 
-    suspend fun <T:Operation.Data> graphQlApiCall( call: suspend ()-> ApolloResponse<T> ) : ResponseHandler<ApolloResponse<T>> {
-        return try {
-            Log.i("madmad2", "graphQlApiCall: reached")
+    suspend fun <T : Operation.Data> graphQlApiCall(call: suspend () -> ApolloResponse<T>): ResponseHandler<ApolloResponse<T>> {
+        try {
             val response = call.invoke()
+            when {
+                response == null -> {
+                    return ResponseHandler.OnFailed(
+                        code = HttpErrorCode.BAD_RESPONSE.code,
+                        message = HttpErrorCode.BAD_RESPONSE.message,
+                        messageCode = null,
+                    )
+                }
 
-            if (response == null) {
-                return ResponseHandler.OnFailed(
-                    HttpErrorCode.BAD_RESPONSE.code,
-                    HttpErrorCode.BAD_RESPONSE.name,
-                    ""
-                )
-            } else if (response.hasErrors()) {
+                response.hasErrors() -> {
 
-                val error = response.errors?.let { GraphQLErrors(it) }
-                Log.i("madmad", "onLoginApi: here2")
-                return ResponseHandler.OnFailed(0, response.errors.toString(),"")
-            } else {
-                return ResponseHandler.OnSuccessResponse(response)
+                    val errorModel = HttpCommonMethod.getErrorMessageForGraph(
+                        response.errors
+                    )
+
+                    //                val error = response.errors?.let { GraphQLErrors(it) }
+                    //                Log.i("madmad", "onLoginApi: here2")
+                    return ResponseHandler.OnFailed(
+                        code = errorModel.first,
+                        message = errorModel.second,
+                        messageCode = errorModel.third,
+                    )
+                }
+
+                else -> {
+                    return ResponseHandler.OnSuccessResponse(response)
+                }
             }
 
-        } catch (e: Exception) {
-            Log.i("madmad", "onLoginApi: ${e}")
-
-            when(e){
-                is ApolloException->{
-
+        } catch (e: java.lang.Exception) {
+            when (e) {
+                is ApolloNetworkException -> {
+                    return ResponseHandler.OnFailed(
+                        code = HttpErrorCode.NO_CONNECTION.code,
+                        message = HttpErrorCode.NO_CONNECTION.message,
+                        messageCode = null,
+                    )
                 }
-                is ApolloHttpException->{
 
+                is ApolloHttpException -> {
+                    return ResponseHandler.OnFailed(
+                        code = HttpErrorCode.BAD_RESPONSE.code,
+                        message = e.message,
+                        messageCode = null,
+                    )
                 }
-                else->{
 
+                else -> {
+                    return ResponseHandler.OnFailed(
+                        code = HttpErrorCode.BAD_RESPONSE.code,
+                        message = e.message,
+                        messageCode = null,
+                    )
                 }
 
             }
-            return (ResponseHandler.OnFailed(0, e.message.toString(), ""))
         }
     }
 
