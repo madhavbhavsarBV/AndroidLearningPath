@@ -14,7 +14,7 @@
 
         <variable
             name="model"
-            type="com.base.hilt.ui.groupdetail.model.ChallengeModel" />
+            type="com.base.hilt.domain.model.ChallengeData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -182,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_18sdp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/group_challenge"
+                    android:text="@{model.challengeType}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
@@ -236,7 +236,6 @@
                     android:id="@+id/rcvParticipants"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
@@ -361,9 +360,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/_3_participants"
+                    android:text="@{model.noParticipants}"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
                     app:layout_constraintTop_toBottomOf="@id/vHorizontalLine2" />
@@ -373,7 +371,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/_0_spectators"
+                    android:text="@{model.noSpectators}"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
                     app:layout_constraintTop_toBottomOf="@id/tvNoParticipants" />
@@ -466,30 +464,13 @@
                         android:gravity="center"
                         android:letterSpacing="0"
                         android:padding="@dimen/_5sdp"
-                        android:text="@string/ending_on_feb_08_2024"
-                        android:textAllCaps="true"
-                        android:textColor="@color/grey_4"
-                        app:drawableTint="@color/grey_4"
-                        app:layout_constraintEnd_toStartOf="@id/tvEndAt"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvEndAt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:drawablePadding="@dimen/_10sdp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center"
-                        android:letterSpacing="0"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@{model.end_at}"
+                        android:text="@{model.endingOn}"
                         android:textAllCaps="true"
                         android:textColor="@color/grey_4"
                         app:drawableTint="@color/grey_4"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toEndOf="@id/tvEndingOn" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -508,37 +489,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/accept_by_jan_11_2024"
+                    android:text="@{model.acceptyBy}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@id/guideStart"
                     app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvAcceptBy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@{model.accept_by}"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@id/tvAcceptBylbl"
-                    app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvEndBylbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/end_by_jan_11_2024"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toStartOf="@id/tvEndBy"
-                    app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvEndBy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@{model.end_at}"
+                    android:text="@{model.endBy}"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
                     app:layout_constraintTop_toBottomOf="@id/tvTestChallenge" />
@@ -556,7 +518,7 @@
                     android:textAllCaps="false"
                     app:layout_constraintEnd_toEndOf="@id/guideEnd"
                     app:layout_constraintStart_toStartOf="@id/guideStart"
-                    app:layout_constraintTop_toBottomOf="@id/tvAcceptBy"
+                    app:layout_constraintTop_toBottomOf="@id/tvAcceptBylbl"
 
                     />
 

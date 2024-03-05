@@ -16,13 +16,11 @@ import com.base.hilt.utils.Constants
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
+import mapToChallengeData
 
 @AndroidEntryPoint
 class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDetailBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_group_detail
-
-    val gson = Gson()
-    val type = object : TypeToken<ChallengeModel>() {}.type
     private var uuid: String? = null
     private var adapter: ParticipantsRecyclerViewAdapter? = null
 
@@ -70,43 +68,24 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
         }
 
         viewModel.challengeDetailLiveData.observe(viewLifecycleOwner) {
+            viewModel.showProgressBar(it is ResponseHandler.Loading)
             when (it) {
-                ResponseHandler.Loading -> {
-                    viewModel.showProgressBar(true)
-                    Log.i("maduuid", "callApi:loading")
-                }
-
                 is ResponseHandler.OnFailed -> {
-                    viewModel.showProgressBar(false)
-//                    Log.i("maduuid", "callApi: ${it.message}")
                 }
 
                 is ResponseHandler.OnSuccessResponse -> {
-                    viewModel.showProgressBar(false)
-//                    Log.i("maduuid", "callApi: ${it.response.data?.challengeDetail.toString()}")
-
                     val response = it.response.data?.challengeDetail?.data
-
                     response.let {
-                        val myObjectList: ChallengeModel = gson.fromJson(gson.toJson(it), type)
-                        getDataBinding().layGroupDetail.model = myObjectList
-
-//                        it?.author.let {
-//                            val aithorList: ChallengeModel.Author = gson.fromJson(gson.toJson(it), type)
-//                            getDataBinding().layGroupDetail.model = authorList
-//                        }
-//                        Log.i("ffrger", "observeData: ${myObjectList.author?.first_name}")
+                        val challengeData = it.mapToChallengeData()
+                        getDataBinding().layGroupDetail.model = challengeData
                     }
 
                     it.response.data?.challengeDetail.let {
-                        // getDataBinding().layGroupDetail.model = ChallengeModel(type = it?.data?.type)
-
                         it?.data?.participants.let {
                             if (it != null) {
                                 setUpParticipantsRecyclerView(it as List<ChallengeDetailQuery.Participant>)
                             }
                         }
-
                     }
 
 

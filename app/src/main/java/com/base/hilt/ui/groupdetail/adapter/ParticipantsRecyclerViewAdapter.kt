@@ -5,11 +5,15 @@ import com.base.hilt.ChallengeDetailQuery
 import com.base.hilt.R
 import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowParticipantsBinding
+import mapToUserData
 
 class ParticipantsRecyclerViewAdapter(
     mContext: Context, data: ArrayList<ChallengeDetailQuery.Participant>,
     private val onItemBtnClick: () -> Unit
-) : GenericRecyclerViewAdapter<ChallengeDetailQuery.Participant, RowParticipantsBinding>(mContext, data) {
+) : GenericRecyclerViewAdapter<ChallengeDetailQuery.Participant, RowParticipantsBinding>(
+    mContext,
+    data
+) {
 
     override val layoutResId: Int = R.layout.row_participants
 
@@ -18,6 +22,7 @@ class ParticipantsRecyclerViewAdapter(
         position: Int,
         dataBinding: RowParticipantsBinding
     ) {
+        val participantMOdel = model.mapToUserData()
         //
     }
 

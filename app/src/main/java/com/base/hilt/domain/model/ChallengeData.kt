@@ -71,4 +71,17 @@ data class ChallengeData(
 
 
     var endingOn:String = "ENDING ON: "+ this.end_at
+    var acceptyBy:String = "Accept By: "+ this.accept_by
+    var endBy:String = "End By: "+ this.end_at
+    var challengeType:String = this.type+" Challenge"
+    var noParticipants:String = this.total_participants.toString()+" Participants"
+    var noSpectators:String = this.total_spectators.toString()+" Spectators"
+
+    fun type1v1():Boolean{
+        return this.type=="1v1"
+    }
+    fun typeGroup():Boolean{
+        return this.type=="group"
+    }
+
 }
