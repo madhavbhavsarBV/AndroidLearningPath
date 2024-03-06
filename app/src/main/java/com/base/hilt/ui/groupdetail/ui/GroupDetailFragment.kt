@@ -1,6 +1,5 @@
 package com.base.hilt.ui.groupdetail.ui
 
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.hilt.ChallengeDetailQuery
 import com.base.hilt.MainActivity
@@ -10,11 +9,8 @@ import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentGroupDetailBinding
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.groupdetail.adapter.ParticipantsRecyclerViewAdapter
-import com.base.hilt.ui.groupdetail.model.ChallengeModel
 import com.base.hilt.ui.groupdetail.viewmodel.GroupDetailViewModel
 import com.base.hilt.utils.Constants
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 import mapToChallengeData
 

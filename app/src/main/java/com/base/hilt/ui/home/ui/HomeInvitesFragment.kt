@@ -18,7 +18,6 @@ import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
-import mapToChallengeData
 
 @AndroidEntryPoint
 class HomeInvitesFragment() :

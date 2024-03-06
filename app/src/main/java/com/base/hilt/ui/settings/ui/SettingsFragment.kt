@@ -1,6 +1,5 @@
 package com.base.hilt.ui.settings.ui
 
-import android.util.Log
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.databinding.FragmentSettingsBinding

@@ -16,7 +16,6 @@ import com.base.hilt.domain.model.ChallengeData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
 import com.base.hilt.ui.home.adapter.ChallengeListRecyclerAdapter
-import com.base.hilt.ui.home.adapter.HomeRecyclerViewAdapter
 import com.base.hilt.ui.home.interfaces.NoRecordsFound
 import com.base.hilt.ui.home.viewmodel.HomeViewModel
 import com.base.hilt.utils.Constants

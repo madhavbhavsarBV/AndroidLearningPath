@@ -1,7 +1,6 @@
 package com.base.hilt.ui.home.adapter
 
 import android.content.Context
-import android.util.Log
 import com.base.hilt.ChallengeListQuery
 import com.base.hilt.R
 import com.base.hilt.bind.GenericRecyclerViewAdapter
