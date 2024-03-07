@@ -7,14 +7,14 @@
 
         <variable
             name="model"
-            type="com.base.hilt.NotificationsListQuery.Data1" />
+            type="com.base.hilt.domain.model.NotificationsListData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:id="@+id/clNotification"
+        android:background="@{model.read==1 ? @color/white: @color/light_green, default= @color/light_green}"
         android:layout_height="wrap_content">
-<!--        android:background="@{model.isRead ? @color/white: @color/light_green, default= @color/light_green}"-->
 
 
         <com.google.android.material.imageview.ShapeableImageView

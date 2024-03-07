@@ -1,20 +1,26 @@
 package com.base.hilt.ui.notifications.ui
 
 import PaginationScrollListener
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
+import com.base.hilt.MarkNotificationReadMutation
 import com.base.hilt.NotificationsListQuery
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentNotificationsBinding
+import com.base.hilt.domain.model.NotificationsListData
 import com.base.hilt.network.ResponseHandler
+import com.base.hilt.type.MarkNotificationReadInput
 import com.base.hilt.type.NotificationListInput
 import com.base.hilt.ui.notifications.adapter.NotificationsRecyclerViewAdapter
 import com.base.hilt.ui.notifications.viewmodel.NotificationsViewModel
 import com.base.hilt.utils.MyPreference
 import dagger.hilt.android.AndroidEntryPoint
+import mapToNotificationsListData
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,7 +31,7 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
 
     lateinit var linearLayoutManager: LinearLayoutManager
     private var adapter: NotificationsRecyclerViewAdapter? = null
-    var notificationList: ArrayList<NotificationsListQuery.Data1> = arrayListOf()
+    var notificationList: ArrayList<NotificationsListData> = arrayListOf()
     private var isLoading = false
     private var page = 1
     private var unreadNotificationCount = 0
@@ -100,11 +106,8 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
         viewModel.notificationListLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 ResponseHandler.Loading -> {
-                    if (page == 1) {
-                        getDataBinding().srlNotification.isRefreshing = true
-                    } else {
-                        getDataBinding().pbNotification.visibility = View.VISIBLE
-                    }
+                    if (page == 1) getDataBinding().srlNotification.isRefreshing = true
+                    else getDataBinding().pbNotification.visibility = View.VISIBLE
                 }
 
                 is ResponseHandler.OnFailed -> {
@@ -120,7 +123,12 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
                     it.response.data?.notficationsList?.data.let {
                         if (it != null) {
                             if (page == 1) notificationList.clear()
-                            notificationList.addAll(it)
+                            it.forEach {
+//                                Log.i("notiread", "observeData: runing")
+                                val notifcationListData = it.mapToNotificationsListData()
+                                notificationList.add(notifcationListData)
+                            }
+//                            notificationList.addAll(it)
                             adapter?.notifyDataSetChanged()
                         }
                     }
@@ -156,6 +164,22 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
             }
         }
 
+        viewModel.markNotificationReadLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                ResponseHandler.Loading -> {}
+                is ResponseHandler.OnFailed -> {}
+                is ResponseHandler.OnSuccessResponse -> markNotificationSuccess(it)
+            }
+
+        }
+
+    }
+
+    private fun markNotificationSuccess(response: ResponseHandler.OnSuccessResponse<ApolloResponse<MarkNotificationReadMutation.Data>>) {
+        response.let {
+            Log.i("notiread", "markNotificationSuccess: ${response.response.data?.markNotificationRead?.meta?.message}")
+        }
+
     }
 
     private fun callUnReadNotificationCountApi() {
@@ -179,8 +203,20 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
     private fun setUpNotificationRecyclerView() {
         linearLayoutManager = LinearLayoutManager(requireContext())
         getDataBinding().rcvNotifications.layoutManager = linearLayoutManager
-        adapter = NotificationsRecyclerViewAdapter(requireContext(), notificationList)
+        adapter = NotificationsRecyclerViewAdapter(requireContext(), notificationList,
+            onItemBtnClick = {
+                callReadApi(it)
+            })
         getDataBinding().rcvNotifications.adapter = adapter
+    }
+
+    private fun callReadApi(uuid: String) {
+        viewModel.markNotificationReadApiCall(
+            MarkNotificationReadInput(
+                status = Optional.Present(1),
+                uuid = Optional.Present(uuid)
+            )
+        )
     }
 
 }

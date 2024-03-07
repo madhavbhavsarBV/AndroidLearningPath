@@ -1,0 +1,10 @@
+mutation MarkNotificationRead($input : markNotificationReadInput!) {
+    markNotificationRead(input: $input){
+        meta{
+            status
+            message
+            message_code
+            status_code
+        }
+    }
+}

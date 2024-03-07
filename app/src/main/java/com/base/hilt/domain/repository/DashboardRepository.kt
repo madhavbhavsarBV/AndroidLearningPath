@@ -5,12 +5,14 @@ import com.apollographql.apollo3.api.ApolloResponse
 import com.base.hilt.ChallengeDetailQuery
 import com.base.hilt.ChallengeListQuery
 import com.base.hilt.ChallengeListingCountQuery
+import com.base.hilt.MarkNotificationReadMutation
 import com.base.hilt.NotificationsListQuery
 import com.base.hilt.UnreadNotificationCountQuery
 import com.base.hilt.UserDataQuery
 import com.base.hilt.base.BaseRepository
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.type.ChallengeListInput
+import com.base.hilt.type.MarkNotificationReadInput
 import com.base.hilt.type.NotificationListInput
 import javax.inject.Inject
 
@@ -53,6 +55,12 @@ class DashboardRepository @Inject constructor(
     suspend fun notificationListApi(input: NotificationListInput): ResponseHandler<ApolloResponse<NotificationsListQuery.Data>> {
         return graphQlApiCall {
             apolloClient.query(NotificationsListQuery(input)).execute()
+        }
+    }
+
+    suspend fun markNotificationReadApi(input: MarkNotificationReadInput): ResponseHandler<ApolloResponse<MarkNotificationReadMutation.Data>> {
+        return graphQlApiCall {
+            apolloClient.mutation(MarkNotificationReadMutation(input)).execute()
         }
     }
 

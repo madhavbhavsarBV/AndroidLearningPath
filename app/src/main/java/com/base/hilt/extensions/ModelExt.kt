@@ -1,8 +1,10 @@
 import com.base.hilt.ChallengeDetailQuery
 import com.base.hilt.ChallengeListQuery
+import com.base.hilt.NotificationsListQuery
 import com.base.hilt.domain.model.ChallengeData
+import com.base.hilt.domain.model.NotificationsListData
 
-fun ChallengeListQuery.Data1.mapToChallengeData():ChallengeData{
+fun ChallengeListQuery.Data1.mapToChallengeData(): ChallengeData {
 
     return ChallengeData(
         uuid = this?.uuid,
@@ -116,6 +118,7 @@ fun ChallengeDetailQuery.Winner?.mapToUserData(): ChallengeData.UserData {
         invite_status = null
     )
 }
+
 fun ChallengeDetailQuery.Modification_request?.mapToModificationData(): ChallengeData.ModificationData {
     return ChallengeData.ModificationData(
         uuid = this?.uuid,
@@ -133,4 +136,21 @@ fun ChallengeDetailQuery.Modification_request?.mapToModificationData(): Challeng
         status = this?.status.toString(),
         action_on = this?.action_on
     )
+}
+
+
+fun NotificationsListQuery.Data1.mapToNotificationsListData(): NotificationsListData {
+    return NotificationsListData(
+        uuid = this.uuid,
+        title = this.title,
+        content = this.content,
+        read = this.read,
+        created_at = this.created_at,
+        image = this.image,
+        action_uuid = this.action_uuid,
+        type = this.type,
+        ago = this.ago,
+        push_type = this.push_type,
+    )
+
 }
