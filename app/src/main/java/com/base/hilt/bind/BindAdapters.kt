@@ -23,37 +23,37 @@ import java.io.File
 class BindAdapters {
     companion object {
 
-        @BindingAdapter(value = ["bind:vendor_items_list"], requireAll = false)
-        @JvmStatic
-        fun bindVendorItemList(
-            view: RecyclerView,
-            subscription_meal_items_list: ArrayList<Vendor>?
-        ) {
-            if (subscription_meal_items_list != null) {
-                val adapter = object :
-                    GenericRecyclerViewAdapter<Vendor, RowItemHomeListBinding>(
-                        view.context,
-                        subscription_meal_items_list
-                    ) {
-                    override val layoutResId: Int
-                        get() = R.layout.row_item_home_list
-
-                    override fun onBindData(
-                        model: Vendor,
-                        position: Int,
-                        dataBinding: RowItemHomeListBinding
-                    ) {
-                        dataBinding.model = model
-                        dataBinding.executePendingBindings()
-                    }
-
-                    override fun onItemClick(model: Vendor, position: Int, dataBinding: RowItemHomeListBinding) {
-
-                    }
-                }
-                view.adapter = adapter
-            }
-        }
+//        @BindingAdapter(value = ["bind:vendor_items_list"], requireAll = false)
+//        @JvmStatic
+//        fun bindVendorItemList(
+//            view: RecyclerView,
+//            subscription_meal_items_list: ArrayList<Vendor>?
+//        ) {
+//            if (subscription_meal_items_list != null) {
+//                val adapter = object :
+//                    GenericRecyclerViewAdapter<Vendor, RowItemHomeListBinding>(
+//                        view.context,
+//                        subscription_meal_items_list
+//                    ) {
+//                    override val layoutResId: Int
+//                        get() = R.layout.row_item_home_list
+//
+//                    override fun onBindData(
+//                        model: Vendor,
+//                        position: Int,
+//                        dataBinding: RowItemHomeListBinding
+//                    ) {
+//                        dataBinding.model = model
+//                        dataBinding.executePendingBindings()
+//                    }
+//
+//                    override fun onItemClick(model: Vendor, position: Int, dataBinding: RowItemHomeListBinding) {
+//
+//                    }
+//                }
+//                view.adapter = adapter
+//            }
+//        }
 
 
         /**

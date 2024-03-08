@@ -113,7 +113,7 @@ class GroupDetailFragment : FragmentBase<GroupDetailViewModel, FragmentGroupDeta
     private fun setUpParticipantsRecyclerView(list: List<ChallengeDetailQuery.Participant>) {
         adapter = ParticipantsRecyclerViewAdapter(
             requireContext(),
-            list as ArrayList<ChallengeDetailQuery.Participant>,
+            list as ArrayList<ChallengeDetailQuery.Participant?>,
             onItemBtnClick = {
                 val dialog = ParticipantsListFragment()
                 dialog.show(childFragmentManager, "")

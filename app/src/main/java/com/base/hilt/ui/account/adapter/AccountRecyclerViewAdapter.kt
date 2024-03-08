@@ -6,7 +6,7 @@ import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowAccountBinding
 import com.base.hilt.ui.account.model.AccountModel
 
-class AccountRecyclerViewAdapter(context: Context, list:ArrayList<AccountModel>,
+class AccountRecyclerViewAdapter(context: Context, list:ArrayList<AccountModel?>,
 
 ): GenericRecyclerViewAdapter<AccountModel, RowAccountBinding>(context, list) {
 

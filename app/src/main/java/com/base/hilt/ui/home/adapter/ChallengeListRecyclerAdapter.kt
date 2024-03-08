@@ -7,7 +7,7 @@ import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowHomeInvitesBinding
 import com.base.hilt.domain.model.ChallengeData
 
-class ChallengeListRecyclerAdapter(context:Context, val list:ArrayList<ChallengeData>, var onClick:(String?)->Unit
+class ChallengeListRecyclerAdapter(context:Context, val list:ArrayList<ChallengeData?>, var onClick:(String?)->Unit
 )
     : GenericRecyclerViewAdapter<ChallengeData, RowHomeInvitesBinding>(context,list){
 

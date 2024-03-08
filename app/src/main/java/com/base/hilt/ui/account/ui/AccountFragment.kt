@@ -47,7 +47,7 @@ class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
 
     private fun setUpRecyclerAdapter() {
 
-        val list = arrayListOf(AccountModel(getString(R.string.add_balance)),
+        val list : ArrayList<AccountModel?> = arrayListOf(AccountModel(getString(R.string.add_balance)),
             AccountModel(getString(R.string.invite_friend)),
             AccountModel(getString(R.string.settings)),
             AccountModel(getString(R.string.support)),

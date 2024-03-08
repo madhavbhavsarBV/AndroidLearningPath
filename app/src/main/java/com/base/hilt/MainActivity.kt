@@ -16,12 +16,14 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.base.hilt.base.LocaleManager
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.ActivityMainBinding
+import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.account.ui.AccountFragment
 import com.base.hilt.ui.challenge.ui.ChallengeDialogFragment
 import com.base.hilt.ui.home.ui.HomeFragment
@@ -53,6 +55,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var mPref: MyPreference
 
+    lateinit var mainViewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
 
@@ -60,19 +64,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         val navView: BottomNavigationView = binding.navView
 
         //   val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         navController = navHostFragment.navController
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        /*   val appBarConfiguration = AppBarConfiguration(
-               setOf(
-                   R.id.navigation_home, R.id.navigation_dashboard
-               )
-           )*/
+
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
@@ -82,17 +81,24 @@ class MainActivity : AppCompatActivity() {
 
         handleBackClick()
 
-        // set up create challenge dialog
-        setUpCreateChallengeDialog()
-
+        observeData()
 
     }
 
-    private fun setUpCreateChallengeDialog() {
-        binding.imgBrandLogo.setOnClickListener {
-            val dialog = ChallengeDialogFragment()
-            dialog.show(supportFragmentManager,"")
+    private fun observeData() {
+
+        mainViewModel.unreadNotificationCountLiveData.observe(this) {
+            when (it) {
+                is ResponseHandler.OnFailed -> {
+
+                }
+                is ResponseHandler.OnSuccessResponse -> {
+
+                }
+                else -> {}
+            }
         }
+
     }
 
     /**

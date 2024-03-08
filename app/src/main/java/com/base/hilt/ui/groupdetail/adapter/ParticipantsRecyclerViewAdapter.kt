@@ -8,7 +8,7 @@ import com.base.hilt.databinding.RowParticipantsBinding
 import mapToUserData
 
 class ParticipantsRecyclerViewAdapter(
-    mContext: Context, data: ArrayList<ChallengeDetailQuery.Participant>,
+    mContext: Context, data: ArrayList<ChallengeDetailQuery.Participant?>,
     private val onItemBtnClick: () -> Unit
 ) : GenericRecyclerViewAdapter<ChallengeDetailQuery.Participant, RowParticipantsBinding>(
     mContext,

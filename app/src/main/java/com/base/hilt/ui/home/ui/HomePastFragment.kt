@@ -33,7 +33,7 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
     var page = 1
     var isLastPage = false
     var isLoading = false
-    var invitesList: ArrayList<ChallengeData> = arrayListOf()
+    var invitesList: ArrayList<ChallengeData?> = arrayListOf()
     var oldArray: ArrayList<ChallengeListQuery.Data1> = arrayListOf()
     lateinit var adapter: ChallengeListRecyclerAdapter
     lateinit var layoutManager: LinearLayoutManager

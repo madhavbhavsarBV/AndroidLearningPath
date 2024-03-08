@@ -7,7 +7,7 @@ import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowContactsBinding
 import com.base.hilt.ui.challenge.model.ContactsModel
 
-class ContactsRecyclerAdapter(val mContext: Context, data:ArrayList<ContactsModel>,
+class ContactsRecyclerAdapter(val mContext: Context, data:ArrayList<ContactsModel?>,
    var onCheckClick:(b:Boolean)-> Unit
 ):GenericRecyclerViewAdapter<ContactsModel,RowContactsBinding>(mContext,data) {
 

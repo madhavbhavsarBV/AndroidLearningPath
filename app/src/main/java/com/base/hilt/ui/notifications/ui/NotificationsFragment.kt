@@ -31,7 +31,7 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
 
     lateinit var linearLayoutManager: LinearLayoutManager
     private var adapter: NotificationsRecyclerViewAdapter? = null
-    var notificationList: ArrayList<NotificationsListData> = arrayListOf()
+    var notificationList: ArrayList<NotificationsListData?> = arrayListOf()
     private var isLoading = false
     private var page = 1
     private var unreadNotificationCount = 0
@@ -104,12 +104,16 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
 
     private fun observeData() {
         viewModel.notificationListLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                ResponseHandler.Loading -> {
-                    if (page == 1) getDataBinding().srlNotification.isRefreshing = true
-                    else getDataBinding().pbNotification.visibility = View.VISIBLE
-                }
 
+            isLoading = it is ResponseHandler.Loading
+            if (page == 1) {
+                getDataBinding().srlNotification.isRefreshing = true
+            }
+            else {
+                adapter?.showLoader(it is ResponseHandler.Loading)
+            }
+
+            when (it) {
                 is ResponseHandler.OnFailed -> {
                     getDataBinding().srlNotification.isRefreshing = false
                     isLoading = false
@@ -177,7 +181,10 @@ class NotificationsFragment : FragmentBase<NotificationsViewModel, FragmentNotif
 
     private fun markNotificationSuccess(response: ResponseHandler.OnSuccessResponse<ApolloResponse<MarkNotificationReadMutation.Data>>) {
         response.let {
-            Log.i("notiread", "markNotificationSuccess: ${response.response.data?.markNotificationRead?.meta?.message}")
+            Log.i(
+                "notiread",
+                "markNotificationSuccess: ${response.response.data?.markNotificationRead?.meta?.message}"
+            )
         }
 
     }

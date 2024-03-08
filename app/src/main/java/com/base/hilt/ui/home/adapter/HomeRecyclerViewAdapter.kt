@@ -6,7 +6,7 @@ import com.base.hilt.R
 import com.base.hilt.bind.GenericRecyclerViewAdapter
 import com.base.hilt.databinding.RowHomeInvitesBinding
 
-class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<ChallengeListQuery.Data1>, var onClick:(String?)->Unit
+class HomeRecyclerViewAdapter(context:Context, val list:ArrayList<ChallengeListQuery.Data1?>, var onClick:(String?)->Unit
 )
     : GenericRecyclerViewAdapter<ChallengeListQuery.Data1, RowHomeInvitesBinding>(context,list){
 

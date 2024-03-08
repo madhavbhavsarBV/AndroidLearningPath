@@ -10,7 +10,7 @@ import com.base.hilt.databinding.RowNotificationsBinding
 import com.base.hilt.domain.model.NotificationsListData
 
 class NotificationsRecyclerViewAdapter(
-    context: Context, list: ArrayList<NotificationsListData>,
+    context: Context, list: ArrayList<NotificationsListData?>,
     private val onItemBtnClick: (String) -> Unit
 ): GenericRecyclerViewAdapter<NotificationsListData, RowNotificationsBinding>(
     context,

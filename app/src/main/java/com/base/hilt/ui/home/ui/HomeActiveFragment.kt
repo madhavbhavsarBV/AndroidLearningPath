@@ -35,7 +35,7 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
     var page = 1
     var isLastPage = false
     var isLoading = false
-    var invitesList: ArrayList<ChallengeData> = arrayListOf()
+    var invitesList: ArrayList<ChallengeData?> = arrayListOf()
     lateinit var adapter: ChallengeListRecyclerAdapter
     lateinit var layoutManager: LinearLayoutManager
 
@@ -175,7 +175,7 @@ class HomeActiveFragment : FragmentBase<HomeViewModel, FragmentHomeActiveBinding
 //        val list = arrayListOf(HomeInvitesModel(), HomeInvitesModel(), HomeInvitesModel())
         getDataBinding().rvHomeActive.adapter =
             HomeRecyclerViewAdapter(requireContext(),
-                list as ArrayList<ChallengeListQuery.Data1>, onClick = {
+                list as ArrayList<ChallengeListQuery.Data1?>, onClick = {
                     val bundle = Bundle()
                     bundle.putString(Constants.UUID, it)
                     findNavController().navigate(R.id.groupDetailFragment, bundle)
