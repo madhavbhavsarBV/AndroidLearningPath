@@ -11,4 +11,5 @@ object Constants {
     const val MESSAGE = "message"
     const val TOKEN_EXPIRED = "Your session has been expired. Please login again"
     const val COMMA = ","
+    const val EMPTY = ""
 }

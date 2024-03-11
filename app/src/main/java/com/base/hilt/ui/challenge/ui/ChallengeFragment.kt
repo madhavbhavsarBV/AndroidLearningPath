@@ -10,6 +10,7 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentChallengeBinding
+import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.challenge.adapter.ChallengeViewPagerAdapter
 import com.base.hilt.ui.challenge.interfaces.BtnNextValidations
 import com.base.hilt.ui.challenge.viewmodel.ChallengeViewModel
@@ -180,12 +181,8 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                     2 -> getDataBinding().vpChallenges.setCurrentItem(3, true)
                     3 -> {
                         findNavController().popBackStack()
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.challenge_created_3),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+//                        viewModel.callCreateChallenge(req)
+
                     }
 
                 }
@@ -193,6 +190,22 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
             }
 
 
+        }
+
+        viewModel.createChallengeLiveData.observe(this) {
+            viewModel.showProgressBar(it is ResponseHandler.Loading)
+            when (it) {
+                is ResponseHandler.OnFailed -> {}
+                is ResponseHandler.OnSuccessResponse -> {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.challenge_created_3),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                else -> {}
+            }
         }
 
     }

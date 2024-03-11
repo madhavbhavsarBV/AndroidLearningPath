@@ -17,7 +17,7 @@
         android:title="@string/universe" />
 
     <item
-        android:id="@+id/navigation_challenge"
+        android:id="@id/challengeDialogFragment"
         android:title="" />
 
     <item

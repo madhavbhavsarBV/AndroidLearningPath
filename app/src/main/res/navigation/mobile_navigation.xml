@@ -138,7 +138,23 @@
         android:name="com.base.hilt.ui.challenge.ui.ChallengeFragment"
         android:label="ChallengeFragment"
         />
-<!--    <dialog-->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.base.hilt.ui.settings.ui.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.base.hilt.ui.settings.ui.EditProfileFragment"
+        android:label="EditProfileFragment" />
+    <fragment
+        android:id="@+id/updatePasswordFragment"
+        android:name="com.base.hilt.ui.settings.ui.UpdatePasswordFragment"
+        android:label="UpdatePasswordFragment" />
+    <fragment
+        android:id="@+id/challengeDialogFragment"
+        android:name="com.base.hilt.ui.challenge.ui.ChallengeDialogFragment"
+        android:label="ChallengeDialogFragment" />
+    <!--    <dialog-->
 <!--        android:id="@+id/challengeDialogFragment"-->
 <!--        android:name="com.base.hilt.ui.challenge.ui.ChallengeDialogFragment"-->
 <!--        android:label="ChallengeDialogFragment" >-->

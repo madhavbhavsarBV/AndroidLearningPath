@@ -1,5 +1,11 @@
 package com.base.hilt.network
 
+import com.base.hilt.ui.challenge.model.ChallengeModel
+
+import okhttp3.RequestBody
+import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.POST
 import javax.inject.Singleton
 
 /**
@@ -7,15 +13,12 @@ import javax.inject.Singleton
  */
 @Singleton
 interface ApiInterface {
-//    @GET(ConfigFiles.API_VERSION + "find-vendors")
-//    suspend fun callHomeScreenApiGetVendors(
-//        @Query("vendor_type") vendorType: String,
-//        @Query("lat") lat: Double,
-//        @Query("long") long: Double,
-//    ): Response<ResponseData<HomeScreenVendorsListResponse>>
 
-//
-//    suspend fun onloginApi(loginReq: LoginInput): Response<ResponseData<LoginResponse>>
+
+    @POST("/${ApiEndPoints.API_PATH}"+ApiEndPoints.API_VERSION + ApiEndPoints.CREATE_CHALLENGE)
+    suspend fun callCreateChallenge(
+        @Body requestBody: RequestBody
+    ): Response<ResponseData<ChallengeModel>>
 
 
 }

@@ -124,7 +124,9 @@
     <style name="CustomDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
     </style>
     <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="fontFamily">@font/poppins_medium</item>
@@ -137,5 +139,5 @@
     </style>
 
 
-
+    <color name="transparent">#001C1C1C</color>
 </resources>

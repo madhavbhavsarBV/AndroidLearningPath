@@ -171,5 +171,12 @@
     <string name="_3_participants">3 Participants</string>
     <string name="_0_spectators">0 Spectators</string>
     <string name="space_world">Space World</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="update_password">Update Password</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="blocked_users">Blocked Users</string>
+    <string name="tandcs"><![CDATA[T&Cs]]></string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="challengedialog">challengeDialog</string>
 
 </resources>

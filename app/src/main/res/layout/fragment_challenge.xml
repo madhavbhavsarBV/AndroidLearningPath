@@ -19,16 +19,29 @@
         tools:context=".ui.challenge.ui.ChallengeFragment">
 
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
         <View
             android:id="@+id/uHLine1"
             android:layout_width="0dp"
             android:layout_height="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_2sdp"
             android:background="@color/green_4"
             app:layout_constraintEnd_toStartOf="@id/uHLine2"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -57,11 +70,10 @@
             android:id="@+id/uHLine4"
             android:layout_width="0dp"
             android:layout_height="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginStart="@dimen/_2sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:background="@color/grey_2"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
             app:layout_constraintStart_toEndOf="@id/uHLine3"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,14 +91,13 @@
             style="@style/CustomButtonWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:enabled="false"
             android:onClick="@{()->viewmodel.onBtnNextClick()}"
             android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideEnd"
+            app:layout_constraintStart_toStartOf="@id/guideStart"
 
             />
 

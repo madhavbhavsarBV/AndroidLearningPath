@@ -17,10 +17,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
+class AccountFragment : FragmentBase<AccountViewModel, FragmentAccountBinding>() {
 
     @Inject
-    lateinit var pref : MyPreference
+    lateinit var pref: MyPreference
 
     override fun getLayoutId(): Int = R.layout.fragment_account
 
@@ -47,16 +47,26 @@ class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
 
     private fun setUpRecyclerAdapter() {
 
-        val list : ArrayList<AccountModel?> = arrayListOf(AccountModel(getString(R.string.add_balance)),
+        val list: ArrayList<AccountModel?> = arrayListOf(
+            AccountModel(getString(R.string.add_balance)),
             AccountModel(getString(R.string.invite_friend)),
             AccountModel(getString(R.string.settings)),
+            AccountModel(getString(R.string.transaction_history)),
             AccountModel(getString(R.string.support)),
             AccountModel(getString(R.string.faqs)),
             AccountModel(getString(R.string.transfer_friend)),
             AccountModel(getString(R.string.scan_code)),
             AccountModel(getString(R.string.withdrow_balance)),
-            )
-        getDataBinding().rcvAccount.adapter = AccountRecyclerViewAdapter(requireContext(), list)
+            AccountModel(getString(R.string.blocked_users)),
+            AccountModel(getString(R.string.tandcs)),
+            AccountModel(getString(R.string.privacy_policy)),
+        )
+        getDataBinding().rcvAccount.adapter =
+            AccountRecyclerViewAdapter(requireContext(), list, onClick = {
+                if (it == getString(R.string.settings)) {
+                    findNavController().navigate(R.id.settingsFragment)
+                }
+            })
         getDataBinding().rcvAccount.layoutManager = LinearLayoutManager(requireContext())
 
     }
@@ -65,19 +75,21 @@ class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
 
         viewModel.apply {
 
-            onLogOutClick?.observe(viewLifecycleOwner){
+            onLogOutClick?.observe(viewLifecycleOwner) {
                 logoutApi()
             }
 
 
-            onLogOutLiveData.observe(viewLifecycleOwner){
-                when(it){
+            onLogOutLiveData.observe(viewLifecycleOwner) {
+                when (it) {
                     ResponseHandler.Loading -> {
                         viewModel.showProgressBar(true)
                     }
+
                     is ResponseHandler.OnFailed -> {
                         viewModel.showProgressBar(false)
                     }
+
                     is ResponseHandler.OnSuccessResponse -> {
                         viewModel.showProgressBar(false)
                         findNavController().navigate(R.id.action_accountsFragment_to_loginFragment)
@@ -86,15 +98,17 @@ class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
                 }
             }
 
-            userDataLiveData.observe(viewLifecycleOwner){
-                when(it){
+            userDataLiveData.observe(viewLifecycleOwner) {
+                when (it) {
                     ResponseHandler.Loading -> {
                         viewModel.showProgressBar(true)
                     }
+
                     is ResponseHandler.OnFailed -> {
                         viewModel.showProgressBar(true)
                     }
-                    is ResponseHandler.OnSuccessResponse->{
+
+                    is ResponseHandler.OnSuccessResponse -> {
                         viewModel.showProgressBar(false)
                     }
                 }
@@ -115,7 +129,7 @@ class AccountFragment : FragmentBase<AccountViewModel,FragmentAccountBinding>(){
 
 //    fun fun
 
-    fun logoutApi(){
+    fun logoutApi() {
         viewModel.onLogoutApi()
     }
 }

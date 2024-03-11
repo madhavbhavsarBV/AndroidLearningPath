@@ -81,9 +81,13 @@ class MainActivity : AppCompatActivity() {
 
         handleBackClick()
 
+        clickListeners()
+
         observeData()
 
     }
+
+
 
     private fun observeData() {
 
@@ -236,6 +240,13 @@ class MainActivity : AppCompatActivity() {
                 onBackClicked()
             }
         })
+    }
+
+    private fun clickListeners() {
+        binding.imgBrandLogo.setOnClickListener {
+            val dialog = ChallengeDialogFragment()
+            dialog.show(supportFragmentManager,getString(R.string.challengedialog))
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

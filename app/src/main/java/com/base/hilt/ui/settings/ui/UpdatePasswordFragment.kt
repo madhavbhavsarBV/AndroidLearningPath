@@ -1,15 +1,19 @@
 package com.base.hilt.ui.settings.ui
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ViewModelBase
-import com.base.hilt.databinding.FragmentEditProfileBinding
+import com.base.hilt.databinding.FragmentUpdatePasswordBinding
 import com.base.hilt.ui.settings.viewmodel.SettingsViewModel
 
 
-class EditProfileFragment : FragmentBase<ViewModelBase, FragmentEditProfileBinding>() {
-
-    override fun getLayoutId(): Int = R.layout.fragment_edit_profile
+class UpdatePasswordFragment : FragmentBase<ViewModelBase,FragmentUpdatePasswordBinding>() {
+    override fun getLayoutId(): Int = R.layout.fragment_update_password
 
     override fun setupToolbar() {
 
@@ -17,8 +21,8 @@ class EditProfileFragment : FragmentBase<ViewModelBase, FragmentEditProfileBindi
 
     override fun initializeScreenVariables() {
 
-//        TODO("Not yet implemented")
     }
 
     override fun getViewModelClass(): Class<ViewModelBase> = ViewModelBase::class.java
+
 }

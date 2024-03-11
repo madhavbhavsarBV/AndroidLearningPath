@@ -35,7 +35,7 @@ class NetworkModule {
     @RetrofitStore
     fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val builder = Retrofit.Builder()
-        builder.baseUrl(ConfigFiles.DEV_BASE_URL)
+        builder.baseUrl(ConfigFiles.BASE_URL)
         builder.addConverterFactory(JacksonConverterFactory.create())
         builder.client(okHttpClient)
         return builder.build()
