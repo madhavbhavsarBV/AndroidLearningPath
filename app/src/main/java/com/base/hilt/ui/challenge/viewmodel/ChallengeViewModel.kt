@@ -1,7 +1,9 @@
 package com.base.hilt.ui.challenge.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.base.hilt.base.ViewModelBase
+import com.base.hilt.domain.model.ChallengeRequestModel
 import com.base.hilt.domain.repository.UserRepository
 import com.base.hilt.network.ResponseData
 import com.base.hilt.network.ResponseHandler
@@ -13,11 +15,9 @@ import okhttp3.RequestBody
 import javax.inject.Inject
 
 @HiltViewModel
-class ChallengeViewModel @Inject constructor (val userRepository: UserRepository):ViewModelBase() {
-
+class ChallengeViewModel @Inject constructor (private val userRepository: UserRepository):ViewModelBase() {
 
     var onBtnNextClick: SingleLiveEvent<Boolean>? = SingleLiveEvent()
-
 
     fun onBtnNextClick(){
         onBtnNextClick?.call()
@@ -25,6 +25,7 @@ class ChallengeViewModel @Inject constructor (val userRepository: UserRepository
 
     var createChallengeLiveData = SingleLiveEvent<ResponseHandler<ResponseData<ChallengeModel>?>>()
     fun callCreateChallenge(request: RequestBody) {
+        Log.i("restapi", "observerData: here1")
         createChallengeLiveData.postValue(ResponseHandler.Loading)
         viewModelScope.launch {
             val response = userRepository.callCreateChallenge(request)

@@ -1,5 +1,6 @@
 package com.base.hilt.network
 
+import android.util.Log
 import com.apollographql.apollo3.api.Error
 import com.base.hilt.MyApp
 import com.base.hilt.utils.Constants

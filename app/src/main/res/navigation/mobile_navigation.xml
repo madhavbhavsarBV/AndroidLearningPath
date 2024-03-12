@@ -150,10 +150,7 @@
         android:id="@+id/updatePasswordFragment"
         android:name="com.base.hilt.ui.settings.ui.UpdatePasswordFragment"
         android:label="UpdatePasswordFragment" />
-    <fragment
-        android:id="@+id/challengeDialogFragment"
-        android:name="com.base.hilt.ui.challenge.ui.ChallengeDialogFragment"
-        android:label="ChallengeDialogFragment" />
+
     <!--    <dialog-->
 <!--        android:id="@+id/challengeDialogFragment"-->
 <!--        android:name="com.base.hilt.ui.challenge.ui.ChallengeDialogFragment"-->

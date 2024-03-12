@@ -10,10 +10,11 @@ import com.base.hilt.databinding.FragmentChallengeDetailBinding
 import com.base.hilt.ui.challenge.viewmodel.ChallengeDetailViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
 
-
+@AndroidEntryPoint
 class ChallengeDetailFragment : FragmentBase<ChallengeDetailViewModel, FragmentChallengeDetailBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_challenge_detail
 

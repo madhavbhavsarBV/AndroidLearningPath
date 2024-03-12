@@ -21,6 +21,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
@@ -36,7 +37,7 @@ class NetworkModule {
     fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val builder = Retrofit.Builder()
         builder.baseUrl(ConfigFiles.BASE_URL)
-        builder.addConverterFactory(JacksonConverterFactory.create())
+        builder.addConverterFactory(GsonConverterFactory.create())
         builder.client(okHttpClient)
         return builder.build()
     }

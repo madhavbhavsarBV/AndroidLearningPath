@@ -1,5 +1,6 @@
 package com.base.hilt.ui.challenge.ui
 
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -10,12 +11,17 @@ import com.base.hilt.R
 import com.base.hilt.base.FragmentBase
 import com.base.hilt.base.ToolbarModel
 import com.base.hilt.databinding.FragmentChallengeBinding
+import com.base.hilt.domain.model.ChallengeRequestModel
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.challenge.adapter.ChallengeViewPagerAdapter
 import com.base.hilt.ui.challenge.interfaces.BtnNextValidations
 import com.base.hilt.ui.challenge.viewmodel.ChallengeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
-
+@AndroidEntryPoint
 class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBinding>(),
     BtnNextValidations {
     override fun getLayoutId(): Int = R.layout.fragment_challenge
@@ -76,8 +82,8 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
         createChallengeFragment = CreateChallengeFragment()
         (createChallengeFragment as CreateChallengeFragment).setInterface(this)
         createDetailFragment = ChallengeDetailFragment()
-//        var createDescriptionFragment = ChallengeDescriptionFragment().setInterface(this)
-//        var reviewChallengeFragment = ReviewChallengeFragment().setInterface(this)
+        createDescriptionFragment = ChallengeDescriptionFragment()//.setInterface(this)
+        reviewChallengeFragment = ReviewChallengeFragment()//.setInterface(this)
 
         getDataBinding().vpChallenges.adapter =
             ChallengeViewPagerAdapter(
@@ -85,8 +91,8 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                 arrayListOf(
                     createChallengeFragment,
                     createDetailFragment,
-                    ChallengeDescriptionFragment(),
-                    ReviewChallengeFragment()
+                    createDescriptionFragment,
+                    reviewChallengeFragment
                 )
             )
 
@@ -181,7 +187,10 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                     2 -> getDataBinding().vpChallenges.setCurrentItem(3, true)
                     3 -> {
                         findNavController().popBackStack()
-//                        viewModel.callCreateChallenge(req)
+                        Log.i("restapi", "observerData: here0")
+
+                        callApi()
+
 
                     }
 
@@ -192,11 +201,14 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
 
         }
 
-        viewModel.createChallengeLiveData.observe(this) {
+        viewModel.createChallengeLiveData.observe(viewLifecycleOwner) {
             viewModel.showProgressBar(it is ResponseHandler.Loading)
             when (it) {
-                is ResponseHandler.OnFailed -> {}
+                is ResponseHandler.OnFailed -> {
+                    Log.i("restapi", "observerData: ${it.code} ${it.message} ${it.messageCode} ${it.data}")
+                }
                 is ResponseHandler.OnSuccessResponse -> {
+                    Log.i("restapi", "observerData: ${it.response}")
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.challenge_created_3),
@@ -204,9 +216,48 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                     )
                         .show()
                 }
-                else -> {}
+                else -> {
+                    Log.i("restapi", "observerData:else")
+                }
             }
         }
+
+    }
+
+    private fun callApi() {
+
+        val req = ChallengeRequestModel(
+            title = "Hello1",
+            description = "desc1",
+            type = "1",
+            amount = "0",
+            start_at = "03-12-2024",
+            end_at = "03-12-2024",
+            accept_by = "03-12-2024",
+            judge_id = "379746c7-ca5a-4e4e-9eaa-0c2bdec2f398",
+            participants = "[379746c7-ca5a-4e4e-9eaa-0c2bdec2f398]",
+            invite_contacts = "[]",
+        )
+        val requestBody: RequestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("title", req.title)
+            .addFormDataPart("description",req.description)
+            .addFormDataPart("type",req.type)
+            .addFormDataPart("amount",req.amount)
+            .addFormDataPart("start_at",req.start_at)
+            .addFormDataPart("end_at",req.end_at)
+            .addFormDataPart("judge_id",req.judge_id)
+            .addFormDataPart("accept_by",req.accept_by)
+            .addFormDataPart("participants",req.participants)
+            .addFormDataPart("invite_participants",req.invite_contacts)
+//            .addFormDataPart(
+//                "image",
+//                "photoFile.name",
+//                RequestBody.create("image/*".toMediaTypeOrNull(), "photoFile")
+//            )
+            .build()
+
+        viewModel.callCreateChallenge(requestBody)
 
     }
 

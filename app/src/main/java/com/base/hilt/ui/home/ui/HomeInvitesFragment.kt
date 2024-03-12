@@ -157,7 +157,7 @@ class HomeInvitesFragment() :
                         }
                     }
 
-                    paginatorInfo?.let { it ->
+                    paginatorInfo?.let {
                         if (it.totalRecords == 0) {
                             getDataBinding().layNoData.groupIfListEmpty.visibility =
                                 View.VISIBLE

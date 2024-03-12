@@ -5,6 +5,7 @@ import com.apollographql.apollo3.api.ApolloResponse
 import com.base.hilt.ChallengeListQuery
 import com.base.hilt.UnreadNotificationCountQuery
 import com.base.hilt.base.BaseRepository
+import com.base.hilt.domain.model.ChallengeRequestModel
 import com.base.hilt.network.ApiInterface
 import com.base.hilt.network.ResponseData
 import com.base.hilt.network.ResponseHandler
@@ -17,11 +18,11 @@ class UserRepository @Inject constructor(
     private val apiInterface: ApiInterface
 ) : BaseRepository() {
 
-    suspend fun callUnreadNotificationCount(): ResponseHandler<ApolloResponse<UnreadNotificationCountQuery.Data>?>{
-        return graphQlApiCall {
-            apolloClient.query(UnreadNotificationCountQuery()).execute()
-        }
-    }
+//    suspend fun callUnreadNotificationCount(): ResponseHandler<ApolloResponse<UnreadNotificationCountQuery.Data>?>{
+//        return graphQlApiCall {
+//            apolloClient.query(UnreadNotificationCountQuery()).execute()
+//        }
+//    }
 
     suspend fun callCreateChallenge(
         request: RequestBody

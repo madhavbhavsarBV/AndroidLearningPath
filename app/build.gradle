@@ -88,6 +88,7 @@ dependencies {
     def okHttpVersion = "4.9.1"
     implementation(platform("com.squareup.okhttp3:okhttp-bom:${okHttpVersion}"))
     implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor"
     implementation "com.squareup.okhttp3:okhttp"
     implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"

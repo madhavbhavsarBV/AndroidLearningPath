@@ -5,7 +5,9 @@ import com.base.hilt.R
 import com.base.hilt.base.DialogFragmentBase
 import com.base.hilt.databinding.FragmentChallengeDialogBinding
 import com.base.hilt.ui.challenge.viewmodel.ChallengeDialogViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChallengeDialogFragment :
     DialogFragmentBase<ChallengeDialogViewModel, FragmentChallengeDialogBinding>() {
     override fun layoutId(): Int = R.layout.fragment_challenge_dialog
