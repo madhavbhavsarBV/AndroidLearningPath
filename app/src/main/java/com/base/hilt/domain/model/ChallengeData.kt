@@ -1,5 +1,7 @@
 package com.base.hilt.domain.model
 
+import com.base.hilt.ui.home.model.Author
+
 data class ChallengeData(
     var uuid: String? = null,
     var title: String? = null,
@@ -76,6 +78,7 @@ data class ChallengeData(
     var challengeType:String = this.type+" Challenge"
     var noParticipants:String = this.total_participants.toString()+" Participants"
     var noSpectators:String = this.total_spectators.toString()+" Spectators"
+    val authorName = this.author?.first_name.toString()+" "+this.author?.last_name.toString()
 
     fun type1v1():Boolean{
         return this.type=="1v1"

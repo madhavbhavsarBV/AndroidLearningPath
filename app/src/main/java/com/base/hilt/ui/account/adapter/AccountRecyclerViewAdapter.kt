@@ -11,6 +11,10 @@ class AccountRecyclerViewAdapter(context: Context, list:ArrayList<AccountModel?>
 ): GenericRecyclerViewAdapter<AccountModel, RowAccountBinding>(context, list) {
 
     override val layoutResId: Int = R.layout.row_account
+    override fun getLayoutRes(model: AccountModel): Int {
+        return layoutResId
+    }
+
     override fun onBindData(model: AccountModel, position: Int, dataBinding: RowAccountBinding) {
         dataBinding.model = model
     }

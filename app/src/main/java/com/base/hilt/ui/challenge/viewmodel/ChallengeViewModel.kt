@@ -8,6 +8,8 @@ import com.base.hilt.domain.repository.UserRepository
 import com.base.hilt.network.ResponseData
 import com.base.hilt.network.ResponseHandler
 import com.base.hilt.ui.challenge.model.ChallengeModel
+import com.base.hilt.ui.challenge.model.ContactsModel
+import com.base.hilt.ui.challenge.model.ContactsRequest
 import com.base.hilt.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -28,8 +30,18 @@ class ChallengeViewModel @Inject constructor (private val userRepository: UserRe
         Log.i("restapi", "observerData: here1")
         createChallengeLiveData.postValue(ResponseHandler.Loading)
         viewModelScope.launch {
-            val response = userRepository.callCreateChallenge(request)
+            val response = userRepository.createChallengeApi(request)
             createChallengeLiveData.postValue(response)
+        }
+    }
+
+    var contactsLiveData = SingleLiveEvent<ResponseHandler<ResponseData<ContactsModel>?>>()
+    fun callContactsApi(request: ContactsRequest) {
+        Log.i("restapi2", "observerData: here1")
+        contactsLiveData.postValue(ResponseHandler.Loading)
+        viewModelScope.launch {
+            val response = userRepository.contactsApi(request)
+            contactsLiveData.postValue(response)
         }
     }
 

@@ -20,6 +20,10 @@ class NotificationsRecyclerViewAdapter(
     override val layoutResId: Int
         get() = R.layout.row_notifications
 
+    override fun getLayoutRes(model: NotificationsListData): Int {
+        return layoutResId
+    }
+
     override fun onBindData(
         model: NotificationsListData,
         position: Int,

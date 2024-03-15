@@ -16,6 +16,9 @@ class ParticipantsRecyclerViewAdapter(
 ) {
 
     override val layoutResId: Int = R.layout.row_participants
+    override fun getLayoutRes(model: ChallengeDetailQuery.Participant): Int {
+        return layoutResId
+    }
 
     override fun onBindData(
         model: ChallengeDetailQuery.Participant,

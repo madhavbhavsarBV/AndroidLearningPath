@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.base.hilt.MainActivity
@@ -188,10 +189,7 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                     3 -> {
                         findNavController().popBackStack()
                         Log.i("restapi", "observerData: here0")
-
                         callApi()
-
-
                     }
 
                 }
@@ -201,12 +199,17 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
 
         }
 
-        viewModel.createChallengeLiveData.observe(viewLifecycleOwner) {
+        viewModel.createChallengeLiveData.observe(viewLifecycleOwner, Observer {
             viewModel.showProgressBar(it is ResponseHandler.Loading)
+            Log.i("restapi", "observerData: ${it}")
             when (it) {
                 is ResponseHandler.OnFailed -> {
-                    Log.i("restapi", "observerData: ${it.code} ${it.message} ${it.messageCode} ${it.data}")
+                    Log.i(
+                        "restapi",
+                        "observerData: ${it.code} ${it.message} ${it.messageCode} ${it.data}"
+                    )
                 }
+
                 is ResponseHandler.OnSuccessResponse -> {
                     Log.i("restapi", "observerData: ${it.response}")
                     Toast.makeText(
@@ -216,11 +219,12 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
                     )
                         .show()
                 }
+
                 else -> {
                     Log.i("restapi", "observerData:else")
                 }
             }
-        }
+        })
 
     }
 
@@ -231,33 +235,31 @@ class ChallengeFragment : FragmentBase<ChallengeViewModel, FragmentChallengeBind
             description = "desc1",
             type = "1",
             amount = "0",
-            start_at = "03-12-2024",
-            end_at = "03-12-2024",
-            accept_by = "03-12-2024",
-            judge_id = "379746c7-ca5a-4e4e-9eaa-0c2bdec2f398",
-            participants = "[379746c7-ca5a-4e4e-9eaa-0c2bdec2f398]",
-            invite_contacts = "[]",
+            start_at = "03-13-2024",
+            end_at = "03-13-2024",
+            accept_by = "03-13-2024",
+            judge_id = "5424c1ee-dd8d-41cf-8fff-0a5a76dff642",
+            participants = listOf("379746c7-ca5a-4e4e-9eaa-0c2bdec2f398"),
         )
-        val requestBody: RequestBody = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-            .addFormDataPart("title", req.title)
-            .addFormDataPart("description",req.description)
-            .addFormDataPart("type",req.type)
-            .addFormDataPart("amount",req.amount)
-            .addFormDataPart("start_at",req.start_at)
-            .addFormDataPart("end_at",req.end_at)
-            .addFormDataPart("judge_id",req.judge_id)
-            .addFormDataPart("accept_by",req.accept_by)
-            .addFormDataPart("participants",req.participants)
-            .addFormDataPart("invite_participants",req.invite_contacts)
+        val requestBody = MultipartBody.Builder()
+        requestBody.setType(MultipartBody.FORM)
+        requestBody.addFormDataPart("title", req.title)
+        requestBody.addFormDataPart("description", req.description)
+        requestBody.addFormDataPart("type", req.type)
+        requestBody.addFormDataPart("amount", req.amount)
+        requestBody.addFormDataPart("start_at", req.start_at)
+        requestBody.addFormDataPart("end_at", req.end_at)
+        requestBody.addFormDataPart("judge_id", req.judge_id)
+        requestBody.addFormDataPart("accept_by", req.accept_by)
+        requestBody.addFormDataPart("participants", req.participants.toString())
 //            .addFormDataPart(
 //                "image",
 //                "photoFile.name",
 //                RequestBody.create("image/*".toMediaTypeOrNull(), "photoFile")
 //            )
-            .build()
+        val request = requestBody.build()
 
-        viewModel.callCreateChallenge(requestBody)
+        viewModel.callCreateChallenge(request)
 
     }
 

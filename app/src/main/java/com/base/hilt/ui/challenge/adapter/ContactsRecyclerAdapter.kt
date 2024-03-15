@@ -12,6 +12,9 @@ class ContactsRecyclerAdapter(val mContext: Context, data:ArrayList<ContactsMode
 ):GenericRecyclerViewAdapter<ContactsModel,RowContactsBinding>(mContext,data) {
 
     override val layoutResId: Int = R.layout.row_contacts
+    override fun getLayoutRes(model: ContactsModel): Int {
+        return layoutResId
+    }
 
     override fun onBindData(model: ContactsModel, position: Int, dataBinding: RowContactsBinding) {
 

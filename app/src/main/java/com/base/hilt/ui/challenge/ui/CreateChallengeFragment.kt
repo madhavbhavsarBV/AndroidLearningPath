@@ -3,6 +3,7 @@ package com.base.hilt.ui.challenge.ui
 
 import android.content.ContentResolver
 import android.provider.ContactsContract
+import android.provider.ContactsContract.Contacts
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.hilt.R
@@ -11,6 +12,7 @@ import com.base.hilt.databinding.FragmentCreateChallengeBinding
 import com.base.hilt.ui.challenge.adapter.ContactsRecyclerAdapter
 import com.base.hilt.ui.challenge.interfaces.BtnNextValidations
 import com.base.hilt.ui.challenge.model.ContactsModel
+import com.base.hilt.ui.challenge.model.ContactsRequest
 import com.base.hilt.ui.challenge.viewmodel.ChallengeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,5 +54,16 @@ class CreateChallengeFragment :FragmentBase<ChallengeViewModel, FragmentCreateCh
     }
 
     override fun getViewModelClass(): Class<ChallengeViewModel> = ChallengeViewModel::class.java
+
+    override fun onResume() {
+        super.onResume()
+        val contactsRequest = ContactsRequest(
+            mobile_number = listOf(
+                "+12076396520","+917043669140", "+918141082821"
+            )
+        )
+
+        viewModel.callContactsApi(contactsRequest)
+    }
 
 }

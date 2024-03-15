@@ -23,8 +23,8 @@ abstract class GenericRecyclerViewAdapter<T, D>(
     private var mArrayList: ArrayList<T?>?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val VIEW_TYPE_ITEM = 0
-    private val VIEW_TYPE_LOADING = 1
+    private val progressType = 0
+    private val itemType = 1
 
     abstract val layoutResId: Int
 
@@ -33,7 +33,7 @@ abstract class GenericRecyclerViewAdapter<T, D>(
     abstract fun onItemClick(model: T, position: Int, dataBinding: D)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == VIEW_TYPE_LOADING) {
+        return if (viewType == progressType) {
             val dataBinding = DataBindingUtil.inflate<ViewDataBinding>(
                 LayoutInflater.from(parent.context),
                 R.layout.row_loading,
@@ -44,7 +44,7 @@ abstract class GenericRecyclerViewAdapter<T, D>(
         } else {
             val dataBinding = DataBindingUtil.inflate<ViewDataBinding>(
                 LayoutInflater.from(parent.context),
-                layoutResId,
+                layoutRes,
                 parent,
                 false
             )
@@ -106,7 +106,6 @@ abstract class GenericRecyclerViewAdapter<T, D>(
 
     private var isShowingProgress = false
     fun showLoader(flag: Boolean) {
-//        Log.i("madmadgg", "showLoader: ${flag} ")
         isShowingProgress = flag
         if (flag) {
             if (mArrayList?.last() != null) {
@@ -119,6 +118,20 @@ abstract class GenericRecyclerViewAdapter<T, D>(
                 notifyItemRemoved(itemCount)
             }
         }
+    }
+    private var layoutRes: Int = 0
+    abstract fun getLayoutRes(model: T): Int
+    override fun getItemViewType(position: Int): Int {
+        mArrayList?.get(position)?.let { data ->
+            layoutRes = getLayoutRes(data) ?: layoutResId
+        }
+        if (mArrayList?.isNotEmpty() == true) {
+            if (position == mArrayList?.size?.minus(1) && mArrayList?.last() == null) {
+                return progressType
+            }
+            return itemType
+        }
+        return itemType
     }
 
     private fun isLastItemIsLoader(): Boolean {

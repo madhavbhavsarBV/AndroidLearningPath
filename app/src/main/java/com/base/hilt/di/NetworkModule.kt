@@ -12,6 +12,8 @@ import com.base.hilt.network.ApiInterface
 import com.base.hilt.network.AuthorizationInterceptor
 import com.base.hilt.network.HttpHandleIntercept
 import com.base.hilt.utils.PrefKey
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -70,16 +72,24 @@ class NetworkModule {
     @Provides
     fun getOkHttpClient(
         httpHandleIntercept: HttpHandleIntercept,
-        authorizationInterceptor: AuthorizationInterceptor
+        authorizationInterceptor: AuthorizationInterceptor, @ApplicationContext context : Context
     ): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG) logging.level = HttpLoggingInterceptor.Level.BODY
         val builder = OkHttpClient.Builder()
-        builder.addInterceptor(logging)
+        builder.addInterceptor(
+            ChuckerInterceptor.Builder(context)
+                .collector(ChuckerCollector(context))
+                .maxContentLength(250000L)
+                .redactHeaders(emptySet())
+                .alwaysReadResponseBody(false)
+                .build()
+        )
         builder.readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(httpHandleIntercept)
             .addInterceptor(authorizationInterceptor)
+            .addInterceptor(logging)
             .build()
 
         return builder.build()

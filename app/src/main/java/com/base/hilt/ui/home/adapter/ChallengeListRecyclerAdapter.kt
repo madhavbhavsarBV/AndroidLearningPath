@@ -14,6 +14,10 @@ class ChallengeListRecyclerAdapter(context:Context, val list:ArrayList<Challenge
     override val layoutResId: Int
         get() = R.layout.row_home_invites
 
+    override fun getLayoutRes(model: ChallengeData): Int {
+        return layoutResId
+    }
+
     override fun onBindData(
         model: ChallengeData,
         position: Int,

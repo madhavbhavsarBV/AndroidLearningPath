@@ -22,14 +22,13 @@ import com.base.hilt.utils.Constants
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
+import mapToChallengeData
 
 @AndroidEntryPoint
 class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home_past
 
     lateinit var noRecords: NoRecordsFound
-    val gson = Gson()
-    val type = object : TypeToken<List<ChallengeData>>() {}.type
     var page = 1
     var isLastPage = false
     var isLoading = false
@@ -127,25 +126,20 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
     private fun observeData() {
 
         viewModel.challengeListLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                ResponseHandler.Loading -> {
-                    if (page == 1) getDataBinding().srlInvites.isRefreshing = true
-                    else {
-                        isLoading = true
-                        getDataBinding().pbLoading.visibility = View.VISIBLE
-                    }
-                }
 
-                is ResponseHandler.OnFailed -> {
-                    getDataBinding().srlInvites.isRefreshing = false
-                    isLoading = false
-                    getDataBinding().pbLoading.visibility = View.GONE
-                }
+
+            if (page == 1) getDataBinding().srlInvites.isRefreshing = it is ResponseHandler.Loading
+            else {
+                isLoading = it is ResponseHandler.Loading
+                adapter.showLoader(it is ResponseHandler.Loading)
+            }
+
+            when (it) {
+
+                is ResponseHandler.OnFailed -> {}
 
                 is ResponseHandler.OnSuccessResponse -> {
-                    getDataBinding().srlInvites.isRefreshing = false
-                    isLoading = false
-                    getDataBinding().pbLoading.visibility = View.GONE
+
                     val response = it.response.data?.challengeList?.data
                     response.let {
                         if (it.isNullOrEmpty()) {
@@ -154,25 +148,18 @@ class HomePastFragment : FragmentBase<HomeViewModel, FragmentHomePastBinding>() 
                         } else {
                             noRecords.noRecords(false)
                             getDataBinding().rvHomePast.visibility = View.VISIBLE
-                            oldArray = it as ArrayList<ChallengeListQuery.Data1>
-                            val myObjectList: List<ChallengeData> =
-                                gson.fromJson(gson.toJson(it), type)
-                            if (page == 1) invitesList.clear()
-                            invitesList.addAll(myObjectList)
-                            adapter.notifyDataSetChanged()
+                            it.forEach {
+                                val challengeData = it.mapToChallengeData()
+                                invitesList.add(challengeData)
+                            }
+                            adapter.addItems(invitesList)
 
-//                            val nadapter = HomeRecyclerViewAdapter(requireContext(),oldArray, onClick = {
-//                                val bundle = Bundle()
-//                                bundle.putString(Constants.UUID,it)
-//                                findNavController().navigate(R.id.groupDetailFragment,bundle)
-//                            })
-//                            getDataBinding().rvHomePast.adapter = nadapter
                         }
                     }
 
 
                     val paginatorInfo = it.response.data?.challengeList?.paginatorInfo
-                    paginatorInfo?.let { it ->
+                    paginatorInfo?.let {
                         if (it.totalPages != null) {
                             isLastPage = it.totalPages == it.currentPage
                             if (it.totalPages > page) {

@@ -4,8 +4,77 @@ import com.base.hilt.NotificationsListQuery
 import com.base.hilt.domain.model.ChallengeData
 import com.base.hilt.domain.model.NotificationsListData
 
-fun ChallengeListQuery.Data1.mapToChallengeData(): ChallengeData {
 
+fun ChallengeListQuery.Author?.mapToUserData(): ChallengeData.UserData {
+    return ChallengeData.UserData(
+        uuid = this?.uuid,
+        first_name = this?.first_name,
+        last_name = this?.last_name,
+        avatar = this?.avatar,
+        invite_status = null
+    )
+}
+
+fun ChallengeListQuery.Judge?.mapToUserData(): ChallengeData.UserData {
+    return ChallengeData.UserData(
+        uuid = this?.uuid,
+        first_name = this?.first_name,
+        last_name = this?.last_name,
+        avatar = this?.avatar,
+        invite_status = null
+    )
+}
+
+//fun ChallengeListQuery.Judge1?.mapToUserData(): ChallengeData.UserData {
+//    return ChallengeData.UserData(
+//        uuid = this?.uuid,
+//        first_name = this?.first_name,
+//        last_name = this?.last_name,
+//        avatar = this?.avatar,
+//        invite_status = null
+//    )
+//}
+
+fun ChallengeListQuery.Participant?.mapToUserData(): ChallengeData.UserData {
+    return ChallengeData.UserData(
+        uuid = this?.uuid,
+        first_name = this?.first_name,
+        last_name = this?.last_name,
+        avatar = this?.avatar,
+        invite_status = this?.invite_status
+    )
+}
+
+fun ChallengeListQuery.Winner?.mapToUserData(): ChallengeData.UserData {
+    return ChallengeData.UserData(
+        uuid = this?.uuid,
+        first_name = this?.first_name,
+        last_name = this?.last_name,
+        avatar = this?.avatar,
+        invite_status = null
+    )
+}
+
+//fun ChallengeListQuery.Modification_request?.mapToModificationData(): ChallengeData.ModificationData {
+//    return ChallengeData.ModificationData(
+//        uuid = this?.uuid,
+//        challenge_id = this?.challenge_id.toString(),
+//        amount = this?.amount,
+//        description = this?.description,
+//        judge = this?.judge?.mapToUserData(),
+//        invitation_accept_date = this?.invitation_accept_date,
+//        end_at = this?.end_at,
+//        amount_approved = this?.amount_approved.toString(),
+//        description_approved = this?.description_approved.toString(),
+//        judge_id_approved = this?.judge_id_approved.toString(),
+//        invitation_accept_date_approved = this?.invitation_accept_date_approved.toString(),
+//        end_at_approved = this?.end_at_approved.toString(),
+//        status = this?.status.toString(),
+//        action_on = this?.action_on
+//    )
+//}
+
+fun ChallengeListQuery.Data1?.mapToChallengeData(): ChallengeData {
     return ChallengeData(
         uuid = this?.uuid,
         title = this?.title,
@@ -22,14 +91,19 @@ fun ChallengeListQuery.Data1.mapToChallengeData(): ChallengeData {
         is_winner = this?.is_winner,
         is_spectator = this?.is_spectator,
         is_participant = this?.is_participant,
+        author = this?.author?.mapToUserData(),
+        judge = this?.judge?.mapToUserData(),
+        participants = this?.participants?.map { it?.mapToUserData() },
+        winner = this?.winner?.mapToUserData(),
         winner_declare_by = this?.winner_declare_by,
         winner_declare_at = this?.winner_declare_at,
         allow_to_edit = this?.allow_to_edit,
         status = this?.status,
         invite_status = this?.invite_status,
         challenge_status = this?.challenge_status,
+        timestamp = this?.timestamp,
+        invitation_status_label = this?.invitation_status_label
     )
-
 }
 
 

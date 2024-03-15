@@ -1,0 +1,30 @@
+mutation AddComment($input:AddComment! ){
+    addComment(input: $input) {
+        meta {
+            status
+            message
+            message_code
+            status_code
+        }
+        data {
+            id
+            uuid
+            comment_description
+            comment_media_name
+            comment_media_url
+            comment_media_type
+            comment_like_count
+            created_at
+            created_at_format
+            userDetails {
+                id
+                uuid
+                first_name
+                last_name
+                avatar
+                avatar_list_url
+                alias
+            }
+        }
+    }
+}

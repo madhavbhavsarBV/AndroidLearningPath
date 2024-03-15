@@ -108,7 +108,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@{model.author.first_name+' '+model.author.last_name}"
+                android:text="@{model.authorName}"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="@id/tvChallengeEndingSoon"
                 android:textSize="@dimen/_10ssp"
