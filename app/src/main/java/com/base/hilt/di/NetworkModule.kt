@@ -46,8 +46,7 @@ class NetworkModule {
 
     @Provides
     @ViewModelScoped
-    fun provideApiInterface(@RetrofitStore retrofit: Retrofit): ApiInterface =
-        retrofit.create(ApiInterface::class.java)
+    fun provideApiInterface(@RetrofitStore retrofit: Retrofit): ApiInterface = retrofit.create(ApiInterface::class.java)
 
     @Provides
     fun provideSharedPreferencess(@ApplicationContext context: Context): SharedPreferences =
