@@ -24,6 +24,8 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import com.fasterxml.jackson.module.kotlin.readValue
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 
 open class BaseRepository() {
@@ -88,6 +90,83 @@ open class BaseRepository() {
 
             }
         }
+    }
+
+    suspend fun <T : Operation.Data> graphQlApiCallWithFlow(call: suspend () -> ApolloResponse<T>): Flow<ResponseHandler<ApolloResponse<T>>> {
+        return flow {
+            emit(ResponseHandler.Loading)
+            try {
+                val response = call.invoke()
+
+                when {
+                    response == null -> {
+                        emit(
+                            ResponseHandler.OnFailed(
+                                code = HttpErrorCode.BAD_RESPONSE.code,
+                                message = HttpErrorCode.BAD_RESPONSE.message,
+                                messageCode = null,
+                                data = null
+                            )
+                        )
+                    }
+
+                    response.hasErrors() -> {
+                        val errorModel = HttpCommonMethod.getErrorMessageForGraph(
+                            response.errors
+                        )
+                        emit(
+                            ResponseHandler.OnFailed(
+                                code = errorModel.first,
+                                message = errorModel.second,
+                                messageCode = errorModel.third,
+                                data = null
+                            )
+                        )
+                    }
+
+                    else -> {
+                        emit(ResponseHandler.OnSuccessResponse(response))
+                    }
+
+                }
+
+            } catch (e: java.lang.Exception) {
+                when (e) {
+                    is ApolloNetworkException -> {
+                        emit(
+                            ResponseHandler.OnFailed(
+                                code = HttpErrorCode.NO_CONNECTION.code,
+                                message = HttpErrorCode.NO_CONNECTION.message,
+                                messageCode = null, data = null
+                            )
+                        )
+                    }
+
+                    is ApolloHttpException -> {
+                        emit(
+                            ResponseHandler.OnFailed(
+                                code = HttpErrorCode.BAD_RESPONSE.code,
+                                message = e.message,
+                                messageCode = null, data = null
+                            )
+                        )
+                    }
+
+                    else -> {
+                        emit(
+                            ResponseHandler.OnFailed(
+                                code = HttpErrorCode.BAD_RESPONSE.code,
+                                message = e.message,
+                                messageCode = null, data = null
+                            )
+                        )
+                    }
+
+                }
+            }
+        }
+
+
     }
 
 
