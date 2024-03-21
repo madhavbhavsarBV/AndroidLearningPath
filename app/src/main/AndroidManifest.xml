@@ -20,6 +20,9 @@
         android:theme="@style/Theme.BaseHilt"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".FlowOperatorsActivity"
+            android:exported="false" />
+        <activity
             android:name=".FlowsActivity"
             android:exported="true">
             <intent-filter>
@@ -27,7 +30,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MainActivity"
@@ -36,9 +38,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CustomSplashScreenTheme"
             android:windowSoftInputMode="adjustPan"
-            tools:ignore="LockedOrientationActivity">
-
-        </activity>
+            tools:ignore="LockedOrientationActivity"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
