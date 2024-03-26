@@ -20,6 +20,17 @@
         android:theme="@style/Theme.BaseHilt"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PracticeFlowActivity"
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
             android:name=".FlowsSharedActivity"
             android:exported="false" />
         <activity
@@ -27,12 +38,8 @@
             android:exported="false" />
         <activity
             android:name=".FlowsActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
