@@ -20,7 +20,7 @@
         android:theme="@style/Theme.BaseHilt"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".PracticeFlowActivity"
+            android:name=".xflow.PracticeFlowActivity"
             android:exported="true" >
 
             <intent-filter>
@@ -31,13 +31,13 @@
 
         </activity>
         <activity
-            android:name=".FlowsSharedActivity"
+            android:name=".xflow.FlowsSharedActivity"
             android:exported="false" />
         <activity
-            android:name=".FlowOperatorsActivity"
+            android:name=".xflow.FlowOperatorsActivity"
             android:exported="false" />
         <activity
-            android:name=".FlowsActivity"
+            android:name=".xflow.FlowsActivity"
             android:exported="false">
 
         </activity>
